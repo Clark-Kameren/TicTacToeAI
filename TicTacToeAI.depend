@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1489714165 source:c:\users\kam blackweb\documents\tic-tac-toeai\tictactoeai\source.cpp
+	<iostream>
+	<string>
+	<string.h>
+	<strstream>
+	<math.h>
+	<time.h>
+	<sstream>
+	<stdlib.h>
+
