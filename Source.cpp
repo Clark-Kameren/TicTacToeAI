@@ -101,7 +101,7 @@ TTTAI::TTTAI(){
         case 4: Name="Hal"; break;
         default: Name="R2-Tic-Tac"; break;
     }
-    cout<<"\nYou will be playing against "<<Name<<endl;
+    cout<<"\nYou will be playing against "<<Name<<endl<<endl;
     //Calling of other functions that need to be started by the constructor
     //Setting Positions to zero
     Positions[1]=0;
@@ -159,7 +159,7 @@ int TTTAI::ChoosePlace(int OPositions[], int Positions[]){ //Function that deter
             rollbb= (rand() % 8) +1;
             switch(vpNum){
                 case 0: break;
-                case 1: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[3] == 1)){if(Positions[2] == 1){ vpNum=rollbb; break;}ChosenPlace=2; CS=true;break;}else{if(Positions[3] == 1){ vpNum=rollbb; break; cout<<"TEST"<<endl;}ChosenPlace=3; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
+                case 1: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[3] == 1)){if(Positions[2] == 1){ vpNum=rollbb; break;}ChosenPlace=2; CS=true;break;}else{if(Positions[3] == 1){ vpNum=rollbb; break;}ChosenPlace=3; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
                 case 2: if((OPositions[4] == 1)){/*2nd if*/if((OPositions[6] == 1)){if(Positions[5] == 1){ vpNum=rollbb; break;}ChosenPlace=5; CS=true;break;}else{if(Positions[6] == 1){ vpNum=rollbb; break;}ChosenPlace=6; CS=true;break;} }else{if(Positions[4] == 1){ vpNum=rollbb; break;}ChosenPlace=4; CS=true;break;} break;
                 case 3: if((OPositions[7] == 1)){/*2nd if*/if((OPositions[9] == 1)){if(Positions[8] == 1){ vpNum=rollbb; break;}ChosenPlace=8; CS=true;break;}else{if(Positions[9] == 1){ vpNum=rollbb; break;}ChosenPlace=9; CS=true;break;} }else{if(Positions[7] == 1){ vpNum=rollbb; break;}ChosenPlace=7; CS=true;break;} break;
                 case 4: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[7] == 1)){if(Positions[4] == 1){ vpNum=rollbb; break;}ChosenPlace=4; CS=true;break;}else{if(Positions[7] == 1){ vpNum=rollbb; break;}ChosenPlace=7; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
@@ -178,7 +178,7 @@ int TTTAI::Play(int HPositions[], int AIPositions[]){ //Play function will use c
     // bool SP; // SP = Successful placement // This bool is used to make sure the placement wasn't on a controlled space or otherwise not possible
     int chosenplace = (ChoosePlace(HPositions, AIPositions)) ;
     switch( chosenplace ){
-            case -1: chosenplace=-1; break;
+            case 0: chosenplace=-1; break;
             case 1: if( HPositions[1] == 1 ){AIPositions[1] = 0; break;} if( AIPositions[1] == 1){break;} Positions[1]=1; break;
             case 2: if( HPositions[2] == 1 ){AIPositions[2] = 0; break;} if( AIPositions[2] == 1){break;} Positions[2]=1; break;
             case 3: if( HPositions[3] == 1 ){AIPositions[3] = 0; break;} if( AIPositions[3] == 1){break;} Positions[3]=1; break;
@@ -244,7 +244,7 @@ int TTTHuman::HPlay(int HPositions[], int AIPositions[]){ //Functions needs obje
     int HP;
     CMN++;
     cout<<"\nInput your move onto the board."<<endl;
-    cin>>HP;
+    cin>>HP; cout<<endl;
         switch(HP){
             case 1: if( AIPositions[1] == 1 ){HPositions[1] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[1] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[1]=1; break;
             case 2: if( AIPositions[2] == 1 ){HPositions[2] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[2] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[2]=1; break;
@@ -327,14 +327,14 @@ return decision;
 int EndGame(TTTHuman HP, TTTAI RAI, bool restart){
     using namespace std;
     int EndGamedec=-1; //The decision of the game
-    if(HP.GetMoves() >= 5){cout<<"Tie"<<endl; EndGamedec=0;}   // EndGameDec = 0 is a tie // =1 is Human victory // =2 is AI victory // =3 restart match // =4 end game
+    if(HP.GetMoves() > 5){cout<<"Tie"<<endl; EndGamedec=0;}   // EndGameDec = 0 is a tie // =1 is Human victory // =2 is AI victory // =3 restart match // =4 end game
     if(HP.HWon(false) == true){ cout<<"Human victory"<<endl; EndGamedec=1;}
-    if(RAI.GetMoves() >= 5){cout<<"Tie"<<endl; EndGamedec=0;}
+    if(RAI.GetMoves() > 5){cout<<"Tie"<<endl; EndGamedec=0;}
     if(RAI.AIWon(false)==true){ cout<<"AI victory"<<endl; EndGamedec=2;}
     if(restart==true){
         cout<<endl<<"Do you wish to rematch the current AI?"<<endl<<"Yes: 1"<<endl<<"No: 2"<<endl;
         int RD; // rematch decision
-        cin>>RD;
+        cin>>RD; cout<<endl;
             if(RD == 1){ HP.HumanRematch(); RAI.AIRematch(); cout<<"Rematch will commence."<<endl; EndGamedec=3;}else if(RD !=2){cout<<"That is not one of the proposed options."<<endl; EndGamedec=4;}else{cout<<"Bye and have a good time."<<endl;EndGamedec=4;}
     }
 return EndGamedec;
@@ -405,6 +405,26 @@ bool StartPrompt(){
     cout<<"To place your X you shall input the number that corresponds to the position you see on the board.\n"<<endl;
 return true;
 }
+//Menu function
+int Menu(){
+    using namespace std;
+    int OChoice; // Options choice
+    int choice; // Choice made for where the user wishes to go
+    bool inMenu=true; // Bool that determines if user is in menu
+    cout<<"\nMENU\n"<<endl<<"Play: 1"<<endl<<"Options: 2"<<endl<<"Exit: 3"<<endl; // Displays options to user
+    while(inMenu){
+        cin>>choice; cout<<endl;
+            switch(choice){
+                case 1: inMenu=false; break; // Begins game
+                case 2: cout<<"\nOPTIONS\n"<<endl<<"Board Size 3x3 : 1"<<endl<<"Board Size 4x4 : 2"<<endl<<"Board Size 5x5 : 3"<<endl; cout<<"Board Sizes 4x4 - 5x5 are still under production. You will be take back to the main menu."<<endl; /* cin>>OChoice; */
+                    cout<<"\nMENU\n"<<endl<<"Play: 1"<<endl<<"Options: 2"<<endl<<"Exit: 3"<<endl; break;// Displays options to user
+                case 3: cout<<"\nBye. Have a good time."<<endl; return 0; break;
+                default: cout<<"That is not a offered option. Please re-input your choice."<<endl; break;
+            };
+    }
+return 1;
+}
+
 
 //Main
 int main(){
@@ -413,6 +433,14 @@ int main(){
     StartPrompt();
     class TTTAI RAI;    //Running AI is made
     class TTTHuman P1; //P1 == Player1
+    switch( Menu() ){ // Switch for the menu options // 0 is exit game // 1 is play game // 3-5 are board sizes
+        case 0: playing=false; break; // breaks while loop before it starts
+        case 1: cout<<"Game will now commence."<<endl;  break;
+        case 3: /* 3-5 are under work, Will need to finish AI before the board size changes*/break;
+        case 4: break; //
+        case 5: break; //
+        default: cout<<"ERROR: Main, switch Menu"<<endl; break;
+    };
     while(playing){
 
         while( checkWin(P1, RAI) != true){
