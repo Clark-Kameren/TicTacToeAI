@@ -242,21 +242,24 @@ bool TTTHuman::HWon(bool setting){ // Function that sets / returns the victory s
 int TTTHuman::HPlay(int HPositions[], int AIPositions[]){ //Functions needs objects of the classes to use display, so it takes them inside of its parameters. //
     using namespace std;
     int HP;
+    bool deciding=true;//Determines if the user is still trying to make a correct placement
     CMN++;
+    while( deciding == true){ // while loop that ensures the move made is legal
     cout<<"\nInput your move onto the board."<<endl;
     cin>>HP; cout<<endl;
         switch(HP){
-            case 1: if( AIPositions[1] == 1 ){HPositions[1] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[1] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[1]=1; break;
-            case 2: if( AIPositions[2] == 1 ){HPositions[2] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[2] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[2]=1; break;
-            case 3: if( AIPositions[3] == 1 ){HPositions[3] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[3] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[3]=1; break;
-            case 4: if( AIPositions[4] == 1 ){HPositions[4] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[4] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[4]=1; break;
-            case 5: if( AIPositions[5] == 1 ){HPositions[5] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[5] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[5]=1; break;
-            case 6: if( AIPositions[6] == 1 ){HPositions[6] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[6] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[6]=1; break;
-            case 7: if( AIPositions[7] == 1 ){HPositions[7] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[7] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[7]=1; break;
-            case 8: if( AIPositions[8] == 1 ){HPositions[8] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[8] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[8]=1; break;
-            case 9: if( AIPositions[9] == 1 ){HPositions[9] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[9] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[9]=1; break;
+            case 1: if( AIPositions[1] == 1 ){HPositions[1] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[1] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[1]=1;deciding=false;break;
+            case 2: if( AIPositions[2] == 1 ){HPositions[2] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[2] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[2]=1;deciding=false;break;
+            case 3: if( AIPositions[3] == 1 ){HPositions[3] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[3] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[3]=1;deciding=false;break;
+            case 4: if( AIPositions[4] == 1 ){HPositions[4] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[4] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[4]=1;deciding=false;break;
+            case 5: if( AIPositions[5] == 1 ){HPositions[5] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[5] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[5]=1;deciding=false;break;
+            case 6: if( AIPositions[6] == 1 ){HPositions[6] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[6] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[6]=1;deciding=false;break;
+            case 7: if( AIPositions[7] == 1 ){HPositions[7] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[7] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[7]=1;deciding=false;break;
+            case 8: if( AIPositions[8] == 1 ){HPositions[8] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[8] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[8]=1;deciding=false;break;
+            case 9: if( AIPositions[9] == 1 ){HPositions[9] = 0; cout<<endl<<"Position is occupied."<<endl;break;} if( HPositions[9] == 1){cout<<endl<<"Position is occupied."<<endl;break;} HPositions[9]=1;deciding=false;break;
             default: cout<<"Please enter a number 1-9 that corresponds on the board appropriately."<<endl;cout<<"ERROR: HBPLAY, Switch"<<endl; break;
         }
+    }
     cout<<"\nThe AI will now input its move using the board below.\n"<<endl;
 return HP;
 }
@@ -396,7 +399,6 @@ return;
 ////////////////////////////////////////
 
 
-
 //Starting prompt function
 bool StartPrompt(){
     using namespace std;
@@ -408,8 +410,7 @@ return true;
 //Menu function
 int Menu(){
     using namespace std;
-    int OChoice; // Options choice
-    int choice; // Choice made for where the user wishes to go
+    int OChoice, choice; // Options choice// Choice made for where the user wishes to go
     bool inMenu=true; // Bool that determines if user is in menu
     cout<<"\nMENU\n"<<endl<<"Play: 1"<<endl<<"Options: 2"<<endl<<"Exit: 3"<<endl; // Displays options to user
     while(inMenu){
@@ -424,7 +425,6 @@ int Menu(){
     }
 return 1;
 }
-
 
 //Main
 int main(){
