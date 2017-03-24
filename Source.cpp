@@ -153,12 +153,9 @@ int TTTAI::ChoosePlace(int OPositions[], int Positions[]){ //Function that deter
             if(vp[i] >= 1){ if(vp[i] == 3){ChosenPlace=0; CS=true;} if(vp[i]>CV){CV=vp[i]; vpNum=i;} }
 
         }
-        int WC; // While Counter // used to stop while loop if ai lost
         while(CS!=true){
-            WC++;
             rollbb= (rand() % 8) +1;
             switch(vpNum){
-                case 0: break;
                 case 1: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[3] == 1)){if(Positions[2] == 1){ vpNum=rollbb; break;}ChosenPlace=2; CS=true;break;}else{if(Positions[3] == 1){ vpNum=rollbb; break;}ChosenPlace=3; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
                 case 2: if((OPositions[4] == 1)){/*2nd if*/if((OPositions[6] == 1)){if(Positions[5] == 1){ vpNum=rollbb; break;}ChosenPlace=5; CS=true;break;}else{if(Positions[6] == 1){ vpNum=rollbb; break;}ChosenPlace=6; CS=true;break;} }else{if(Positions[4] == 1){ vpNum=rollbb; break;}ChosenPlace=4; CS=true;break;} break;
                 case 3: if((OPositions[7] == 1)){/*2nd if*/if((OPositions[9] == 1)){if(Positions[8] == 1){ vpNum=rollbb; break;}ChosenPlace=8; CS=true;break;}else{if(Positions[9] == 1){ vpNum=rollbb; break;}ChosenPlace=9; CS=true;break;} }else{if(Positions[7] == 1){ vpNum=rollbb; break;}ChosenPlace=7; CS=true;break;} break;
@@ -178,7 +175,7 @@ int TTTAI::Play(int HPositions[], int AIPositions[]){ //Play function will use c
     // bool SP; // SP = Successful placement // This bool is used to make sure the placement wasn't on a controlled space or otherwise not possible
     int chosenplace = (ChoosePlace(HPositions, AIPositions)) ;
     switch( chosenplace ){
-            case 0: chosenplace=-1; break;
+            case -1: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero if there are no places it can go
             case 1: if( HPositions[1] == 1 ){AIPositions[1] = 0; break;} if( AIPositions[1] == 1){break;} Positions[1]=1; break;
             case 2: if( HPositions[2] == 1 ){AIPositions[2] = 0; break;} if( AIPositions[2] == 1){break;} Positions[2]=1; break;
             case 3: if( HPositions[3] == 1 ){AIPositions[3] = 0; break;} if( AIPositions[3] == 1){break;} Positions[3]=1; break;
@@ -267,6 +264,7 @@ return HP;
 
 //Important Function that determines if someone has won the game // This function checks if the AI or Human Player has one
 int EndGame(TTTHuman HP, TTTAI RAI, bool restart);
+//
 bool checkWin(TTTHuman HP, TTTAI RAI){ // A list of all victory positions // Across ([1,2,3] [4,5,6] [7,8,9]) // Up and Down  ([1,4,7] [2,5,8] [3,6,9]) // Diagonal ([1,5,9] [3,5,7])
     bool searching=true; //bool for If the function is still searching
     bool AIcheck=false; // determines if the ai has won
@@ -317,7 +315,7 @@ bool checkWin(TTTHuman HP, TTTAI RAI){ // A list of all victory positions // Acr
                 if((AIcheck == true) ){decision=true; RAI.AIWon(true); }
                     switch( EndGame(HP, RAI, false) ){
                         case -1: decision=false; break;
-                        case 0: decision = true; break;
+                        case 0: decision = true; break; //Tie
                         case 1: decision = true; break; // Human won
                         case 2: decision = true; break; // Ai won
                         case 3: decision = false; break; // Rematch
@@ -330,6 +328,7 @@ return decision;
 int EndGame(TTTHuman HP, TTTAI RAI, bool restart){
     using namespace std;
     int EndGamedec=-1; //The decision of the game
+    if(HP.GetMoves() >= 5){ if(RAI.AIWon(false)==false && HP.HWon(false)==false){cout<<"Tie"<<endl; EndGamedec=0;} } //Checks for tie but other if statements below are there to make sure
     if(HP.GetMoves() > 5){cout<<"Tie"<<endl; EndGamedec=0;}   // EndGameDec = 0 is a tie // =1 is Human victory // =2 is AI victory // =3 restart match // =4 end game
     if(HP.HWon(false) == true){ cout<<"Human victory"<<endl; EndGamedec=1;}
     if(RAI.GetMoves() > 5){cout<<"Tie"<<endl; EndGamedec=0;}
