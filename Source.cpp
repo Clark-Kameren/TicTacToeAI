@@ -154,8 +154,12 @@ int TTTAI::ChoosePlace(int OPositions[], int Positions[]){ //Function that deter
 
         }
         while(CS!=true){
+            //Checks if condition is true
+            if(CS){ ChosenPlace=-1; break;}
+            //Actual code that loop executes
             rollbb= (rand() % 8) +1;
             switch(vpNum){
+                case 0: ChosenPlace=-1; break;
                 case 1: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[3] == 1)){if(Positions[2] == 1){ vpNum=rollbb; break;}ChosenPlace=2; CS=true;break;}else{if(Positions[3] == 1){ vpNum=rollbb; break;}ChosenPlace=3; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
                 case 2: if((OPositions[4] == 1)){/*2nd if*/if((OPositions[6] == 1)){if(Positions[5] == 1){ vpNum=rollbb; break;}ChosenPlace=5; CS=true;break;}else{if(Positions[6] == 1){ vpNum=rollbb; break;}ChosenPlace=6; CS=true;break;} }else{if(Positions[4] == 1){ vpNum=rollbb; break;}ChosenPlace=4; CS=true;break;} break;
                 case 3: if((OPositions[7] == 1)){/*2nd if*/if((OPositions[9] == 1)){if(Positions[8] == 1){ vpNum=rollbb; break;}ChosenPlace=8; CS=true;break;}else{if(Positions[9] == 1){ vpNum=rollbb; break;}ChosenPlace=9; CS=true;break;} }else{if(Positions[7] == 1){ vpNum=rollbb; break;}ChosenPlace=7; CS=true;break;} break;
@@ -175,7 +179,8 @@ int TTTAI::Play(int HPositions[], int AIPositions[]){ //Play function will use c
     // bool SP; // SP = Successful placement // This bool is used to make sure the placement wasn't on a controlled space or otherwise not possible
     int chosenplace = (ChoosePlace(HPositions, AIPositions)) ;
     switch( chosenplace ){
-            case -1: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero if there are no places it can go
+            case -1: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero/-1 if there are no places it can go
+             case 0: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero if there are no places it can go
             case 1: if( HPositions[1] == 1 ){AIPositions[1] = 0; break;} if( AIPositions[1] == 1){break;} Positions[1]=1; break;
             case 2: if( HPositions[2] == 1 ){AIPositions[2] = 0; break;} if( AIPositions[2] == 1){break;} Positions[2]=1; break;
             case 3: if( HPositions[3] == 1 ){AIPositions[3] = 0; break;} if( AIPositions[3] == 1){break;} Positions[3]=1; break;
