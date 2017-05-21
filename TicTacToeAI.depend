@@ -9,7 +9,7 @@
 	<sstream>
 	<stdlib.h>
 
-1490226966 source:c:\users\kam blackweb\documents\github\tictactoeai\source.cpp
+1494720778 source:c:\users\kam blackweb\documents\github\tictactoeai\source.cpp
 	<iostream>
 	<string>
 	<string.h>
@@ -18,5 +18,6 @@
 	<time.h>
 	<sstream>
 	<stdlib.h>
+	<stdio.h>
 	<array>
 

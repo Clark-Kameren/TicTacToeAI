@@ -6,7 +6,9 @@
 #include <time.h>
 #include <sstream>
 #include <stdlib.h>
+#include <stdio.h>
 #include <array>
+#include <algorithm>
 // TEst for github
 //This will be the class for the AI
 class TTTAI{
@@ -23,42 +25,118 @@ class TTTAI{
         bool Victory=false; //Determines if ai have won
         int Moves=0; // Number of moves made by ai
 };
-class NN : private TTTAI{ // The AI's 'brain' per say which will be a simple Neural Net
-    protected:
-        struct Neuron{
-            // Constructor
-            Neuron(int inputdata){
-                input = inputdata;
-                // DOutput = desiredoutput;
-            }
-            //Function that allows the input of desired function
-            int DPut(int desiredoutput){ DOutput = desiredoutput; return desiredoutput;}
-            int input;
-            int output;
-            int adjust; // This is the value used to adjust the input variable to the output value
-            // function to adjust the input towards a desired output
-                int Adjust(int input, int output){
-                    output = input + adjust;
-                return output;
-                }
-            // Desired output
-            int DOutput;
-        };
-    private: // REMINDER:: REMINDER:: Function that links the neurons and Function that handles back-propagation of the NN AND MAKE FUNCTION THAT DELETES POINTERS FROM BI
-        Neuron * net[][5]; // An array of struct Neuron pointers that will have all the neurons // Has a max size for the height goes to 6
-        void BI(int board[], int dim){ // Function for Board input // Takes an array of all board positions, the dimensions (ie if dim == 5 it is a 5x5 board)
+class NN : private TTTAI{ // The AI's 'brain' per say
+    public:
+
+            void BI(int board[], int dim){ // Function for Board input // Takes an array of all board positions, the dimensions (ie if dim == 5 it is a 5x5 board)
             using namespace std;
             int cc=0; //Current column
             int cr=0; //Current row
             for(int i=0; i< ( (sizeof(board) /4) +1); i++){ // For loop that creates the neurons
                 switch( ( (i +1) % dim ) ){ // switch statement that determines the row and column from the single dimensional array
-                    case 0: net[cr][cc] = new Neuron(i) ; cr++; cc=0; break; // Moves to the next row when it reaches the last column and then resets the column number
-                    default: net[cr][cc] = new Neuron(i); cc++; break;  //Moves to the next column
+                    case 0: net[cr][cc] = Neuron(i,dim); cr++; cc=0; break; // Moves to the next row when it reaches the last column and then resets the column number
+                    default: net[cr][cc] = Neuron(i,dim); cc++; break;  //Moves to the next column
                 };
             }
         return;
         }
-        void Empty_Net(int board[], int dim){ // empties net
+
+    protected:
+        struct Neuron{
+            Neuron(int place,int dim){Nposition=place; Bdim=dim; return;} //constructor function
+            int call(bool known){if(known==true){return Nposition;}else{return -1;} };//Function for neurons to call other neurons
+            int Nposition; /* Neuron position on the board */ int Bdim; //dimensions of board
+            bool PlayerP; // Player Position // true indicates that the position is occupied by the player /
+            bool AIP; //AI position // true indicates the AI holds this spot
+            int NbCount; //int that states the number of neighbors
+            int NB[];
+            int weight=0; //The amount used to determine where the position of the placement
+            };
+            void neighbors(Neuron Cneuron){//Function that gives the positions and states of the neurons neighbors
+                Cneuron.NbCount=0; // Sets Neighbor count to zero
+                int row;
+                div_t rows; div(Cneuron.Nposition, Cneuron.Bdim);
+                rows.quot = row; //Finds which row the neuron is on
+                int col = (Cneuron.Nposition%Cneuron.Bdim); //Finds which column the neuron is on
+                Neuron * NBp; //Neighbor pointer
+                //This section goes through and (using the call function) stores the positions of all of the neighbors
+                    NBp = &net[row][col-1];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    NBp = &net[row][col+1];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    NBp = &net[row-1][col];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    NBp = &net[row+1][col];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    NBp = &net[row-1][col-1];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    NBp = &net[row-1][col+1];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    NBp = &net[row+1][col-1];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    NBp = &net[row+1][col+1];
+                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
+                    //deletes pointer
+                    delete NBp;
+                return; //End of function
+            }
+            int Rplace(Neuron cNeuron){//Recommended placement
+                int weights[cNeuron.NbCount-1]; //array for available weights
+                for(int i=0; i<cNeuron.NbCount; i++){
+                    int row, col, Cpos; // row, column, current position
+                    Neuron * NBp;
+                    cNeuron.NB[i]=Cpos;
+                    div_t rows; rows=div(Cpos,cNeuron.Bdim);
+                    row=rows.quot; col=rows.rem; //This just sets/finds the position of the neuron in the net array
+                    NBp= &net[row][col];
+                    if( NBp->AIP==true || NBp->PlayerP==true ){ //Checks if position is already occupied
+                        if(cNeuron.AIP||cNeuron.PlayerP){}else{weights[i]=0;}
+                    }else{weights[i]=cNeuron.Nposition-(NBp->Nposition);}
+                }
+                // Goes through the weights and finds one to recommend
+                srand(time(NULL));
+                int rNum = (rand()%cNeuron.NbCount);//Random number up to the number of neighbors
+                bool wC;//weight chosen
+                while(wC==false){
+                    if(weights[rNum] == 0){rNum = (rand()%cNeuron.NbCount);}else{
+                        cNeuron.weight=weights[rNum];
+                        wC=true;
+                    }
+                    }
+                    return (cNeuron.Nposition + cNeuron.weight);
+                }
+                int Place(int Dim){ // decides placement on board
+                    int cc=0; //Current column
+                    int cr=0; //Current row
+                    int RP[(Dim^2)];//Recommended places array
+                        for(int i=0; i< (Dim^2); i++){ // For loop that creates the neurons
+                            // Neuron * NBp; //Pointer
+                            switch( ( (i +1) % Dim ) ){ // switch statement that determines the row and column from the single dimensional array
+                                case 0: RP[i] = Rplace(net[cr][cc]); cr++; cc=0; break; // Moves to the next row when it reaches the last column and then resets the column number
+                                default: RP[i] = Rplace(net[cr][cc]); cc++; break;  //Moves to the next column
+                            };
+                        }
+                        int num = RP[0];
+                        int c=1;int cMode=1;
+                        int mode;
+                        std::sort(RP, (RP + (Dim^2) ) ); //Sorts the array
+                        for(int i=1; i<(Dim^2); i++){ // For loop finds the mode
+                            if(num == RP[i]){
+                                c++;
+                            }else{ //Now it is a different number
+                                if(c>cMode){
+                                    cMode=c;
+                                    mode=num;
+                                }
+                                c=1;
+                                num=RP[i];
+                                }
+                        }
+                        return mode;
+                }
+    private: // REMINDER:: REMINDER:: Function that links the neurons and Function that handles back-propagation of the NN
+        Neuron net[][5]; // An array of struct Neuron pointers that will have all the neurons // Has a max height that goes to 6
+       /* void Empty_Net(int board[], int dim){ // empties net
             using namespace std;
             int cc=0; int cr=0;
             for(int i=0; i< ( (sizeof(board) /4) +1); i++){ // For loop that creates the neurons
@@ -69,7 +147,7 @@ class NN : private TTTAI{ // The AI's 'brain' per say which will be a simple Neu
             }
             delete[] net;
         return;
-        }
+        }*/
 };
 //Class for the human player
 class TTTHuman{
@@ -180,7 +258,7 @@ int TTTAI::Play(int HPositions[], int AIPositions[]){ //Play function will use c
     int chosenplace = (ChoosePlace(HPositions, AIPositions)) ;
     switch( chosenplace ){
             case -1: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero/-1 if there are no places it can go
-             case 0: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero if there are no places it can go
+            case 0: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero if there are no places it can go
             case 1: if( HPositions[1] == 1 ){AIPositions[1] = 0; break;} if( AIPositions[1] == 1){break;} Positions[1]=1; break;
             case 2: if( HPositions[2] == 1 ){AIPositions[2] = 0; break;} if( AIPositions[2] == 1){break;} Positions[2]=1; break;
             case 3: if( HPositions[3] == 1 ){AIPositions[3] = 0; break;} if( AIPositions[3] == 1){break;} Positions[3]=1; break;
@@ -421,7 +499,7 @@ int Menu(){
         cin>>choice; cout<<endl;
             switch(choice){
                 case 1: inMenu=false; break; // Begins game
-                case 2: cout<<"\nOPTIONS\n"<<endl<<"Board Size 3x3 : 1"<<endl<<"Board Size 4x4 : 2"<<endl<<"Board Size 5x5 : 3"<<endl; cout<<"Board Sizes 4x4 - 5x5 are still under production. You will be take back to the main menu."<<endl; /* cin>>OChoice; */
+                case 2: cout<<"\nOPTIONS\n"<<endl<<"Board Size 3x3 : 1"<<endl<<"Board Size 4x4 : 2"<<endl<<"Board Size 5x5 : 3"<<endl; cout<<"Board Sizes 4x4 - 5x5 are still under production. So you will now be taken back to the main menu."<<endl; /* cin>>OChoice; */
                     cout<<"\nMENU\n"<<endl<<"Play: 1"<<endl<<"Options: 2"<<endl<<"Exit: 3"<<endl; break;// Displays options to user
                 case 3: cout<<"\nBye. Have a good time."<<endl; return 0; break;
                 default: cout<<"That is not a offered option. Please re-input your choice."<<endl; break;
