@@ -1,154 +1,39 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <string.h>
 #include <strstream>
 #include <math.h>
+#include <complex>
 #include <time.h>
 #include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctime>
 #include <array>
+#include <vector>
 #include <algorithm>
-// TEst for github
-//This will be the class for the AI
-class TTTAI{
-    public:
-        TTTAI(); //The constructor
-        int Play(int HPositions[], int Positions[]); //Will call the AI to play the game
-        int Positions[10]; // An array to hold the positions of the AI
-        bool AIWon(bool setting); // Set it so the ai has won // the bool setting is used to determine if setting the victory bool if true you will set the victory setting to true
-        int GetMoves(){return Moves;}
-        void AIRematch(); // Rematch function
-    private:
-        int Memory[][81]; // A storage for different positions and their percentage of winning
-        int ChoosePlace(int OPositions[], int Positions[]); // OPositions for opponent positions // Chooses the position to put the O (choose place will check the opponent in the decision making process)
-        bool Victory=false; //Determines if ai have won
-        int Moves=0; // Number of moves made by ai
-};
-class NN : private TTTAI{ // The AI's 'brain' per say
-    public:
+#include <vector>
+#include <iomanip>
+#include <GL/freeglut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include "TTTHeader.h"
+#include <armadillo>
+#include <dlib/global_optimization.h>
+#include <dlib/optimization.h>
+#include <dlib/svm.h>
+//#include <dlib/dnn.h>
+//#include <dlib/data_io.h>
+#include <dlib/matrix.h>
+using namespace arma;
 
-            void BI(int board[], int dim){ // Function for Board input // Takes an array of all board positions, the dimensions (ie if dim == 5 it is a 5x5 board)
-            using namespace std;
-            int cc=0; //Current column
-            int cr=0; //Current row
-            for(int i=0; i< ( (sizeof(board) /4) +1); i++){ // For loop that creates the neurons
-                switch( ( (i +1) % dim ) ){ // switch statement that determines the row and column from the single dimensional array
-                    case 0: net[cr][cc] = Neuron(i,dim); cr++; cc=0; break; // Moves to the next row when it reaches the last column and then resets the column number
-                    default: net[cr][cc] = Neuron(i,dim); cc++; break;  //Moves to the next column
-                };
-            }
-        return;
-        }
+//Typedef for training data
+typedef mat::fixed<2,9> training_pair; //1st row is input 2nd row is expected output
+std::vector<training_pair> TData;
+bool tFlag=false;
 
-    protected:
-        struct Neuron{
-            Neuron(int place,int dim){Nposition=place; Bdim=dim; return;} //constructor function
-            int call(bool known){if(known==true){return Nposition;}else{return -1;} };//Function for neurons to call other neurons
-            int Nposition; /* Neuron position on the board */ int Bdim; //dimensions of board
-            bool PlayerP; // Player Position // true indicates that the position is occupied by the player /
-            bool AIP; //AI position // true indicates the AI holds this spot
-            int NbCount; //int that states the number of neighbors
-            int NB[];
-            int weight=0; //The amount used to determine where the position of the placement
-            };
-            void neighbors(Neuron Cneuron){//Function that gives the positions and states of the neurons neighbors
-                Cneuron.NbCount=0; // Sets Neighbor count to zero
-                int row;
-                div_t rows; div(Cneuron.Nposition, Cneuron.Bdim);
-                rows.quot = row; //Finds which row the neuron is on
-                int col = (Cneuron.Nposition%Cneuron.Bdim); //Finds which column the neuron is on
-                Neuron * NBp; //Neighbor pointer
-                //This section goes through and (using the call function) stores the positions of all of the neighbors
-                    NBp = &net[row][col-1];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    NBp = &net[row][col+1];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    NBp = &net[row-1][col];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    NBp = &net[row+1][col];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    NBp = &net[row-1][col-1];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    NBp = &net[row-1][col+1];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    NBp = &net[row+1][col-1];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    NBp = &net[row+1][col+1];
-                    if( NBp->call(false) == -1){ Cneuron.NB[Cneuron.NbCount] = NBp->call(true); Cneuron.NbCount++;}
-                    //deletes pointer
-                    delete NBp;
-                return; //End of function
-            }
-            int Rplace(Neuron cNeuron){//Recommended placement
-                int weights[cNeuron.NbCount-1]; //array for available weights
-                for(int i=0; i<cNeuron.NbCount; i++){
-                    int row, col, Cpos; // row, column, current position
-                    Neuron * NBp;
-                    cNeuron.NB[i]=Cpos;
-                    div_t rows; rows=div(Cpos,cNeuron.Bdim);
-                    row=rows.quot; col=rows.rem; //This just sets/finds the position of the neuron in the net array
-                    NBp= &net[row][col];
-                    if( NBp->AIP==true || NBp->PlayerP==true ){ //Checks if position is already occupied
-                        if(cNeuron.AIP||cNeuron.PlayerP){}else{weights[i]=0;}
-                    }else{weights[i]=cNeuron.Nposition-(NBp->Nposition);}
-                }
-                // Goes through the weights and finds one to recommend
-                srand(time(NULL));
-                int rNum = (rand()%cNeuron.NbCount);//Random number up to the number of neighbors
-                bool wC;//weight chosen
-                while(wC==false){
-                    if(weights[rNum] == 0){rNum = (rand()%cNeuron.NbCount);}else{
-                        cNeuron.weight=weights[rNum];
-                        wC=true;
-                    }
-                    }
-                    return (cNeuron.Nposition + cNeuron.weight);
-                }
-                int Place(int Dim){ // decides placement on board
-                    int cc=0; //Current column
-                    int cr=0; //Current row
-                    int RP[(Dim^2)];//Recommended places array
-                        for(int i=0; i< (Dim^2); i++){ // For loop that creates the neurons
-                            // Neuron * NBp; //Pointer
-                            switch( ( (i +1) % Dim ) ){ // switch statement that determines the row and column from the single dimensional array
-                                case 0: RP[i] = Rplace(net[cr][cc]); cr++; cc=0; break; // Moves to the next row when it reaches the last column and then resets the column number
-                                default: RP[i] = Rplace(net[cr][cc]); cc++; break;  //Moves to the next column
-                            };
-                        }
-                        int num = RP[0];
-                        int c=1;int cMode=1;
-                        int mode;
-                        std::sort(RP, (RP + (Dim^2) ) ); //Sorts the array
-                        for(int i=1; i<(Dim^2); i++){ // For loop finds the mode
-                            if(num == RP[i]){
-                                c++;
-                            }else{ //Now it is a different number
-                                if(c>cMode){
-                                    cMode=c;
-                                    mode=num;
-                                }
-                                c=1;
-                                num=RP[i];
-                                }
-                        }
-                        return mode;
-                }
-    private: // REMINDER:: REMINDER:: Function that links the neurons and Function that handles back-propagation of the NN
-        Neuron net[][5]; // An array of struct Neuron pointers that will have all the neurons // Has a max height that goes to 6
-       /* void Empty_Net(int board[], int dim){ // empties net
-            using namespace std;
-            int cc=0; int cr=0;
-            for(int i=0; i< ( (sizeof(board) /4) +1); i++){ // For loop that creates the neurons
-                switch( ( (i +1) % dim ) ){ // switch statement that determines the row and column from the single dimensional array
-                    case 0: delete net[cr][cc]; cr++; cc=0; break; // Moves to the next row when it reaches the last column and then resets the column number
-                    default: delete net[cr][cc]; cc++; break;  //Moves to the next column
-                };
-            }
-            delete[] net;
-        return;
-        }*/
-};
+//
 //Class for the human player
 class TTTHuman{
     public:
@@ -159,60 +44,396 @@ class TTTHuman{
         int GetMoves(){return CMN;}
         void HumanRematch(); //Function for rematches
     private:
-        int CMN; //Current Move Number
-        bool Victory; //Determines if they have won
+        int CMN=0; //Current Move Number
+        bool Victory=false; //Determines if they have won
 };
+//This will be the class for the AI
+class TTTAI{
+    public:
+        TTTAI(); //The constructor
+        int Play(int HPositions[], int Positions[]); //Will call the AI to play the game
+        int AIPositions[10]; // An array to hold the positions of the AI
+        int HPositions[10]; // An array to hold the positions of the Human
+        bool AIWon(bool setting); // Set it so the ai has won // the bool setting is used to determine if setting the victory bool if true you will set the victory setting to true
+        int GetMoves(){return Moves;}
+        void AddMove(){Moves++; return;}
+        int LastMove(){return Memory.at(Memory.size() - 1); }//Returns last move of the AI
+        void AIRematch(); // Rematch function
+    private:
+        std::vector<int> Memory; // A storage for positions
+        int ChoosePlace(int OPositions[], int Positions[]); // OPositions for opponent positions // Chooses the position to put the O (choose place will check the opponent in the decision making process)
+        bool Victory=false; //Determines if ai have won
+        int Moves=0; // Number of moves made by ai
+};
+
+class NN{ // The AI's 'brain' per say
+     protected:
+          double Cost(bool testing); // Cost function
+          struct Synapse{
+               void RWeight(){ //Randomly determines the weight
+                    double r=0.0;
+                    int rd=rand()%99;
+                    if(rd>=50){
+                         r=rand()%99 +1;
+                         weight= -1*( (r/1000) );
+                    }else{
+                         r=rand()%99 +1;
+                         weight=(r/1000);
+                    }
+               return;
+               }
+               void CWeight(double c){} //Changes the Weight
+               long double weight=0.0000000000; //Weight of the synapse
+          };
+          struct Neuron{
+               Neuron(){//Constructor
+               return;
+               }
+               void RBias(){ //Randomly a number that determines the bias
+                    double r=rand()%99;
+                    //double rw=rand()%5;
+                    double rd=rand()%99;
+                    if(rd>=50){
+                         bias= -1*( (r/1000) );
+                    }else{
+                         bias= (r/1000);
+                    }
+               return;
+               }
+               void CBias(double c);    //Changes the Bias
+               double bias=0.0;
+               int input=0; //Used mainly for input neurons
+               std::vector<Synapse> Connections;
+            };
+
+    public:
+          void Ultimate(){ultimate=true;}
+         void Load();
+         void Save();
+          void startNN(bool ultimate=false); //Constructor
+          void BI(int Hpos[], int Apos[], int dim){ // Function for Board input // Takes an array of all board positions, the dimensions (ie if dim == 5 it is a 5x5 board)
+               Board.set_size(dim,dim);
+               Board.fill(fill::ones);
+               int k=0,j=1; //Used to translate the singular value to matrix form
+               for(int i=0; i<(dim*dim); i++){
+                    NIL.at(i).input=1;
+                    Input(i)=1;
+                    if(i>dim-1){
+                         j= (i/dim) +1; k=i%dim +1;
+                         if(i%dim ==0){k=1;}
+                    }else{k++;}
+
+                    if(Hpos[i+1]!=0){
+                         Board(i)=0;
+                         NIL.at(i).input=0;
+                         Input(i)=0;
+                    }
+                    if(Apos[i+1]!=0){
+                         Board(i)=0;
+                         NIL.at(i).input=0;
+                         Input(i)=0;
+                    }
+               }
+               if(Board.n_cols>3 || Board.n_rows>3){
+
+               }else{
+
+               }
+               return;
+          }
+          void UBI(std::vector<iBoard> IOUBoard, std::vector<int> IOPBoards){ //Board input for ultimate ttt
+               OUBoard=IOUBoard;
+               OPBoards=IOPBoards;
+               int counter=0,rCounter=0,cCounter=0;
+               for(int i=0; i<UL1.size(); i++){
+                    if( OPBoards.at(counter) == 0 && counter<9){
+                         if( OUBoard.at(counter).Board(rCounter,cCounter) == 0){UL1.at(i).input=1;}else if( OUBoard.at(counter).Board(rCounter,cCounter) == -1 ){UL1.at(i).input= -1;}else{ UL1.at(i).input=0;}
+                         if( OPBoards.at(counter)==0 && UL1.at(i).input==1 ){ UL1.at(i).input=5;}
+                         if(cCounter==2){cCounter=0; rCounter++;}else{cCounter++;}
+                         if(rCounter>2){rCounter=0; cCounter=0; counter++;}
+                    }
+               }
+
+          }
+          void Randomize(){ //Randomizes the weights and neuron biases
+               srand( time(NULL) );
+               //
+               if(ultimate){
+                    //
+                    for(int i=0; i<UL1.size(); i++){ //Randomizes the first Neuron layer
+                         //UL1.at(i).RBias();
+                         for(int j=0; j<UL1.at(i).Connections.size(); j++){
+                              UL1.at(i).Connections.at(j).RWeight();
+                              UW1(i,j)=UL1.at(i).Connections.at(j).weight;
+                         }
+                    }
+                    //
+                    for(int i=0; i<UL2.size(); i++){ //Randomizes the first Neuron layer
+                         UL2.at(i).RBias();
+                         for(int j=0; j<UL2.at(i).Connections.size(); j++){
+                              UL2.at(i).Connections.at(j).RWeight();
+                              UW2(i,j)=UL2.at(i).Connections.at(j).weight;
+                         }
+                    }
+                    //
+                    for(int i=0; i<UL3.size(); i++){ //Randomizes the first Neuron layer
+                         UL3.at(i).RBias();
+                         for(int j=0; j<UL3.at(i).Connections.size(); j++){
+                              UL3.at(i).Connections.at(j).RWeight();
+                              UW3(i,j)=UL3.at(i).Connections.at(j).weight;
+                         }
+                    }
+                    //
+                    for(int i=0; i<UL4.size(); i++){ //Randomizes the first Neuron layer
+                         UL4.at(i).RBias();
+                         for(int j=0; j<UL4.at(i).Connections.size(); j++){
+                              UL4.at(i).Connections.at(j).RWeight();
+                              UW4(i,j)=UL4.at(i).Connections.at(j).weight;
+                         }
+                    }
+                    //
+                    for(int i=0; i<UL5.size(); i++){ //Randomizes the first Neuron layer
+                         UL5.at(i).RBias();
+                         for(int j=0; j<UL5.at(i).Connections.size(); j++){
+                              UL5.at(i).Connections.at(j).RWeight();
+                         }
+                    }
+               }
+               //
+               for(int i=0; i<NIL.size(); i++){ //Randomizes the first Neuron layer
+                    NIL.at(i).RBias();
+                    for(int j=0; j<NIL.at(i).Connections.size(); j++){
+                         NIL.at(i).Connections.at(j).RWeight();
+                         W1(i,j)=NIL.at(i).Connections.at(j).weight;
+                    }
+               }
+               //
+               for(int i=0; i<NHL.size(); i++){ //Randomizes the second Neuron layer
+                    NHL.at(i).RBias();
+                    for(int j=0; j<NHL.at(i).Connections.size(); j++){
+                         NHL.at(i).Connections.at(j).RWeight();
+                         W2(i,j)=NHL.at(i).Connections.at(j).weight;
+                    }
+               }
+               //
+               for(int i=0; i<NHL2.size(); i++){ //Randomizes the second Neuron layer
+                    NHL2.at(i).RBias();
+                    for(int j=0; j<NHL2.at(i).Connections.size(); j++){
+                         NHL2.at(i).Connections.at(j).RWeight();
+                         W3(i,j)=NHL2.at(i).Connections.at(j).weight;
+                    }
+               }
+               //
+               for(int i=0; i<NHL3.size(); i++){ //Randomizes the third Neuron layer
+                    NHL3.at(i).RBias();
+                    for(int j=0; j<NHL3.at(i).Connections.size(); j++){
+                         NHL3.at(i).Connections.at(j).RWeight();
+                         W4(i,j)=NHL3.at(i).Connections.at(j).weight;
+                    }
+               }
+               //
+               for(int i=0; i<NHL4.size(); i++){ //Randomizes the fourth Neuron layer
+                    NHL4.at(i).RBias();
+                    for(int j=0; j<NHL4.at(i).Connections.size(); j++){
+                         NHL4.at(i).Connections.at(j).RWeight();
+                         W5(i,j)=NHL4.at(i).Connections.at(j).weight;
+                    }
+               }
+               //
+               for(int i=0; i<NOL.size(); i++){ //Randomizes the output Neuron layer
+                    NOL.at(i).RBias();
+                    for(int j=0; j<NOL.at(i).Connections.size(); j++){
+                         NOL.at(i).Connections.at(j).RWeight();
+                         W6(i,j)=NOL.at(i).Connections.at(j).weight;
+                    }
+               }
+               //
+               for(int i=0; i<OL.size(); i++){ //Randomizes the output Neuron layer
+                    OL.at(i).RBias();
+                    for(int j=0; j<OL.at(i).Connections.size(); j++){
+                         OL.at(i).Connections.at(j).RWeight();
+                    }
+               }
+               //
+          return;
+          }
+          //
+          mat getBoard(){return Board; } //Returns the board the way the NN sees it
+          mat getInput(){return Input;} //Returns the input the NN is receiving
+          std::vector<Neuron> getNIL(){ return NIL;}
+          std::vector<Neuron> getNHL(){ return NHL;}
+          std::vector<Neuron> getNHL2(){ return NHL2;}
+          std::vector<Neuron> getNHL3(){ return NHL3;}
+          std::vector<Neuron> getNHL4(){ return NHL4;}
+          std::vector<Neuron> getNOL(){ return NOL;}
+          std::vector<Neuron> getOL(){ return OL;}
+          mat getW1(){return W1;} //More get functions
+          mat getW2(){return W2;}
+          mat getW3(){return W3;}
+          mat getW4(){return W4;}
+          mat getW5(){return W5;}
+          mat getW6(){return W6;}
+          //
+          mat getUW1(){return UW1;}
+          mat getUW2(){return UW2;}
+          mat getUW3(){return UW3;}
+          mat getUW4(){return UW4;}
+          //
+          std::vector<Neuron> getUL1(){ return UL1;}
+          std::vector<Neuron> getUL2(){ return UL2;}
+          std::vector<Neuron> getUL3(){ return UL3;}
+          std::vector<Neuron> getUL4(){ return UL4;}
+          std::vector<Neuron> getUL5(){ return UL5;}
+          //
+          void OPT(bool testing);
+          mat COutput(){ return OutputM;} //Output of the NN (kinda like the Placement decision)
+          int Place(TTTHuman PBuddy); //Returns the Output of the NN in a 1-9 manner
+          //
+          TTTAI NNAI;
+          int CC=0; //Correct Move Choice
+          mat VP(mat In); //Victory Possibilities
+          void CalcOut(bool testing); // Calculates the values of the matrices
+          double UScore(dlib::matrix<double> CM);
+    private: // REMINDER:: REMINDER:: Function that links the neurons and Function that handles back-propagation of the NN
+          //
+          bool ultimate;
+
+          bool GradCheck(); // Numerical grade checking
+          void BackProp(); //Back-propagation
+          void Train(bool testing); //Training of the network
+          mat W1; //Matrix of weights
+          mat W2;
+          mat W3;
+          mat W4;
+          mat W5;
+          mat W6;
+          mat W1Copy; //Copy of weight matrices
+          mat W2Copy;
+          mat W3Copy;
+          mat W4Copy;
+          mat W5Copy;
+          mat W6Copy;
+          mat Board;//Matrix representation of the board the ai uses
+          mat CostM; //Matrix of the Error/Cost
+          //dTotal Error dWeight matrix
+          mat TEW1;
+          mat TEW2;
+          mat TEW3;
+          mat TEW4;
+          mat TEW5;
+          mat TEW6;
+          //dTotal Error dBias matrix
+          mat TEB1;
+          mat TEB2;
+          mat TEB3;
+          mat TEB4;
+          mat TEB5;
+          mat TEB6;
+          //
+          mat Input;//Input matrix
+          mat MZ1;
+          mat MZ2;
+          mat MZ3;
+          mat MZ4;
+          mat MZ5;
+          mat MZ6;
+          mat MA1;  //Activated matrix
+          mat MA2;
+          mat MA3;
+          mat MA4;
+          mat MA5;
+          mat MA6;
+          //Creation of Input Neurons
+          std::vector<Neuron> NIL; //Size 9
+          /*//First Layer
+          Neuron NF1,NF2,NF3;
+          std::vector<Neuron> NFL={NF1,NF2,NF3};
+          */
+          //Hidden Layer
+          std::vector<Neuron> NHL; //Size 36
+          //Second Hidden Layer
+          std::vector<Neuron> NHL2; //Size 43
+          //Third Hidden Layer
+          std::vector<Neuron> NHL3; //Size 54
+          //Fourth Hidden Layer
+          std::vector<Neuron> NHL4; //Size 36
+          //
+          std::vector<Neuron> NOL; //Size 12
+          //
+          std::vector<Neuron> OL;//size 9
+          mat OutputM;
+          mat OPMCopy;
+          //
+          ///Ultimate
+          //
+          std::vector<Neuron> UL1; //Size 81
+          std::vector<Neuron> UL2; //Size 976
+          std::vector<Neuron> UL3; //Size 416
+          std::vector<Neuron> UL4; //Size 256
+          std::vector<Neuron> UL5; //Size 81
+          //
+          mat UW1;
+          mat UW2;
+          mat UW3;
+          mat UW4;
+          //
+          mat UOutput;
+          //
+          std::vector<iBoard> OUBoard; //Observed Ultimate board
+          std::vector<int> OPBoards;  //Observed playable boards
+
+}Testnet;
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 //////// Where the class functions for TTTAI are defined /////////
 ///////////////////////////////////////////////////////////////////////////////////
 
 TTTAI::TTTAI(){
     using namespace std;
-    srand(time(NULL)); //Make sure random variables are a bit more random
+    //srand( time(NULL) );
     string Name;
     int name_roll = rand()%5;   ////The random name selection
     switch(name_roll){
+// TODO (Blackweb#1#): Add back in the names and the well played after a game ...
+//
+         /*
         case 0: Name="Johnny"; break;
         case 1: Name="Marvin"; break;
         case 2: Name="GLaDOS"; break;
         case 3: Name="Data"; break;
         case 4: Name="Hal"; break;
         default: Name="R2-Tic-Tac"; break;
+        */
     }
-    cout<<"\nYou will be playing against "<<Name<<endl<<endl;
+    //cout<<"\nYou will be playing against "<<Name<<endl<<endl;
     //Calling of other functions that need to be started by the constructor
     //Setting Positions to zero
-    Positions[1]=0;
-    Positions[2]=0;
-    Positions[3]=0;
-    Positions[4]=0;
-    Positions[5]=0;
-    Positions[6]=0;
-    Positions[7]=0;
-    Positions[8]=0;
-    Positions[9]=0;
+    for(int i=1; i<10; i++){
+     AIPositions[i]=0;
+     HPositions[i]=0;
+    }
     Victory=false;
     Moves=0;
 return;
 }
 void TTTAI::AIRematch(){ // Destructor
-    Positions[1]=0;
-    Positions[2]=0;
-    Positions[3]=0;
-    Positions[4]=0;
-    Positions[5]=0;
-    Positions[6]=0;
-    Positions[7]=0;
-    Positions[8]=0;
-    Positions[9]=0;
+    for(int i=1; i<10; i++){
+     AIPositions[i]=0;
+     HPositions[i]=0;
+    }
+    Memory.clear();
     Victory=false;
     Moves=0;
 return;
 }
 int TTTAI::ChoosePlace(int OPositions[], int Positions[]){ //Function that determines the place with the highest chance of winning
         using namespace std;
-    if(Moves >=4){return -1;}
-    int ChosenPlace; //Place that was chosen // Number corresponds to the place on the board
+    int ChosenPlace=0; //Place that was chosen // Number corresponds to the place on the board
+    //srand( time(NULL) );
+    for(int i=1; i<10; i++){
+     HPositions[i]=OPositions[i];
+    }
     //It now determines the places that could potentially win for the human
     int vp[9];
     vp[1] = ( OPositions[1]+OPositions[2]+OPositions[3] ); // [1,2,3] // vp1 = victory possibility 1
@@ -223,51 +444,488 @@ int TTTAI::ChoosePlace(int OPositions[], int Positions[]){ //Function that deter
     vp[6] = ( OPositions[3]+OPositions[6]+OPositions[9] ); // [3,6,9]
     vp[7] = ( OPositions[1]+OPositions[5]+OPositions[9] ); // [1,5,9]
     vp[8] = ( OPositions[3]+OPositions[5]+OPositions[7] ); // [3,5,7]
+    //
+    int AIvp[9];
+    AIvp[1] = ( Positions[1]+Positions[2]+Positions[3] ); // [1,2,3] // vp1 = victory possibility 1
+    AIvp[2] = ( Positions[4]+Positions[5]+Positions[6] ); // [4,5,6]
+    AIvp[3] = ( Positions[7]+Positions[8]+Positions[9] ); // [7,8,9]
+    AIvp[4] = ( Positions[1]+Positions[4]+Positions[7] ); // [1,4,7]
+    AIvp[5] = ( Positions[2]+Positions[5]+Positions[8] ); // [2,5,8]
+    AIvp[6] = ( Positions[3]+Positions[6]+Positions[9] ); // [3,6,9]
+    AIvp[7] = ( Positions[1]+Positions[5]+Positions[9] ); // [1,5,9]
+    AIvp[8] = ( Positions[3]+Positions[5]+Positions[7] ); // [3,5,7]
     int CV=0; //
     bool CS=false; // CS = Choosing Successful
-    int rollbb; // Roll baby // used if the ai has to place
+    int rollbb=0;  //Random number for choosing from a selection of positions
     int vpNum=0; // victory possibility number
-        for(int i=1; i<9; i++){ //for loop that decides which condition is closest to victory //
-            if(vp[i] >= 1){ if(vp[i] == 3){ChosenPlace=0; CS=true;} if(vp[i]>CV){CV=vp[i]; vpNum=i;} }
-
-        }
+    int Opos=0; //Opponent position
+    int SOpos=0; //Second opponent position
         while(CS!=true){
-            //Checks if condition is true
-            if(CS){ ChosenPlace=-1; break;}
-            //Actual code that loop executes
-            rollbb= (rand() % 8) +1;
-            switch(vpNum){
-                case 0: ChosenPlace=-1; break;
-                case 1: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[3] == 1)){if(Positions[2] == 1){ vpNum=rollbb; break;}ChosenPlace=2; CS=true;break;}else{if(Positions[3] == 1){ vpNum=rollbb; break;}ChosenPlace=3; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
-                case 2: if((OPositions[4] == 1)){/*2nd if*/if((OPositions[6] == 1)){if(Positions[5] == 1){ vpNum=rollbb; break;}ChosenPlace=5; CS=true;break;}else{if(Positions[6] == 1){ vpNum=rollbb; break;}ChosenPlace=6; CS=true;break;} }else{if(Positions[4] == 1){ vpNum=rollbb; break;}ChosenPlace=4; CS=true;break;} break;
-                case 3: if((OPositions[7] == 1)){/*2nd if*/if((OPositions[9] == 1)){if(Positions[8] == 1){ vpNum=rollbb; break;}ChosenPlace=8; CS=true;break;}else{if(Positions[9] == 1){ vpNum=rollbb; break;}ChosenPlace=9; CS=true;break;} }else{if(Positions[7] == 1){ vpNum=rollbb; break;}ChosenPlace=7; CS=true;break;} break;
-                case 4: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[7] == 1)){if(Positions[4] == 1){ vpNum=rollbb; break;}ChosenPlace=4; CS=true;break;}else{if(Positions[7] == 1){ vpNum=rollbb; break;}ChosenPlace=7; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
-                case 5: if((OPositions[2] == 1)){/*2nd if*/if((OPositions[8] == 1)){if(Positions[5] == 1){ vpNum=rollbb; break;}ChosenPlace=5; CS=true;break;}else{if(Positions[8] == 1){ vpNum=rollbb; break;}ChosenPlace=8; CS=true;break;} }else{if(Positions[2] == 1){ vpNum=rollbb; break;}ChosenPlace=2; CS=true;break;} break;
-                case 6: if((OPositions[3] == 1)){/*2nd if*/if((OPositions[9] == 1)){if(Positions[6] == 1){ vpNum=rollbb; break;}ChosenPlace=6; CS=true;break;}else{if(Positions[9] == 1){ vpNum=rollbb; break;}ChosenPlace=9; CS=true;break;} }else{if(Positions[3] == 1){ vpNum=rollbb; break;}ChosenPlace=3; CS=true;break;} break;
-                case 7: if((OPositions[1] == 1)){/*2nd if*/if((OPositions[9] == 1)){if(Positions[5] == 1){ vpNum=rollbb; break;}ChosenPlace=5; CS=true;break;}else{if(Positions[9] == 1){ vpNum=rollbb; break;}ChosenPlace=9; CS=true;break;} }else{if(Positions[1] == 1){ vpNum=rollbb; break;}ChosenPlace=1; CS=true;break;} break;
-                case 8: if((OPositions[3] == 1)){/*2nd if*/if((OPositions[7] == 1)){if(Positions[5] == 1){ vpNum=rollbb; break;}ChosenPlace=5; CS=true;break;}else{if(Positions[7] == 1){ vpNum=rollbb; break;}ChosenPlace=7; CS=true;break;} }else{if(Positions[3] == 1){ vpNum=rollbb; break;}ChosenPlace=3; CS=true;break;} break;
-                default: cout<<"ERROR:ChoosePlace, switch "<<endl;break;
-            }
+          //if for first move
+          if(Moves==0){
+               if( OPositions[5]!=1 ){//If center was not taken
+                    if( OPositions[1]==1 || OPositions[3]==1 || OPositions[7]==1 || OPositions[9]==1){//If a corner position was taken
+                         ChosenPlace=5;
+                         CS=true; break;
+                    }
+                    if( OPositions[2]==1 || OPositions[4]==1 || OPositions[6]==1 || OPositions[8]==1 ){//If an even place is taken(2,4,6,8)
+                         for(int i=1; i<10; i++){//For loop finding Opos
+                              if(OPositions[i]==1){
+                                   Opos=i;
+                                   break;
+                              }
+                         }
+                         rollbb = rand()%3 +1;
+                         switch(Opos){
+                              case 2:ChosenPlace=5; CS=true; break;
+                              case 4:ChosenPlace=5; CS=true; break;
+                              case 6:ChosenPlace=5; CS=true; break;
+                              case 8:ChosenPlace=5; CS=true; break;
+                              default: cout<<"ERROR:ChoosePlace, first move even switch "<<endl;break;
+                         } break;//break here to leave loop
+
+                    }
+
+               }else if( OPositions[5]==1 ){ //Center is taken
+                    rollbb = rand()%4 +1;
+                    switch(rollbb){
+                         case 1: ChosenPlace=1; CS=true; break;
+                         case 2: ChosenPlace=3; CS=true; break;
+                         case 3: ChosenPlace=7; CS=true; break;
+                         case 4: ChosenPlace=9; CS=true; break;
+                         default: cout<<"ERROR:ChoosePlace, first move switch "<<endl;break;
+                    } break;
+               }
+               if(OPositions[1]!=1 && OPositions[2]!=1 && OPositions[3]!=1 && OPositions[4]!=1 && OPositions[5]!=1 && OPositions[6]!=1 && OPositions[7]!=1 && OPositions[8]!=1 && OPositions[9]!=1){//No position is taken
+                         rollbb=rand()%9 +1;
+                         switch(rollbb){
+                              case 1: ChosenPlace=1; CS=true; break;
+                              case 2: ChosenPlace=2; CS=true; break;
+                              case 3: ChosenPlace=3; CS=true; break;
+                              case 4: ChosenPlace=4; CS=true; break;
+                              case 5: ChosenPlace=5; CS=true; break;
+                              case 6: ChosenPlace=6; CS=true; break;
+                              case 7: ChosenPlace=7; CS=true; break;
+                              case 8: ChosenPlace=8; CS=true; break;
+                              case 9: ChosenPlace=9; CS=true; break;
+                         } break;
+               }
+          }
+          //Second move stuff
+          //Checks for L plays (ie opponent has 2 and 7 and 1,4,3 are open)
+          if(OPositions[2]==1 && OPositions[7]==1 && Moves==1){// opponent has 2 and 7
+               if(OPositions[1]!=1 && Positions[1]!=1){ ChosenPlace=1; CS=true; break;}
+          }
+          if(OPositions[2]==1 && OPositions[9]==1 && Moves==1){// opponent has 2 and 9
+               if(OPositions[3]!=1 && Positions[3]!=1){ ChosenPlace=3; CS=true; break;}
+          }
+          if(OPositions[4]==1 && OPositions[3]==1 && Moves==1){// opponent has 4 and 3
+               if(OPositions[1]!=1 && Positions[1]!=1){ ChosenPlace=1; CS=true; break;}
+          }
+          if(OPositions[4]==1 && OPositions[9]==1 && Moves==1){// opponent has 4 and 9
+               if(OPositions[7]!=1 && Positions[7]!=1){ ChosenPlace=7; CS=true; break;}
+          }
+          if(OPositions[6]==1 && OPositions[1]==1 && Moves==1){// opponent has 6 and 1
+               if(OPositions[3]!=1 && Positions[3]!=1){ ChosenPlace=3; CS=true; break;}
+          }
+          if(OPositions[6]==1 && OPositions[7]==1 && Moves==1){// opponent has 6 and 7
+               if(OPositions[9]!=1 && Positions[9]!=1){ ChosenPlace=9; CS=true; break;}
+          }
+          if(OPositions[8]==1 && OPositions[1]==1 && Moves==1){// opponent has 8 and 1
+               if(OPositions[7]!=1 && Positions[7]!=1){ ChosenPlace=7; CS=true; break;}
+          }
+          if(OPositions[8]==1 && OPositions[3]==1 && Moves==1){// opponent has 8 and 3
+               if(OPositions[9]!=1 && Positions[9]!=1){ ChosenPlace=9; CS=true; break;}
+          }
+          if(vp[7]==2 && Moves==1 || vp[8]==2 && Moves==1){//Checks for diagonal plays 159 357
+               if(Positions[9]!=1 && OPositions[1]==1 && OPositions[5]){ChosenPlace=9; CS=true; break;}else if(Positions[3]!=1 && OPositions[1]==1 && OPositions[5]){ChosenPlace=3; CS=true; break;}
+               if(Positions[1]!=1 && OPositions[9]==1 && OPositions[5]){ChosenPlace=1; CS=true; break;}else if(Positions[7]!=1 && OPositions[9]==1 && OPositions[5]){ChosenPlace=7; CS=true; break;}
+               if(Positions[7]!=1 && OPositions[3]==1 && OPositions[5]){ChosenPlace=7; CS=true; break;}else if(Positions[1]!=1 && OPositions[3]==1 && OPositions[5]){ChosenPlace=1; CS=true; break;}
+               if(Positions[3]!=1 && OPositions[7]==1 && OPositions[5]){ChosenPlace=3; CS=true; break;}else if(Positions[9]!=1 && OPositions[7]==1 && OPositions[5]){ChosenPlace=9; CS=true; break;}
+               //if they go diagonal but 5 is taken
+               rollbb=rand()%4 +1;
+                    switch(rollbb){ //Chooses an even space
+                         case 1: ChosenPlace=2; CS=true; break;
+                         case 2: ChosenPlace=4; CS=true; break;
+                         case 3: ChosenPlace=6; CS=true; break;
+                         case 4: ChosenPlace=8; CS=true; break;
+                         default: cout<<"ERROR:ChoosePlace, first move switch "<<endl;break;
+                    } break;
+          }
+          if(vp[2]==2 && Moves==1 || vp[5]==2 && Moves==1){//Checks for across plays 456 and updown 258
+               if(Positions[5]!=1 && OPositions[5]!=1 ){ChosenPlace=5; CS=true; break;} //Pick five
+               if(Positions[6]!=1 && OPositions[4]==1 && OPositions[5]==1){ChosenPlace=6; CS=true; break;}
+               if(Positions[4]!=1 && OPositions[6]==1 && OPositions[5]==1){ChosenPlace=4; CS=true; break;}
+               if(Positions[8]!=1 && OPositions[2]==1 && OPositions[5]==1){ChosenPlace=8; CS=true; break;}
+               if(Positions[2]!=1 && OPositions[8]==1 && OPositions[5]==1){ChosenPlace=2; CS=true; break;}
+               rollbb=rand()%2 +1;
+               //if the across or updown is already blocked
+               if(Positions[6]==1 && OPositions[4]==1 && OPositions[5]==1){
+                    switch(rollbb){ //Chooses a space
+                         case 1: ChosenPlace=3; CS=true; break;
+                         case 2: ChosenPlace=9; CS=true; break;
+                         default: cout<<"ERROR:ChoosePlace, first move switch "<<endl;break;
+                    } break;
+               }
+               if(Positions[4]==1 && OPositions[6]==1 && OPositions[5]==1){
+                    switch(rollbb){ //Chooses a space
+                         case 1: ChosenPlace=1; CS=true; break;
+                         case 2: ChosenPlace=7; CS=true; break;
+                         default: cout<<"ERROR:ChoosePlace, first move switch "<<endl;break;
+                    } break;
+               }
+               if(Positions[8]==1 && OPositions[2]==1 && OPositions[5]==1){
+                    switch(rollbb){ //Chooses a space
+                         case 1: ChosenPlace=7; CS=true; break;
+                         case 2: ChosenPlace=9; CS=true; break;
+                         default: cout<<"ERROR:ChoosePlace, first move switch "<<endl;break;
+                    } break;
+               }
+               if(Positions[2]==1 && OPositions[8]==1 && OPositions[5]==1){
+                    switch(rollbb){ //Chooses a space
+                         case 1: ChosenPlace=1; CS=true; break;
+                         case 2: ChosenPlace=3; CS=true; break;
+                         default: cout<<"ERROR:ChoosePlace, first move switch "<<endl;break;
+                    } break;
+               }
+          }
+          if(vp[1]==2 && Moves==1 || vp[3]==2 && Moves==1 || vp[4]==2 && Moves==1 || vp[6]==2 && Moves==1){//Checks for edge plays (ie 123  [7,8,9] [1,4,7] or 369)
+               Opos=0;
+               //finding which edge play is true
+               if(Positions[2]!=1 && OPositions[1]==1 && OPositions[3]==1){ChosenPlace=2; CS=true; break;}
+               if(Positions[8]!=1 && OPositions[7]==1 && OPositions[9]==1){ChosenPlace=8; CS=true; break;}
+               if(Positions[4]!=1 && OPositions[1]==1 && OPositions[7]==1){ChosenPlace=4; CS=true; break;}
+               if(Positions[6]!=1 && OPositions[3]==1 && OPositions[9]==1){ChosenPlace=6; CS=true; break;}
+               //
+               if(Positions[3]!=1 && OPositions[2]==1 && OPositions[1]==1){ChosenPlace=3; CS=true; break;}else if(Positions[3]==1 && OPositions[2]==1 && OPositions[1]==1){ChosenPlace=9; CS=true; break;}
+               if(Positions[9]!=1 && OPositions[8]==1 && OPositions[7]==1){ChosenPlace=9; CS=true; break;}else if(Positions[9]==1 && OPositions[8]==1 && OPositions[7]==1){ChosenPlace=3; CS=true; break;}
+               if(Positions[7]!=1 && OPositions[4]==1 && OPositions[1]==1){ChosenPlace=7; CS=true; break;}else if(Positions[7]==1 && OPositions[4]==1 && OPositions[1]==1){ChosenPlace=9; CS=true; break;}
+               if(Positions[9]!=1 && OPositions[6]==1 && OPositions[3]==1){ChosenPlace=9; CS=true; break;}else if(Positions[9]==1 && OPositions[6]==1 && OPositions[3]==1){ChosenPlace=7; CS=true; break;}
+               //
+               if(Positions[1]!=1 && OPositions[2]==1 && OPositions[3]==1){ChosenPlace=1; CS=true; break;}else if(Positions[1]==1 && OPositions[2]==1 && OPositions[3]==1){ChosenPlace=7; CS=true; break;}
+               if(Positions[7]!=1 && OPositions[8]==1 && OPositions[9]==1){ChosenPlace=7; CS=true; break;}else if(Positions[7]==1 && OPositions[8]==1 && OPositions[9]==1){ChosenPlace=1; CS=true; break;}
+               if(Positions[1]!=1 && OPositions[4]==1 && OPositions[7]==1){ChosenPlace=1; CS=true; break;}else if(Positions[1]==1 && OPositions[4]==1 && OPositions[7]==1){ChosenPlace=3; CS=true; break;}
+               if(Positions[3]!=1 && OPositions[6]==1 && OPositions[9]==1){ChosenPlace=3; CS=true; break;}else if(Positions[3]==1 && OPositions[6]==1 && OPositions[9]==1){ChosenPlace=1; CS=true; break;}
+          }
+          //checks for even plays ie [2,4] [8,6]
+          if( Moves==1 && (OPositions[2]==1 && OPositions[4]==1 && Positions[1]!=1)){ // 2,4
+               ChosenPlace=1; CS=true; break;
+          }
+          if( Moves==1 && (OPositions[2]==1 && OPositions[6]==1 && Positions[3]!=1)){ // 2,6
+               ChosenPlace=3; CS=true; break;
+          }
+          if( Moves==1 && (OPositions[4]==1 && OPositions[8]==1 && Positions[7]!=1)){ // 4,8
+               ChosenPlace=7; CS=true; break;
+          }
+          if( Moves==1 && (OPositions[8]==1 && OPositions[6]==1 && Positions[9]!=1)){ // 8,6
+               ChosenPlace=9; CS=true; break;
+          }
+          //
+          //Third move stuff
+          //Checks for ez wins
+          if(AIvp[1]==2){ // [1,2,3]/
+               if(Positions[1]==1 && Positions[2]==1 && OPositions[3]!=1){ChosenPlace=3; CS=true; break;}
+               if(Positions[1]==1 && Positions[3]==1 && OPositions[2]!=1){ChosenPlace=2; CS=true; break;}
+               if(Positions[3]==1 && Positions[2]==1 && OPositions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(AIvp[2]==2){ // [4,5,6]/
+               if(Positions[4]==1 && Positions[5]==1 && OPositions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(Positions[4]==1 && Positions[6]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[6]==1 && OPositions[4]!=1){ChosenPlace=4; CS=true; break;}
+          }
+          if(AIvp[3]==2){ // [7,8,9]/
+               if(Positions[7]==1 && Positions[8]==1 && OPositions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(Positions[7]==1 && Positions[9]==1 && OPositions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(Positions[8]==1 && Positions[9]==1 && OPositions[7]!=1){ChosenPlace=7; CS=true; break;}
+          }
+          if(AIvp[4]==2){ // [1,4,7]/
+               if(Positions[1]==1 && Positions[4]==1 && OPositions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(Positions[1]==1 && Positions[7]==1 && OPositions[4]!=1){ChosenPlace=4; CS=true; break;}
+               if(Positions[4]==1 && Positions[7]==1 && OPositions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(AIvp[5]==2){ // [2,5,8]/
+               if(Positions[2]==1 && Positions[5]==1 && OPositions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(Positions[2]==1 && Positions[8]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[8]==1 && OPositions[2]!=1){ChosenPlace=2; CS=true; break;}
+          }
+          if(AIvp[6]==2){  // [3,6,9]/
+               if(Positions[3]==1 && Positions[6]==1 && OPositions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(Positions[3]==1 && Positions[9]==1 && OPositions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(Positions[6]==1 && Positions[9]==1 && OPositions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          if(AIvp[7]==2){ // [1,5,9]/
+               if(Positions[1]==1 && Positions[5]==1 && OPositions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(Positions[1]==1 && Positions[9]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[9]==1 && OPositions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(AIvp[8]==2){ // [3,5,7]/
+               if(Positions[3]==1 && Positions[5]==1 && OPositions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(Positions[3]==1 && Positions[7]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[7]==1 && OPositions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          //
+          //Checks for winning opponent positions and stops them
+          //
+          if(vp[1]==2){ // [1,2,3]/
+               if(OPositions[1]==1 && OPositions[2]==1 && Positions[3]!=1){ChosenPlace=3; CS=true; break;}
+               if(OPositions[1]==1 && OPositions[3]==1 && Positions[2]!=1){ChosenPlace=2; CS=true; break;}
+               if(OPositions[3]==1 && OPositions[2]==1 && Positions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(vp[2]==2){ // [4,5,6]/
+               if(OPositions[4]==1 && OPositions[5]==1 && Positions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(OPositions[4]==1 && OPositions[6]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[6]==1 && Positions[4]!=1){ChosenPlace=4; CS=true; break;}
+          }
+          if(vp[3]==2){ // [7,8,9]/
+               if(OPositions[7]==1 && OPositions[8]==1 && Positions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(OPositions[7]==1 && OPositions[9]==1 && Positions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(OPositions[8]==1 && OPositions[9]==1 && Positions[7]!=1){ChosenPlace=7; CS=true; break;}
+          }
+          if(vp[4]==2){ // [1,4,7]/
+               if(OPositions[1]==1 && OPositions[4]==1 && Positions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(OPositions[1]==1 && OPositions[7]==1 && Positions[4]!=1){ChosenPlace=4; CS=true; break;}
+               if(OPositions[4]==1 && OPositions[7]==1 && Positions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(vp[5]==2){ // [2,5,8]/
+               if(OPositions[2]==1 && OPositions[5]==1 && Positions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(OPositions[2]==1 && OPositions[8]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[8]==1 && Positions[2]!=1){ChosenPlace=2; CS=true; break;}
+          }
+          if(vp[6]==2){  // [3,6,9]/
+               if(OPositions[3]==1 && OPositions[6]==1 && Positions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(OPositions[3]==1 && OPositions[9]==1 && Positions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(OPositions[6]==1 && OPositions[9]==1 && Positions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          if(vp[7]==2){ // [1,5,9]/
+               if(OPositions[1]==1 && OPositions[5]==1 && Positions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(OPositions[1]==1 && OPositions[9]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[9]==1 && Positions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(vp[8]==2){ // [3,5,7]/
+               if(OPositions[3]==1 && OPositions[5]==1 && Positions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(OPositions[3]==1 && OPositions[7]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[7]==1 && Positions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          //
+          if(vp[7]==2 && Moves==2 || vp[8]==2 && Moves==2){//Checks for diagonal plays 159 357
+               if(Positions[5]==1 ){ //If ai holds 5
+                    if(Positions[8]==1 && OPositions[2]==1){ if(OPositions[1]==1){ChosenPlace=3; CS=true; break;}else{ChosenPlace=1; CS=true; break;} }
+                    if(Positions[2]==1 && OPositions[8]==1){ if(OPositions[9]==1){ChosenPlace=7; CS=true; break;}else{ChosenPlace=9; CS=true; break;} }
+                    if(Positions[6]==1 && OPositions[4]==1){ if(OPositions[1]==1){ChosenPlace=7; CS=true; break;}else{ChosenPlace=1; CS=true; break;} }
+                    if(Positions[4]==1 && OPositions[6]==1){ if(OPositions[9]==1){ChosenPlace=3; CS=true; break;}else{ChosenPlace=9; CS=true; break;} }
+               }else if(OPositions[5]==1){
+                    //
+                    if(Positions[1]==1 && Positions[4]==1){ ChosenPlace=3; CS=true; break; }
+                    if(Positions[1]==1 && Positions[6]==1){ ChosenPlace=3; CS=true; break; }
+                    if(Positions[1]==1 && Positions[8]==1){ ChosenPlace=3; CS=true; break; }
+                    //
+                    if(Positions[3]==1 && Positions[2]==1){ ChosenPlace=7; CS=true; break; }
+                    if(Positions[3]==1 && Positions[4]==1){ ChosenPlace=7; CS=true; break; }
+                    if(Positions[3]==1 && Positions[8]==1){ ChosenPlace=7; CS=true; break; }
+                    //
+                    if(Positions[7]==1 && Positions[4]==1){ ChosenPlace=7; CS=true; break; }
+                    if(Positions[7]==1 && Positions[4]==1){ ChosenPlace=7; CS=true; break; }
+                    if(Positions[7]==1 && Positions[4]==1){ ChosenPlace=7; CS=true; break; }
+                    //
+                    if(Positions[9]==1 && Positions[6]==1){ ChosenPlace=3; CS=true; break; }
+                    if(Positions[9]==1 && Positions[6]==1){ ChosenPlace=3; CS=true; break; }
+                    if(Positions[9]==1 && Positions[6]==1){ ChosenPlace=3; CS=true; break; }
+               }
+
+          }
+          if(vp[1]==2 && Moves==2 || vp[3]==2 && Moves==2 || vp[4]==2 && Moves==2 || vp[6]==2 && Moves==2 ){//Edge play was stopped 123 [7,8,9] [1,4,7] or 369
+               Opos=0;
+               rollbb=0;
+               //
+               if(OPositions[8]==1){rollbb=rand()%2 +1; Opos=8;}else if(Positions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(OPositions[2]==1){rollbb=rand()%2 +1; Opos=2;}else if(Positions[2]!=1){ChosenPlace=2; CS=true; break;}
+               if(OPositions[6]==1){rollbb=rand()%2 +1; Opos=6;}else if(Positions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(OPositions[4]==1){rollbb=rand()%2 +1; Opos=4;}else if(Positions[4]!=1){ChosenPlace=4; CS=true; break;}
+               if(rollbb!=0){
+                    switch(Opos){ //Based on opponent position
+                         case 8:{
+                              switch(rollbb){ //chooses an open space
+                                   case 1: ChosenPlace=4; CS=true; break;
+                                   case 2: ChosenPlace=6; CS=true; break;
+                                   default: cout<<"ERROR:ChoosePlace, second move switch "<<endl;break;
+                              }
+                         } break;
+                         case 2:{
+                              switch(rollbb){ //chooses an open space
+                                   case 1: ChosenPlace=4; CS=true; break;
+                                   case 2: ChosenPlace=6; CS=true; break;
+                                   default: cout<<"ERROR:ChoosePlace, second move switch "<<endl;break;
+                              }
+                         } break;
+                         case 6:{
+                              switch(rollbb){ //chooses an open space
+                                   case 1: ChosenPlace=2; CS=true; break;
+                                   case 2: ChosenPlace=8; CS=true; break;
+                                   default: cout<<"ERROR:ChoosePlace, second move switch "<<endl;break;
+                              }
+                         } break;
+                         case 4:{
+                              switch(rollbb){ //chooses an open space
+                                   case 1: ChosenPlace=2; CS=true; break;
+                                   case 2: ChosenPlace=8; CS=true; break;
+                                   default: cout<<"ERROR:ChoosePlace, second move switch "<<endl;break;
+                              }
+                         } break;
+                         default: cout<<"ERROR:ChoosePlace, second move switch "<<endl;break;
+                    } break;
+               }
+          }
+          //Checks for L plays (ie opponent has 2 and 7 and 1,4,3 are open)
+          /*
+          if(OPositions[2]==1 && OPositions[7]==1 && Moves==2){// opponent has 2 and 7
+               if(OPositions[1]!=1 && Positions[1]!=1){ ChosenPlace=1; CS=true; break;}
+          }
+          if(OPositions[2]==1 && OPositions[9]==1 && Moves==2){// opponent has 2 and 9
+               if(OPositions[3]!=1 && Positions[3]!=1){ ChosenPlace=3; CS=true; break;}
+          }
+          if(OPositions[4]==1 && OPositions[3]==1 && Moves==2){// opponent has 4 and 3
+               if(OPositions[1]!=1 && Positions[1]!=1){ ChosenPlace=1; CS=true; break;}
+          }
+          if(OPositions[4]==1 && OPositions[9]==1 && Moves==2){// opponent has 4 and 9
+               if(OPositions[7]!=1 && Positions[7]!=1){ ChosenPlace=7; CS=true; break;}
+          }
+          if(OPositions[6]==1 && OPositions[1]==1 && Moves==2){// opponent has 6 and 1
+               if(OPositions[3]!=1 && Positions[3]!=1){ ChosenPlace=3; CS=true; break;}
+          }
+          if(OPositions[6]==1 && OPositions[7]==1 && Moves==2){// opponent has 6 and 7
+               if(OPositions[9]!=1 && Positions[9]!=1){ ChosenPlace=9; CS=true; break;}
+          }
+          if(OPositions[8]==1 && OPositions[1]==1 && Moves==2){// opponent has 8 and 1
+               if(OPositions[7]!=1 && Positions[7]!=1){ ChosenPlace=7; CS=true; break;}
+          }
+          if(OPositions[8]==1 && OPositions[3]==1 && Moves==2){// opponent has 8 and 3
+               if(OPositions[9]!=1 && Positions[9]!=1){ ChosenPlace=9; CS=true; break;}
+          } */
+          //Forth and Final move
+          //Checks for ez wins
+          if(AIvp[1]==2){ // [1,2,3]/
+               if(Positions[1]==1 && Positions[2]==1 && OPositions[3]!=1){ChosenPlace=3; CS=true; break;}
+               if(Positions[1]==1 && Positions[3]==1 && OPositions[2]!=1){ChosenPlace=2; CS=true; break;}
+               if(Positions[3]==1 && Positions[2]==1 && OPositions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(AIvp[2]==2){ // [4,5,6]/
+               if(Positions[4]==1 && Positions[5]==1 && OPositions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(Positions[4]==1 && Positions[6]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[6]==1 && OPositions[4]!=1){ChosenPlace=4; CS=true; break;}
+          }
+          if(AIvp[3]==2){ // [7,8,9]/
+               if(Positions[7]==1 && Positions[8]==1 && OPositions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(Positions[7]==1 && Positions[9]==1 && OPositions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(Positions[8]==1 && Positions[9]==1 && OPositions[7]!=1){ChosenPlace=7; CS=true; break;}
+          }
+          if(AIvp[4]==2){ // [1,4,7]/
+               if(Positions[1]==1 && Positions[4]==1 && OPositions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(Positions[1]==1 && Positions[7]==1 && OPositions[4]!=1){ChosenPlace=4; CS=true; break;}
+               if(Positions[4]==1 && Positions[7]==1 && OPositions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(AIvp[5]==2){ // [2,5,8]/
+               if(Positions[2]==1 && Positions[5]==1 && OPositions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(Positions[2]==1 && Positions[8]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[8]==1 && OPositions[2]!=1){ChosenPlace=2; CS=true; break;}
+          }
+          if(AIvp[6]==2){  // [3,6,9]/
+               if(Positions[3]==1 && Positions[6]==1 && OPositions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(Positions[3]==1 && Positions[9]==1 && OPositions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(Positions[6]==1 && Positions[9]==1 && OPositions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          if(AIvp[7]==2){ // [1,5,9]/
+               if(Positions[1]==1 && Positions[5]==1 && OPositions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(Positions[1]==1 && Positions[9]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[9]==1 && OPositions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(AIvp[8]==2){ // [3,5,7]/
+               if(Positions[3]==1 && Positions[5]==1 && OPositions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(Positions[3]==1 && Positions[7]==1 && OPositions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(Positions[5]==1 && Positions[7]==1 && OPositions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          //
+          //Checks for winning opponent positions and stops them
+          //
+          if(vp[1]==2){ // [1,2,3]/
+               if(OPositions[1]==1 && OPositions[2]==1 && Positions[3]!=1){ChosenPlace=3; CS=true; break;}
+               if(OPositions[1]==1 && OPositions[3]==1 && Positions[2]!=1){ChosenPlace=2; CS=true; break;}
+               if(OPositions[3]==1 && OPositions[2]==1 && Positions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(vp[2]==2){ // [4,5,6]/
+               if(OPositions[4]==1 && OPositions[5]==1 && Positions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(OPositions[4]==1 && OPositions[6]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[6]==1 && Positions[4]!=1){ChosenPlace=4; CS=true; break;}
+          }
+          if(vp[3]==2){ // [7,8,9]/
+               if(OPositions[7]==1 && OPositions[8]==1 && Positions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(OPositions[7]==1 && OPositions[9]==1 && Positions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(OPositions[8]==1 && OPositions[9]==1 && Positions[7]!=1){ChosenPlace=7; CS=true; break;}
+          }
+          if(vp[4]==2){ // [1,4,7]/
+               if(OPositions[1]==1 && OPositions[4]==1 && Positions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(OPositions[1]==1 && OPositions[7]==1 && Positions[4]!=1){ChosenPlace=4; CS=true; break;}
+               if(OPositions[4]==1 && OPositions[7]==1 && Positions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(vp[5]==2){ // [2,5,8]/
+               if(OPositions[2]==1 && OPositions[5]==1 && Positions[8]!=1){ChosenPlace=8; CS=true; break;}
+               if(OPositions[2]==1 && OPositions[8]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[8]==1 && Positions[2]!=1){ChosenPlace=2; CS=true; break;}
+          }
+          if(vp[6]==2){  // [3,6,9]/
+               if(OPositions[3]==1 && OPositions[6]==1 && Positions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(OPositions[3]==1 && OPositions[9]==1 && Positions[6]!=1){ChosenPlace=6; CS=true; break;}
+               if(OPositions[6]==1 && OPositions[9]==1 && Positions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          if(vp[7]==2){ // [1,5,9]/
+               if(OPositions[1]==1 && OPositions[5]==1 && Positions[9]!=1){ChosenPlace=9; CS=true; break;}
+               if(OPositions[1]==1 && OPositions[9]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[9]==1 && Positions[1]!=1){ChosenPlace=1; CS=true; break;}
+          }
+          if(vp[8]==2){ // [3,5,7]/
+               if(OPositions[3]==1 && OPositions[5]==1 && Positions[7]!=1){ChosenPlace=7; CS=true; break;}
+               if(OPositions[3]==1 && OPositions[7]==1 && Positions[5]!=1){ChosenPlace=5; CS=true; break;}
+               if(OPositions[5]==1 && OPositions[7]==1 && Positions[3]!=1){ChosenPlace=3; CS=true; break;}
+          }
+          //if there are only two spaces left randomly choses between those two
+          Opos=0;
+          SOpos=0;
+          for(int i=1; i<10; i++){
+               if(OPositions[i]!=1 && Positions[i]!=1){
+                    if(Opos!=0){
+                         SOpos=i;
+                    }else{Opos=i;}
+
+               }
+          }
+          rollbb=rand()%100 +1;
+          if(rollbb>50){
+               ChosenPlace=Opos;
+               CS=true; break;
+          }else{
+               ChosenPlace=SOpos;
+               CS=true; break;
+          }
         }
     Moves++;
+    Memory.push_back(ChosenPlace);
 return ChosenPlace;
 }
-int TTTAI::Play(int HPositions[], int AIPositions[]){ //Play function will use chooseplace to put down a spot on the board.
+int TTTAI::Play(int HPositions[], int Positions[]){ //Play function will use chooseplace to put down a spot on the board.
         using namespace std;
     // bool SP; // SP = Successful placement // This bool is used to make sure the placement wasn't on a controlled space or otherwise not possible
     int chosenplace = (ChoosePlace(HPositions, AIPositions)) ;
     switch( chosenplace ){
-            case -1: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero/-1 if there are no places it can go
-            case 0: cout<<"I have been bested."<<endl; break; //The ai will have chosenplace as zero if there are no places it can go
-            case 1: if( HPositions[1] == 1 ){AIPositions[1] = 0; break;} if( AIPositions[1] == 1){break;} Positions[1]=1; break;
-            case 2: if( HPositions[2] == 1 ){AIPositions[2] = 0; break;} if( AIPositions[2] == 1){break;} Positions[2]=1; break;
-            case 3: if( HPositions[3] == 1 ){AIPositions[3] = 0; break;} if( AIPositions[3] == 1){break;} Positions[3]=1; break;
-            case 4: if( HPositions[4] == 1 ){AIPositions[4] = 0; break;} if( AIPositions[4] == 1){break;} Positions[4]=1; break;
-            case 5: if( HPositions[5] == 1 ){AIPositions[5] = 0; break;} if( AIPositions[5] == 1){break;} Positions[5]=1; break;
-            case 6: if( HPositions[6] == 1 ){AIPositions[6] = 0; break;} if( AIPositions[6] == 1){break;} Positions[6]=1; break;
-            case 7: if( HPositions[7] == 1 ){AIPositions[7] = 0; break;} if( AIPositions[7] == 1){break;} Positions[7]=1; break;
-            case 8: if( HPositions[8] == 1 ){AIPositions[8] = 0; break;} if( AIPositions[8] == 1){break;} Positions[8]=1; break;
-            case 9: if( HPositions[9] == 1 ){AIPositions[9] = 0; break;} if( AIPositions[9] == 1){break;} Positions[9]=1; break;
+            case -1: /* cout<<"Well played."<<endl; */ break; //The ai will have chosenplace as zero/-1 if there are no places it can go
+            case 0:  /* cout<<"Well played."<<endl; */ break; //The ai will have chosenplace as zero if there are no places it can go
+            case 1: if( HPositions[1] == 1 ){Positions[1] = 0; break;} if( Positions[1] == 1){break;} AIPositions[1]=1; break;
+            case 2: if( HPositions[2] == 1 ){Positions[2] = 0; break;} if( Positions[2] == 1){break;} AIPositions[2]=1; break;
+            case 3: if( HPositions[3] == 1 ){Positions[3] = 0; break;} if( Positions[3] == 1){break;} AIPositions[3]=1; break;
+            case 4: if( HPositions[4] == 1 ){Positions[4] = 0; break;} if( Positions[4] == 1){break;} AIPositions[4]=1; break;
+            case 5: if( HPositions[5] == 1 ){Positions[5] = 0; break;} if( Positions[5] == 1){break;} AIPositions[5]=1; break;
+            case 6: if( HPositions[6] == 1 ){Positions[6] = 0; break;} if( Positions[6] == 1){break;} AIPositions[6]=1; break;
+            case 7: if( HPositions[7] == 1 ){Positions[7] = 0; break;} if( Positions[7] == 1){break;} AIPositions[7]=1; break;
+            case 8: if( HPositions[8] == 1 ){Positions[8] = 0; break;} if( Positions[8] == 1){break;} AIPositions[8]=1; break;
+            case 9: if( HPositions[9] == 1 ){Positions[9] = 0; break;} if( Positions[9] == 1){break;} AIPositions[9]=1; break;
             default: cout<<"ERROR: TTTAI::PLAY, Switch"<<endl; break;
         }
 return chosenplace;
@@ -344,8 +1002,2480 @@ int TTTHuman::HPlay(int HPositions[], int AIPositions[]){ //Functions needs obje
 return HP;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+//////// Where the class functions for NN are defined /////////
+///////////////////////////////////////////////////////////////////////////////////
 
+//Constructor for NN
+void NN::startNN(bool ultimate){
+
+     //
+     if(ultimate){
+          //
+          for(int i=0; i<81; i++){ // layer //81
+               UL1.push_back( createObject<Neuron>() );
+          }
+          for(int i=0; i<108; i++){ // layer //108
+               UL2.push_back( createObject<Neuron>() );
+          }
+          for(int i=0; i<96; i++){ //layer //96
+               UL3.push_back( createObject<Neuron>() );
+          }
+          for(int i=0; i<84; i++){ //layer //84
+               UL4.push_back( createObject<Neuron>() );
+          }
+          for(int i=0; i<81; i++){ //layer //81
+               UL5.push_back( createObject<Neuron>() );
+          }
+
+          //
+          ///
+          //
+          for(int i=0; i<UL1.size(); i++){
+               for(int j=0; j<UL2.size(); j++){
+                    UL1.at(i).Connections.push_back( createObject<Synapse>() );
+               }
+          }
+          //
+          for(int i=0; i<UL2.size(); i++){
+               for(int j=0; j<UL3.size(); j++){
+                    UL2.at(i).Connections.push_back( createObject<Synapse>() );
+               }
+          }
+          //
+          for(int i=0; i<UL3.size(); i++){
+               for(int j=0; j<UL4.size(); j++){
+                    UL3.at(i).Connections.push_back( createObject<Synapse>() );
+               }
+          }
+          for(int i=0; i<UL4.size(); i++){
+               for(int j=0; j<UL5.size(); j++){
+                    UL4.at(i).Connections.push_back( createObject<Synapse>() );
+               }
+          }
+          //
+          //
+          ///
+          //
+          UW1.set_size(UL1.size(), UL2.size());
+          UW2.set_size(UL2.size(), UL3.size());
+          UW3.set_size(UL3.size(), UL4.size());
+          UW4.set_size(UL4.size(), UL5.size());
+          //
+          UOutput.set_size(1,UL1.size());
+     }
+     //If not Ultimate TTT
+     //Filling of Neuron Vectors
+     for(int i=0; i<9; i++){ //Input layer //9
+          NIL.push_back( createObject<Neuron>() );
+     }
+     //hidden Layer 1 // 9
+     for(int i=0; i<9; i++){
+          NHL.push_back( createObject<Neuron>() );
+     }
+     //Second hidden Layer // 27
+     for(int i=0; i<18; i++){
+          NHL2.push_back( createObject<Neuron>() );
+     }
+     //Third hidden Layer // 72
+     for(int i=0; i<36; i++){
+          NHL3.push_back( createObject<Neuron>() );
+     }
+     //fourth hidden Layer // 28
+     for(int i=0; i<18; i++){
+          NHL4.push_back( createObject<Neuron>() );
+     }
+     // Layer// 14
+     for(int i=0; i<14; i++){
+          NOL.push_back( createObject<Neuron>() );
+     }
+     //Output Layer// 9
+     for(int i=0; i<9; i++){
+          OL.push_back( createObject<Neuron>() );
+     }
+     //
+     //Creation of Synapses
+     //
+     for(int i=0; i<NIL.size(); i++){ //Input layer
+          for(int j=0; j<NHL.size(); j++){
+               NIL.at(i).Connections.push_back( createObject<Synapse>() );
+          }
+     }
+
+     //hidden Layer 1
+     for(int i=0; i<NHL.size(); i++){
+          for(int j=0; j<NHL2.size(); j++){
+               NHL.at(i).Connections.push_back( createObject<Synapse>() );
+          }
+     }
+     //Second hidden Layer
+     //Creation of Synapses
+     //9 synapses for each Neuron
+     for(int i=0; i<NHL2.size(); i++){
+          for(int j=0; j<NHL3.size(); j++){
+               NHL2.at(i).Connections.push_back( createObject<Synapse>() );
+          }
+     }
+     //
+     for(int i=0; i<NHL3.size(); i++){
+          for(int j=0; j<NHL4.size(); j++){
+               NHL3.at(i).Connections.push_back( createObject<Synapse>() );
+          }
+     }
+     //
+     for(int i=0; i<NHL4.size(); i++){
+          for(int j=0; j<NOL.size(); j++){
+               NHL4.at(i).Connections.push_back( createObject<Synapse>() );
+          }
+     }
+     //
+     for(int i=0; i<NOL.size(); i++){
+          for(int j=0; j<OL.size(); j++){
+               NOL.at(i).Connections.push_back( createObject<Synapse>() );
+          }
+     }
+     //
+     CostM.set_size(1,9); //Sets size for matrix
+     W1.set_size(  NIL.size(),  NHL.size()  );
+     W2.set_size(  NHL.size() , NHL2.size()  );
+     W3.set_size( NHL2.size() , NHL3.size() );
+     W4.set_size( NHL3.size() , NHL4.size() );
+     W5.set_size( NHL4.size() , NOL.size() );
+     W6.set_size( NOL.size() , OL.size() );
+     //TW.set_size(NOL.size(),1);
+     //
+     W1Copy.set_size( NIL.size() ,  NHL.size()  );
+     W2Copy.set_size( NHL.size() , NHL2.size()  );
+     W3Copy.set_size( NHL2.size() , NHL3.size()  );
+     W4Copy.set_size( NHL3.size() ,NHL4.size() );
+     W5Copy.set_size( NHL4.size() ,NOL.size()  );
+     W6Copy.set_size( NOL.size() , OL.size()   );
+     //TWCopy.set_size(NOL.size(),1);
+     //
+     TEW1.set_size( NIL.size(),  NHL.size() );
+     TEW1.fill(fill::zeros);
+     //
+     TEW2.set_size( NHL.size() , NHL2.size() );
+     TEW2.fill(fill::zeros);
+     //
+     TEW3.set_size( NHL2.size() , NHL3.size()  );
+     TEW3.fill(fill::zeros);
+     //
+     TEW4.set_size( NHL3.size() , NHL4.size()  );
+     TEW4.fill(fill::zeros);
+     //
+     TEW5.set_size( NHL4.size() , NOL.size()  );
+     TEW5.fill(fill::zeros);
+     //
+     TEW6.set_size( NOL.size() , OL.size()  );
+     TEW6.fill(fill::zeros);
+     //Bias
+     TEB1.set_size( 1, NIL.size() );
+     TEB1.fill(fill::zeros);
+     //
+     TEB2.set_size( 1, NHL.size() );
+     TEB2.fill(fill::zeros);
+     //
+     TEB3.set_size( 1, NHL2.size());
+     TEB3.fill(fill::zeros);
+     //
+     TEB4.set_size( 1, NHL3.size());
+     TEB4.fill(fill::zeros);
+     //
+     TEB5.set_size( 1, NHL4.size());
+     TEB5.fill(fill::zeros);
+     //
+     TEB6.set_size( 1, NOL.size() );
+     TEB6.fill(fill::zeros);
+     //
+     //TEW4.set_size(NOL.size(),1);
+     //TEW4.fill(fill::zeros);
+     //
+     Input.set_size(1,NIL.size());
+     //
+     MZ1.set_size(NIL.size() , NHL.size() );
+     MZ2.set_size(NHL.size() , NHL2.size());
+     MZ3.set_size(NHL2.size(), NHL3.size());
+     MZ4.set_size(NHL3.size(), NHL4.size());
+     MZ5.set_size(NHL4.size(), NOL.size() );
+     MZ6.set_size(NOL.size() , OL.size()  );
+     //MZ4.set_size(3,3);
+     MA1.set_size(NIL.size() , NHL.size()  );
+     MA2.set_size(NHL.size() , NHL2.size()  );
+     MA3.set_size(NHL2.size(), NHL3.size()  );
+     MA4.set_size(NHL3.size(), NHL4.size()  );
+     MA5.set_size(NHL4.size(), NOL.size()  );
+     MA6.set_size(NOL.size() , OL.size()   );
+     //MA4.set_size(3,3);
+     //
+     MZ1.fill(fill::zeros);
+     MZ2.fill(fill::zeros);
+     MZ3.fill(fill::zeros);
+     MZ4.fill(fill::zeros);
+     MZ5.fill(fill::zeros);
+     MZ6.fill(fill::zeros);
+     //MZ4.fill(fill::zeros);
+     MA1.fill(fill::zeros);
+     MA2.fill(fill::zeros);
+     MA3.fill(fill::zeros);
+     MA4.fill(fill::zeros);
+     MA5.fill(fill::zeros);
+     MA6.fill(fill::zeros);
+     //MA4.fill(fill::zeros);
+     //
+     OutputM.set_size(1,9);
+     OutputM.fill(fill::zeros);
+     OPMCopy=OutputM;
+     //
+return;
+}
+//
+mat NN::VP(mat In){
+     Input=In;
+     mat matVP;
+     matVP.set_size(1,9); matVP.fill(fill::zeros);
+     //
+     int AIvp[9];
+     AIvp[1] = ( Input(1-1)+Input(2-1)+Input(3-1) ); // [1,2,3]
+     AIvp[2] = ( Input(4-1)+Input(5-1)+Input(6-1) ); // [4,5,6]
+     AIvp[3] = ( Input(7-1)+Input(8-1)+Input(9-1) ); // [7,8,9]
+     AIvp[4] = ( Input(1-1)+Input(4-1)+Input(7-1) ); // [1,4,7]
+     AIvp[5] = ( Input(2-1)+Input(5-1)+Input(8-1) ); // [2,5,8]
+     AIvp[6] = ( Input(3-1)+Input(6-1)+Input(9-1) ); // [3,6,9]
+     AIvp[7] = ( Input(1-1)+Input(5-1)+Input(9-1) ); // [1,5,9]
+     AIvp[8] = ( Input(3-1)+Input(5-1)+Input(7-1) ); // [3,5,7]
+     int Hvp[9];
+     Hvp[1] = ( Input(1-1)+Input(2-1)+Input(3-1) ); // [1,2,3]
+     Hvp[2] = ( Input(4-1)+Input(5-1)+Input(6-1) ); // [4,5,6]
+     Hvp[3] = ( Input(7-1)+Input(8-1)+Input(9-1) ); // [7,8,9]
+     Hvp[4] = ( Input(1-1)+Input(4-1)+Input(7-1) ); // [1,4,7]
+     Hvp[5] = ( Input(2-1)+Input(5-1)+Input(8-1) ); // [2,5,8]
+     Hvp[6] = ( Input(3-1)+Input(6-1)+Input(9-1) ); // [3,6,9]
+     Hvp[7] = ( Input(1-1)+Input(5-1)+Input(9-1) ); // [1,5,9]
+     Hvp[8] = ( Input(3-1)+Input(5-1)+Input(7-1) ); // [3,5,7]
+     if(AIvp[1]==-2){ // [1,2,3]/
+               if(Input(0,1-1)==-1 && Input(0,2-1)==-1 && Input(0,3-1)!=-1){matVP(0,3-1)+=1; }
+               if(Input(0,1-1)==-1 && Input(0,3-1)==-1 && Input(0,2-1)!=-1){matVP(0,2-1)+=1; }
+               if(Input(0,3-1)==-1 && Input(0,2-1)==-1 && Input(0,1-1)!=-1){matVP(0,1-1)+=1; }
+          }
+          if(AIvp[2]==-2){ // [4,5,6]/
+               if(Input(0,4-1)==-1 && Input(0,5-1)==-1 && Input(0,6-1)!=-1){matVP(0,6-1)+=1; }
+               if(Input(0,4-1)==-1 && Input(0,6-1)==-1 && Input(0,5-1)!=-1){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-1 && Input(0,6-1)==-1 && Input(0,4-1)!=-1){matVP(0,4-1)+=1; }
+          }
+          if(AIvp[3]==-2){ // [7,8,9]/
+               if(Input(0,7-1)==-1 && Input(0,8-1)==-1 && Input(0,9-1)!=-1){matVP(0,9-1)+=1; }
+               if(Input(0,7-1)==-1 && Input(0,9-1)==-1 && Input(0,8-1)!=-1){matVP(0,8-1)+=1; }
+               if(Input(0,8-1)==-1 && Input(0,9-1)==-1 && Input(0,7-1)!=-1){matVP(0,7-1)+=1; }
+          }
+          if(AIvp[4]==-2){ // [1,4,7]/
+               if(Input(0,1-1)==-1 && Input(0,4-1)==-1 && Input(0,7-1)!=-1){matVP(0,7-1)+=1; }
+               if(Input(0,1-1)==-1 && Input(0,7-1)==-1 && Input(0,4-1)!=-1){matVP(0,4-1)+=1; }
+               if(Input(0,4-1)==-1 && Input(0,7-1)==-1 && Input(0,1-1)!=-1){matVP(0,1-1)+=1; }
+          }
+          if(AIvp[5]==-2){ // [2,5,8]/
+               if(Input(0,2-1)==-1 && Input(0,5-1)==-1 && Input(0,8-1)!=-1){matVP(0,8-1)+=1; }
+               if(Input(0,2-1)==-1 && Input(0,8-1)==-1 && Input(0,5-1)!=-1){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-1 && Input(0,8-1)==-1 && Input(0,2-1)!=-1){matVP(0,2-1)+=1; }
+          }
+          if(AIvp[6]==-2){  // [3,6,9]/
+               if(Input(0,3-1)==-1 && Input(0,6-1)==-1 && Input(0,9-1)!=-1){matVP(0,9-1)+=1; }
+               if(Input(0,3-1)==-1 && Input(0,9-1)==-1 && Input(0,6-1)!=-1){matVP(0,6-1)+=1; }
+               if(Input(0,6-1)==-1 && Input(0,9-1)==-1 && Input(0,3-1)!=-1){matVP(0,3-1)+=1; }
+          }
+          if(AIvp[7]==-2){ // [1,5,9]/
+               if(Input(0,1-1)==-1 && Input(0,5-1)==-1 && Input(0,9-1)!=-1){matVP(0,9-1)+=1; }
+               if(Input(0,1-1)==-1 && Input(0,9-1)==-1 && Input(0,5-1)!=-1){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-1 && Input(0,9-1)==-1 && Input(0,1-1)!=-1){matVP(0,1-1)+=1; }
+          }
+          if(AIvp[8]==-2){ // [3,5,7]/
+               if(Input(0,3-1)==-1 && Input(0,5-1)==-1 && Input(0,7-1)!=-1){matVP(0,7-1)+=1; }
+               if(Input(0,3-1)==-1 && Input(0,7-1)==-1 && Input(0,5-1)!=-1){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-1 && Input(0,7-1)==-1 && Input(0,3-1)!=-1){matVP(0,3-1)+=1; }
+          }
+     //
+     if(Hvp[1]==-4){ // [1,2,3]/
+               if(Input(0,1-1)==-2 && Input(0,2-1)==-2 && Input(0,3-1)!=-2){matVP(0,3-1)+=1; }
+               if(Input(0,1-1)==-2 && Input(0,3-1)==-2 && Input(0,2-1)!=-2){matVP(0,2-1)+=1; }
+               if(Input(0,3-1)==-2 && Input(0,2-1)==-2 && Input(0,1-1)!=-2){matVP(0,1-1)+=1; }
+          }
+          if(Hvp[2]==-4){ // [4,5,6]/
+               if(Input(0,4-1)==-2 && Input(0,5-1)==-2 && Input(0,6-1)!=-2){matVP(0,6-1)+=1; }
+               if(Input(0,4-1)==-2 && Input(0,6-1)==-2 && Input(0,5-1)!=-2){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-2 && Input(0,6-1)==-2 && Input(0,4-1)!=-2){matVP(0,4-1)+=1; }
+          }
+          if(Hvp[3]==-4){ // [7,8,9]/
+               if(Input(0,7-1)==-2 && Input(0,8-1)==-2 && Input(0,9-1)!=-2){matVP(0,9-1)+=1; }
+               if(Input(0,7-1)==-2 && Input(0,9-1)==-2 && Input(0,8-1)!=-2){matVP(0,8-1)+=1; }
+               if(Input(0,8-1)==-2 && Input(0,9-1)==-2 && Input(0,7-1)!=-2){matVP(0,7-1)+=1; }
+          }
+          if(Hvp[4]==-4){ // [1,4,7]/
+               if(Input(0,1-1)==-2 && Input(0,4-1)==-2 && Input(0,7-1)!=-2){matVP(0,7-1)+=1; }
+               if(Input(0,1-1)==-2 && Input(0,7-1)==-2 && Input(0,4-1)!=-2){matVP(0,4-1)+=1; }
+               if(Input(0,4-1)==-2 && Input(0,7-1)==-2 && Input(0,1-1)!=-2){matVP(0,1-1)+=1; }
+          }
+          if(Hvp[5]==-4){ // [2,5,8]/
+               if(Input(0,2-1)==-2 && Input(0,5-1)==-2 && Input(0,8-1)!=-2){matVP(0,8-1)+=1; }
+               if(Input(0,2-1)==-2 && Input(0,8-1)==-2 && Input(0,5-1)!=-2){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-2 && Input(0,8-1)==-2 && Input(0,2-1)!=-2){matVP(0,2-1)+=1; }
+          }
+          if(Hvp[6]==-4){  // [3,6,9]/
+               if(Input(0,3-1)==-2 && Input(0,6-1)==-2 && Input(0,9-1)!=-2){matVP(0,9-1)+=1; }
+               if(Input(0,3-1)==-2 && Input(0,9-1)==-2 && Input(0,6-1)!=-2){matVP(0,6-1)+=1; }
+               if(Input(0,6-1)==-2 && Input(0,9-1)==-2 && Input(0,3-1)!=-2){matVP(0,3-1)+=1; }
+          }
+          if(Hvp[7]==-4){ // [1,5,9]/
+               if(Input(0,1-1)==-2 && Input(0,5-1)==-2 && Input(0,9-1)!=-2){matVP(0,9-1)+=1; }
+               if(Input(0,1-1)==-2 && Input(0,9-1)==-2 && Input(0,5-1)!=-2){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-2 && Input(0,9-1)==-2 && Input(0,1-1)!=-2){matVP(0,1-1)+=1; }
+          }
+          if(Hvp[8]==-4){ // [3,5,7]/
+               if(Input(0,3-1)==-2 && Input(0,5-1)==-2 && Input(0,7-1)!=-2){matVP(0,7-1)+=1; }
+               if(Input(0,3-1)==-2 && Input(0,7-1)==-2 && Input(0,5-1)!=-2){matVP(0,5-1)+=1; }
+               if(Input(0,5-1)==-2 && Input(0,7-1)==-2 && Input(0,3-1)!=-2){matVP(0,3-1)+=1; }
+          }
+     //
+return matVP;
+}
+//
+void NN::CalcOut(bool testing=false){
+     int c=0; //counter for for loops
+     if(ultimate){
+          //
+          for(int i=0; i<UL1.size(); i++){//
+               for(int j=0; j<UL1.at(i).Connections.size(); j++){
+                    UW1(i,j) = UL1.at(i).Connections.at(j).weight;
+               }
+          }
+          for(int i=0; i<UL2.size(); i++){//
+               for(int j=0; j<UL2.at(i).Connections.size(); j++){
+                    UW2(i,j) = UL2.at(i).Connections.at(j).weight;
+               }
+          }
+          for(int i=0; i<UL3.size(); i++){//
+               for(int j=0; j<UL3.at(i).Connections.size(); j++){
+                    UW3(i,j) = UL3.at(i).Connections.at(j).weight;
+               }
+          }
+          for(int i=0; i<UL4.size(); i++){//
+               for(int j=0; j<UL4.at(i).Connections.size(); j++){
+                    UW4(i,j) = UL4.at(i).Connections.at(j).weight;
+               }
+          }
+          //
+          for(int i=0; i<UL1.size(); i++){ UOutput(0,i) = UL1.at(i).input; }
+          //
+          c=0;
+          UOutput = UOutput * UW1; // 1x81 * 81x976
+          UOutput.for_each( [&c, this](mat::elem_type& val ){ val+= UL2.at(c).bias; c++; } );
+          c=0;
+          UOutput = UOutput * UW2; // 1x976 * 976x416
+          UOutput.for_each( [&c, this](mat::elem_type& val ){ val+= UL3.at(c).bias; c++; } );
+          c=0;
+          UOutput = UOutput * UW3; // 1x416 * 416x256
+          UOutput.for_each( [&c, this](mat::elem_type& val ){ val+= UL4.at(c).bias; c++; } );
+          c=0;
+          UOutput = UOutput * UW4; // 1x256 * 256x81
+          //
+          //std::cout<<"UOUTPUT Calcout: "<<endl;
+          //UOutput.print(); std::cout<<endl;
+     return;
+     }
+     mat In;
+     In = Input;
+     In.for_each( [&c , this](mat::elem_type& val ){ val+= NIL.at(c).bias; c++; } );
+     c=0;
+     if(testing){
+          OPMCopy= (In + (.33*VP(Input)) ) * W1Copy; // 1x9 * 9x9 = 1x9
+          OPMCopy.for_each( [&c, this](mat::elem_type& val ){ val+= NHL.at(c).bias; } );
+          c=0;
+          OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OPMCopy = OPMCopy * W2Copy; // 1x9 * 9x18 = 1x18
+          OPMCopy.for_each( [&c, this](mat::elem_type& val ){ val+= NHL2.at(c).bias; } );
+          c=0;
+          OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OPMCopy = OPMCopy * W3Copy; // 1x18 * 18x36 = 1x36
+          OPMCopy.for_each( [&c, this](mat::elem_type& val ){ val+= NHL3.at(c).bias; } );
+          c=0;
+          OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OPMCopy = OPMCopy * W4Copy; // 1x36 * 36x36 = 1x36
+          OPMCopy.for_each( [&c, this](mat::elem_type& val ){ val+= NHL4.at(c).bias; } );
+          c=0;
+          OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OPMCopy = OPMCopy * W5Copy; // 1x36 * 36x36 = 1x36
+          OPMCopy.for_each( [&c, this](mat::elem_type& val ){ val+= NOL.at(c).bias; } ); //
+          c=0;
+          OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          //
+          OPMCopy = OPMCopy * W6Copy; // 1x36 * 36x9 = 1x9
+          OPMCopy.for_each( [&c, this](mat::elem_type& val ){ val+= OL.at(c).bias; } ); //
+          c=0;
+          OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          //OPMCopy = OPMCopy * trans(TWCopy);
+          //OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          return;
+     }
+     //
+     //Fills the matrices
+     for(int i=0; i<NIL.size(); i++){ //
+          for(int j=0; j<NIL.at(i).Connections.size(); j++){
+               W1(i,j) = NIL.at(i).Connections.at(j).weight;
+          }
+     }
+     for(int i=0; i<NHL.size(); i++){ //
+          for(int j=0; j<NHL.at(i).Connections.size(); j++){
+               W2(i,j) = NHL.at(i).Connections.at(j).weight;
+
+          }
+     }
+     for(int i=0; i<NHL2.size(); i++){//
+          for(int j=0; j<NHL2.at(i).Connections.size(); j++){
+               W3(i,j) = NHL2.at(i).Connections.at(j).weight;
+
+          }
+     }
+     for(int i=0; i<NHL3.size(); i++){//
+          for(int j=0; j<NHL3.at(i).Connections.size(); j++){
+               W4(i,j) = NHL3.at(i).Connections.at(j).weight;
+
+          }
+     }
+     for(int i=0; i<NHL4.size(); i++){//
+          for(int j=0; j<NHL4.at(i).Connections.size(); j++){
+               W5(i,j) = NHL4.at(i).Connections.at(j).weight;
+
+          }
+     }
+     for(int i=0; i<NOL.size(); i++){//
+          for(int j=0; j<NOL.at(i).Connections.size(); j++){
+               W6(i,j) = NOL.at(i).Connections.at(j).weight;
+          }
+     }
+     /*
+     std::cout.setf(std::ios_base::fixed);
+     std::cout.setf(std::ios_base::showpoint);
+     cout.precision(5);
+     std::cout<<endl<<"TEST"<<endl;
+     W1.print(); std::cout<<endl;////
+     W2.print(); std::cout<<endl;////
+     W3.print(); std::cout<<endl;////
+     W4.print(); std::cout<<endl;////
+     W5.print(); std::cout<<endl;////
+     */
+     //TW.print(); std::cout<<endl;////
+     //Calculates the hidden layer
+     //std::cout<<"INPUT: "<<endl;
+     //Input.print();
+     MZ1= (In + (.33*VP(Input)) ) * W1;
+     MA1 = MZ1;
+     MA1.for_each( [&c, this](mat::elem_type& val ){ val+= NHL.at(c).bias; } );
+     c=0;
+     MA1.for_each( [](mat::elem_type& val ){ val= tanh(val); } ); //Applies activation function // a1 // 1x9
+     //std::cout<<"MA1: "<<endl; MA1.print(); std::cout<<endl;
+     //std::cout<<endl<<"TEST"<<endl;////
+     //Calculates the second hidden layer
+     MZ2 = MA1 * W2;
+     MA2=MZ2;
+     MA2.for_each( [&c, this](mat::elem_type& val ){ val+= NHL2.at(c).bias; } );
+     c=0;
+     MA2.for_each( [](mat::elem_type& val ){ val= tanh(val); } ); //Applies activation function // a2 // 1x18
+     //std::cout<<"MA1: "<<endl; MA2.print(); std::cout<<endl;
+     //Calculates the third hidden layer
+     MZ3 = MA2 * W3;
+     MA3=MZ3;
+     MA3.for_each( [&c, this](mat::elem_type& val ){ val+= NHL3.at(c).bias; } );
+     c=0;
+     MA3.for_each( [](mat::elem_type& val ){ val= tanh(val); } ); //Applies activation function // a3 // 1x36
+     //std::cout<<"MA1: "<<endl; MA3.print(); std::cout<<endl;
+     //Calculates the fourth hidden layer
+     MZ4 = MA3 * W4;
+     MA4=MZ4;
+     MA4.for_each( [&c, this](mat::elem_type& val ){ val+= NHL4.at(c).bias; } );
+     c=0;
+     MA4.for_each( [](mat::elem_type& val ){ val= tanh(val); } ); //Applies activation function // a4 // 1x18
+     //std::cout<<"MA1: "<<endl; MA4.print(); std::cout<<endl;
+     //Calculates the fifth hidden layer
+     MZ5 = MA4 * W5;
+     MA5=MZ5;
+     MA5.for_each( [&c, this](mat::elem_type& val ){ val+= NOL.at(c).bias; } );//
+     c=0;
+     MA5.for_each( [](mat::elem_type& val ){ val= tanh(val); } ); //Applies activation function // a5 // 1x9
+     //
+     MZ6 = MA5 * W6;
+     MA6=MZ6;
+     MA6.for_each( [&c, this](mat::elem_type& val ){ val+= OL.at(c).bias; } );//
+     c=0;
+     MA6.for_each( [](mat::elem_type& val ){ val= tanh(val); } ); //Applies activation function // a6 // 1x9
+     //Calculates the Output layer
+     OutputM = MA6;
+     std::cout<<"OUTPUT Calcout: "<<endl;
+     std::cout<<"\t 1 \t 2 \t 3 \t 4 \t 5 \t 6 \t 7 \t 8 \t 9 \t"<<endl;
+     OutputM.print(); std::cout<<endl;
+return;
+}
+//
+double NN::Cost(bool testing=false){
+     double TE=0.0; //Total Error
+     //CC=4; //Correct Move Choice
+     double value=0.0; //Value of Neuron // Value = input + bias
+     double TTE=0.0;
+     mat TEM;
+     TEM.set_size(1,9);
+     TEM.fill(fill::ones); //Fills with ones
+     int c=0;
+     switch(CC){ //Creates a one filled matrix except for the correct choice
+               case 1: TEM(0)=-1; break;
+               case 2: TEM(1)=-1; break;
+               case 3: TEM(2)=-1; break;
+               case 4: TEM(3)=-1; break;
+               case 5: TEM(4)=-1; break;
+               case 6: TEM(5)=-1; break;
+               case 7: TEM(6)=-1; break;
+               case 8: TEM(7)=-1; break;
+               case 9: TEM(8)=-1; break;
+               default: std::cout<<"ERROR: Switch"<<CC<<endl; break;
+          };
+     if(testing){
+          TEM=TEM+OPMCopy; //Takes the matrix and adds by the output of the NN
+          TEM.for_each( [](mat::elem_type& val ){ val= pow(val, 2); } );
+          TTE=accu(TEM); //Calculates total error by taking a sum of all elements
+          TTE*=.5;
+     return TTE;
+     }
+     CostM.fill(fill::zeros); //Prepares the Cost matrix
+          TEM=TEM+OutputM; //Takes the matrix and adds by the output of the NN
+          CostM=TEM; //
+          TEM.for_each( [](mat::elem_type& val ){ val= pow(val, 2); } );
+          //
+          TE=accu(TEM); //Calculates total error by taking a sum of all elements
+          TE*=.5;
+return TE;
+}
+void NN::BackProp(){
+     //Creating of matrices and variables
+     int c=0;
+     //BP error
+     mat BP;
+     BP.set_size(1,9);
+     BP.fill(fill::zeros);
+     //BP2 error
+     mat BP2;
+     BP2.set_size(9,18);
+     BP2.fill(fill::zeros);
+     //BP3 error
+     mat BP3;
+     BP3.set_size(18,36);
+     BP3.fill(fill::zeros);
+     //BP4 error
+     mat BP4;
+     BP4.set_size(36,18);
+     BP4.fill(fill::zeros);
+     //BP5 error
+     mat BP5;
+     BP5.set_size(18,9);
+     BP5.fill(fill::zeros);
+     //BPInitial error
+     mat BPI;
+     BPI.set_size(1,9);
+     BPI.fill(fill::zeros);
+     //Prime Z6 matrix
+     mat PZ6;
+     PZ6.set_size(1,9);
+     PZ6.fill(fill::zeros);
+     //Prime Z5 matrix
+     mat PZ5;
+     PZ5.set_size(1,9);
+     PZ5.fill(fill::zeros);
+     //Prime Z4 matrix
+     mat PZ4;
+     PZ4.set_size(1,18);
+     PZ4.fill(fill::zeros);
+     //Prime Z3 matrix
+     mat PZ3;
+     PZ3.set_size(1,36);
+     PZ3.fill(fill::zeros);
+     //Prime Z2 matrix
+     mat PZ2;
+     PZ2.set_size(1,18);
+     PZ2.fill(fill::zeros);
+     //Prime Z1 matrix
+     mat PZ1;
+     PZ1.set_size(1,9);
+     PZ1.fill(fill::zeros);
+     //////
+     //////The computations
+     //////
+     //Setting BackProp error
+     std::cout<<"Cost: "<<endl;
+     CostM.print(); std::cout<<endl;
+     PZ6=MZ6;
+     std::cout<<"MZ6: "<<endl;
+     MZ6.print(); std::cout<<endl;
+     PZ6.for_each( [&c, this](mat::elem_type& val ){ val+= OL.at(c).bias; } );
+     c=0;
+     PZ6.for_each( [](mat::elem_type& val ){ val= (1 -  pow( (tanh(val)) , 2) ); } );
+     std::cout<<"PZ6: "<<endl;
+     PZ6.print(); std::cout<<endl;
+     BPI = (CostM % PZ6); // % is element wise multiplication // 1x9 % 1x9
+     std::cout<<"BPI: "<<endl;
+     BPI.print(); std::cout<<endl;
+     //Calculating TEW5
+     TEW6 = trans(MA5) * BP; // 18x1 * 1x9 = 18x9
+     std::cout<<"TEW6: "<<endl;
+     TEW6.print(); std::cout<<endl;
+     //BP
+     PZ5=MZ5; //PZ5
+     PZ5.for_each( [&c, this](mat::elem_type& val ){ val+= NOL.at(c).bias; } );
+     c=0;
+     PZ5.for_each( [](mat::elem_type& val ){ val= (1 -  pow( (tanh(val)) , 2) ); } );
+     BP = (BPI * trans(W6) ) % PZ5; // (1x9 * 9x9) % 1x9
+     //TEW5
+     TEW5 = trans(MA4) * BP; // 18x1 * 1x9 = 18x9
+     //BP2
+     PZ4=MZ4; //PZ4
+     PZ4.for_each( [&c, this](mat::elem_type& val ){ val+= NHL4.at(c).bias; } );
+     c=0;
+     PZ4.for_each( [](mat::elem_type& val ){ val= (1 -  pow( (tanh(val)) , 2) ); } );
+     BP2 = (BP * trans(W5) ) % PZ4; // (1x9 * 9x18) % 1x18
+     //TEW4
+     TEW4 = trans(MA3) * BP2; // 36x1 * 1x18 = 36x18
+     //BP3////
+     PZ3=MZ3; //PZ3
+     PZ3.for_each( [&c, this](mat::elem_type& val ){ val+= NHL3.at(c).bias; } );
+     c=0;
+     PZ3.for_each( [](mat::elem_type& val ){ val= (1 -  pow( (tanh(val)) , 2) ); } );
+     BP3 = (BP2 * trans(W4) ) % PZ3; // (1x18 * 18x36) % 1x36
+     //TEW3
+     TEW3 = trans(MA2) * BP3; // 18x1 * 1x36 = 18x36
+     //BP4 ///////
+     PZ2=MZ2; //PZ2
+     PZ2.for_each( [&c, this](mat::elem_type& val ){ val+= NHL2.at(c).bias; } );
+     c=0;
+     PZ2.for_each( [](mat::elem_type& val ){ val= (1 -  pow( (tanh(val)) , 2) ); } );
+     BP4 = (BP3 * trans(W3) ) % PZ2; // (1x36 * 36x18) % 1x18
+     //TEW2
+     TEW2 = trans(MA1) * BP4; // 9x1 * 1x18 = 9x18
+     //BP5
+     PZ1=MZ1; //PZ2
+     PZ1.for_each( [&c, this](mat::elem_type& val ){ val+= NHL.at(c).bias; } );
+     c=0;
+     PZ1.for_each( [](mat::elem_type& val ){ val= (1 -  pow( (tanh(val)) , 2) ) ; } );
+     BP5 = ( BP4 * trans(W2) ) % PZ1; // (1x18 * 18x9) % 1x9
+     //TEW1
+     TEW1 = trans(Input) * BP5; // 9x1 * 1x9 = 9x9
+     //////
+     //////Bias
+     //////
+
+return;
+}
+bool NN::GradCheck(){
+     bool passed=true;
+     mat D1Copy; //TEW1 Copy
+     mat D2Copy; //TEW2 Copy
+     mat D3Copy; //TEW3 Copy
+     mat D4Copy; //TEW4 Copy
+     mat D5Copy; //TEW5 Copy
+     mat D6Copy; //TEW5 Copy
+     D1Copy.set_size(9,9);
+     D1Copy.fill(fill::zeros);
+     D2Copy.set_size(9,18);
+     D2Copy.fill(fill::zeros);
+     D3Copy.set_size(18,36);
+     D3Copy.fill(fill::zeros);
+     D4Copy.set_size(36,18);
+     D4Copy.fill(fill::zeros);
+     D5Copy.set_size(18,9);
+     D5Copy.fill(fill::zeros);
+     D6Copy.set_size(9,9);
+     D6Copy.fill(fill::zeros);
+     //D4Copy.set_size(3,1);
+     //D4Copy.fill(fill::zeros);
+     //Fills the copy matrices
+     W1Copy=W1;
+     W2Copy=W2;
+     W3Copy=W3;
+     W4Copy=W4;
+     W5Copy=W5;
+     W6Copy=W6;
+     //TWCopy=TW;
+     mat ND; //Norm difference
+     mat NDS;
+     mat NDP;
+     double x=0.0; //Chosen point
+     double e=0.0001; //Change in x
+     double loss1=0.0, loss2=0.0;//loss doubles used for Total error difference
+     for(int i=0; i<W1Copy.n_rows; i++){ //Loop for W1Copy
+          for(int j=0; j<W1Copy.n_cols; j++){
+               W1Copy(i,j)+=e;
+               CalcOut(true);
+               loss1=Cost(true);
+               //
+               W1Copy(i,j)-=(2*e);
+               CalcOut(true);
+               loss2=Cost(true);
+               //
+               D1Copy(i,j) = (loss1-loss2) / (2 * e);
+          }
+     }
+     W1Copy=W1; //Reset values
+     loss1=0.0; loss2=0.0;
+     for(int i=0; i<W2Copy.n_rows; i++){ //Loop for W2Copy
+               for(int j=0; j<W2Copy.n_cols; j++){
+                    W2Copy(i,j)+=e;
+                    CalcOut(true);
+                    loss1=Cost(true);
+                    //
+                    W2Copy(i,j)-=2*e;
+                    CalcOut(true);
+                    loss2= Cost(true);
+                    //
+                    D2Copy(i,j) = (loss1-loss2) / (2 * e);
+               }
+     }
+     W2Copy=W2;
+     loss1=0.0; loss2=0.0;
+     for(int i=0; i<W3Copy.n_rows; i++){ //Loop for W3Copy
+               for(int j=0; j<W3Copy.n_cols; j++){
+                    W3Copy(i,j)+=e;
+                    CalcOut(true);
+                    loss1=Cost(true);
+                    //
+                    W3Copy(i,j)-=2*e;
+                    CalcOut(true);
+                    loss2= Cost(true);
+                    //
+                    D3Copy(i,j) = (loss1-loss2) / (2 * e);
+               }
+     }
+     W3Copy=W3;
+     loss1=0.0; loss2=0.0;
+     for(int i=0; i<W4Copy.n_rows; i++){ //Loop for W4Copy
+               for(int j=0; j<W4Copy.n_cols; j++){
+                    W4Copy(i,j)+=e;
+                    CalcOut(true);
+                    loss1=Cost(true);
+                    //
+                    W4Copy(i,j)-=2*e;
+                    CalcOut(true);
+                    loss2= Cost(true);
+                    //
+                    D4Copy(i,j) = (loss1-loss2) / (2 * e);
+               }
+     }
+     W4Copy=W4;
+     loss1=0.0; loss2=0.0;
+     for(int i=0; i<W5Copy.n_rows; i++){ //Loop for W5Copy
+               for(int j=0; j<W5Copy.n_cols; j++){
+                    W5Copy(i,j)+=e;
+                    CalcOut(true);
+                    loss1=Cost(true);
+                    //
+                    W5Copy(i,j)-=2*e;
+                    CalcOut(true);
+                    loss2= Cost(true);
+                    //
+                    D5Copy(i,j) = (loss1-loss2) / (2 * e);
+               }
+     }
+     W5Copy=W5;
+     loss1=0.0; loss2=0.0;
+     for(int i=0; i<W6Copy.n_rows; i++){ //Loop for W6Copy
+               for(int j=0; j<W6Copy.n_cols; j++){
+                    W6Copy(i,j)+=e;
+                    CalcOut(true);
+                    loss1=Cost(true);
+                    //
+                    W6Copy(i,j)-=2*e;
+                    CalcOut(true);
+                    loss2= Cost(true);
+                    //
+                    D6Copy(i,j) = (loss1-loss2) / (2 * e);
+               }
+     }
+     W6Copy=W6;
+     loss1=0.0; loss2=0.0;
+     //
+     //Bias
+     //
+
+     //
+     std::cout<<"YOLO: "<<endl;
+     D1Copy.print(); std::cout<<endl;
+     TEW1.print(); std::cout<<endl;
+     //
+     NDS = D1Copy-TEW1;
+     NDS.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     NDP = D1Copy+TEW1;
+     NDP.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     ND= NDS / NDP;
+     ND.for_each( [&passed](mat::elem_type& val ){ if(val > 0.01){ passed=false;} } );
+     //
+     D2Copy.print(); std::cout<<endl;
+     TEW2.print(); std::cout<<endl;
+     //
+     NDS = D2Copy-TEW2;
+     NDS.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     NDP = D2Copy+TEW2;
+     NDP.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     ND= NDS / NDP;
+     ND.for_each( [&passed](mat::elem_type& val ){ if(val > 0.01){ passed=false;} } );
+     //
+     D3Copy.print(); std::cout<<endl;
+     TEW3.print(); std::cout<<endl;
+     //
+     NDS = D3Copy-TEW3;
+     NDS.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     NDP = D3Copy+TEW3;
+     NDP.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     ND= NDS / NDP;
+     ND.for_each( [&passed](mat::elem_type& val ){ if(val > 0.01){ passed=false;} } );
+     //
+     D4Copy.print(); std::cout<<endl;
+     TEW4.print(); std::cout<<endl;
+     //
+     NDS = D4Copy-TEW4;
+     NDS.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     NDP = D4Copy+TEW4;
+     NDP.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     ND= NDS / NDP;
+     ND.for_each( [&passed](mat::elem_type& val ){ if(val > 0.01){ passed=false;} } );
+     //
+     D5Copy.print(); std::cout<<endl;
+     TEW5.print(); std::cout<<endl;
+     //
+     NDS = D5Copy-TEW5;
+     NDS.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     NDP = D5Copy+TEW5;
+     NDP.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     ND= NDS / NDP;
+     ND.for_each( [&passed](mat::elem_type& val ){ if(val > 0.01){ passed=false;} } );
+     //
+     D6Copy.print(); std::cout<<endl;
+     TEW6.print(); std::cout<<endl;
+     //
+     NDS = D6Copy-TEW6;
+     NDS.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     NDP = D6Copy+TEW6;
+     NDP.for_each( [](mat::elem_type& val ){ val =std::norm(val); } );
+     ND= NDS / NDP;
+     ND.for_each( [&passed](mat::elem_type& val ){ if(val > 0.01){ passed=false;} } );
+return passed;
+}
+void DisplayB(int Places[], int AIPlaces[]);
+bool checkWin(TTTHuman HP, TTTAI RAI);
+void PWCC(bool testing=false){    //Positions with correct choices //Returns a random board position with a labeled correct choice. used for training
+     //
+     mat cB; //Current board
+     mat cE; //Current expected choice
+     cB.set_size(1,9);
+     cE.set_size(1,9);
+     training_pair cPair; //Current Pair
+     int r=0;
+     bool chosen=false;
+     //
+     TTTAI PBuddy; //Play buddy
+     TTTHuman FHuman;
+     //
+     if(testing==false){
+     for(int i=0; i<9; i++){//loop that goes through all possible start positions
+          //For first moves
+          cB.fill(fill::ones); //Resets the array and matrix
+          Testnet.NNAI.AIRematch();
+          PBuddy.AIRematch();
+          PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+          for(int z=1; z<10; z++){
+               PBuddy.AIPositions[z]=0;
+               FHuman.HPositions[z]=0;
+          }
+          //Fills the array and matrix with current position
+          PBuddy.AIPositions[i+1]=1;
+          FHuman.HPositions[i+1]=1;
+          cB(i)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+          //Second Move
+          cB(Testnet.NNAI.LastMove()-1)=-1;
+          //PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+               while(chosen!=true){
+                    r=rand()%9 +1;
+                    if( (PBuddy.AIPositions[1]!=1 && Testnet.NNAI.AIPositions[1]!=1) && r==1 ){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[2]!=1 && Testnet.NNAI.AIPositions[2]!=1) && r==2 ){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[3]!=1 && Testnet.NNAI.AIPositions[3]!=1) && r==3){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[4]!=1 && Testnet.NNAI.AIPositions[4]!=1) && r==4){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[5]!=1 && Testnet.NNAI.AIPositions[5]!=1) && r==5){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[6]!=1 && Testnet.NNAI.AIPositions[6]!=1) && r==6){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[7]!=1 && Testnet.NNAI.AIPositions[7]!=1) && r==7){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[8]!=1 && Testnet.NNAI.AIPositions[8]!=1) && r==8){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[9]!=1 && Testnet.NNAI.AIPositions[9]!=1) && r==9){
+                         chosen=true; break;
+                    }
+               }
+          chosen=false;
+          PBuddy.AIPositions[r]=1;
+          FHuman.HPositions[r]=1;
+          cB(r-1)=-2;
+          //cB(PBuddy.LastMove()-1)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+          //Third Move
+          cB(Testnet.NNAI.LastMove()-1)=-1;
+               //
+               while(chosen!=true){
+                    r=rand()%9 +1;
+                    if( (PBuddy.AIPositions[1]!=1 && Testnet.NNAI.AIPositions[1]!=1) && r==1 ){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[2]!=1 && Testnet.NNAI.AIPositions[2]!=1) && r==2 ){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[3]!=1 && Testnet.NNAI.AIPositions[3]!=1) && r==3){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[4]!=1 && Testnet.NNAI.AIPositions[4]!=1) && r==4){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[5]!=1 && Testnet.NNAI.AIPositions[5]!=1) && r==5){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[6]!=1 && Testnet.NNAI.AIPositions[6]!=1) && r==6){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[7]!=1 && Testnet.NNAI.AIPositions[7]!=1) && r==7){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[8]!=1 && Testnet.NNAI.AIPositions[8]!=1) && r==8){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[9]!=1 && Testnet.NNAI.AIPositions[9]!=1) && r==9){
+                         chosen=true; break;
+                    }
+               }
+          chosen=false;
+          PBuddy.AIPositions[r]=1;
+          FHuman.HPositions[r]=1;
+          cB(r-1)=-2;
+          //PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+          //cB(PBuddy.LastMove()-1)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+          if(checkWin(FHuman,Testnet.NNAI)){ //If someone won
+               continue;
+          }
+          //Fourth Move
+          cB(Testnet.NNAI.LastMove()-1)=-1;
+               //
+               while(chosen!=true){
+                    r=rand()%9 +1;
+                    if( (PBuddy.AIPositions[1]!=1 && Testnet.NNAI.AIPositions[1]!=1) && r==1 ){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[2]!=1 && Testnet.NNAI.AIPositions[2]!=1) && r==2 ){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[3]!=1 && Testnet.NNAI.AIPositions[3]!=1) && r==3){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[4]!=1 && Testnet.NNAI.AIPositions[4]!=1) && r==4){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[5]!=1 && Testnet.NNAI.AIPositions[5]!=1) && r==5){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[6]!=1 && Testnet.NNAI.AIPositions[6]!=1) && r==6){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[7]!=1 && Testnet.NNAI.AIPositions[7]!=1) && r==7){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[8]!=1 && Testnet.NNAI.AIPositions[8]!=1) && r==8){
+                         chosen=true; break;
+                    }else if( (PBuddy.AIPositions[9]!=1 && Testnet.NNAI.AIPositions[9]!=1) && r==9){
+                         chosen=true; break;
+                    }
+               }
+          chosen=false;
+          PBuddy.AIPositions[r]=1;
+          FHuman.HPositions[r]=1;
+          cB(r-1)=-2;
+          //PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+          //cB(PBuddy.LastMove()-1)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+
+     }
+     }else{
+          for(int i=0; i<9; i++){//loop that goes through all possible start positions
+          //For first moves
+          cB.fill(fill::ones); //Resets the array and matrix
+          Testnet.NNAI.AIRematch();
+          PBuddy.AIRematch();
+          PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+          for(int z=1; z<10; z++){
+               PBuddy.AIPositions[z]=0;
+               FHuman.HPositions[z]=0;
+          }
+          //Fills the array and matrix with current position
+          PBuddy.AIPositions[i+1]=1;
+          FHuman.HPositions[i+1]=1;
+          cB(i)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+          //Second Move
+          cB(Testnet.NNAI.LastMove()-1)=-1;
+           PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+           cB(PBuddy.LastMove()-1)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+          //Third Move
+          cB(Testnet.NNAI.LastMove()-1)=-1;
+           PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+           cB(PBuddy.LastMove()-1)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+          if(checkWin(FHuman,Testnet.NNAI)){ //If someone won
+               continue;
+          }
+          //Fourth Move
+          cB(Testnet.NNAI.LastMove()-1)=-1;
+           PBuddy.Play(Testnet.NNAI.AIPositions,PBuddy.AIPositions);
+           cB(PBuddy.LastMove()-1)=-2;
+          cPair.row(0)=cB;
+          //
+          cE.fill(fill::zeros);
+          Testnet.NNAI.Play(PBuddy.AIPositions,Testnet.NNAI.AIPositions);//Get the correct move
+          cE(Testnet.NNAI.LastMove()-1)=-1;
+          cPair.row(1)=cE; //Sets up the expected output matrix
+          TData.push_back(createObject<training_pair>());
+          TData.back()=cPair;
+
+     }
+     }
+     Testnet.NNAI.AIRematch();
+//
+}
+double PT(dlib::matrix<double> CM);//Play training
+double CW(dlib::matrix<double> CM){ //Wrapper for cost function
+     //
+     //std::cout<<endl<<"CW Called"<<endl;
+     double theCost=0.0; //Cost
+     double TCost=0.0; //Total Cost
+     int CC=0;
+     //srand( time(NULL) );
+     //
+// TODO (Blackweb#1#): The size of these matrices are hard-coded right here, so if the number of weights changes these have to be changed directly ...
+//
+     mat W1Copy;
+     W1Copy.set_size(Testnet.getW1().n_rows,Testnet.getW1().n_cols);
+     W1Copy.fill(fill::zeros);
+     mat W2Copy;
+     W2Copy.set_size(Testnet.getW2().n_rows,Testnet.getW2().n_cols);
+     W2Copy.fill(fill::zeros);
+     mat W3Copy;
+     W3Copy.set_size(Testnet.getW3().n_rows,Testnet.getW3().n_cols);
+     W3Copy.fill(fill::zeros);
+     mat W4Copy;
+     W4Copy.set_size(Testnet.getW4().n_rows,Testnet.getW4().n_cols);
+     W4Copy.fill(fill::zeros);
+     mat W5Copy;
+     W5Copy.set_size(Testnet.getW5().n_rows,Testnet.getW5().n_cols);
+     W5Copy.fill(fill::zeros);
+     mat W6Copy;
+     W6Copy.set_size(Testnet.getW6().n_rows,9);
+     W6Copy.fill(fill::zeros);
+     //mat W4Copy;
+     //W4Copy.set_size(3,1);
+     //W4Copy.fill(fill::zeros);
+     //
+     mat BL1; //Biases layers one
+     BL1.set_size(1, Testnet.getNIL().size());
+     mat BL2; //Biases layers
+     BL2.set_size(1, Testnet.getNHL().size());
+     mat BL3; //Biases layers
+     BL3.set_size(1, Testnet.getNHL2().size());
+     mat BL4; //Biases layers
+     BL4.set_size(1, Testnet.getNHL3().size());
+     mat BL5; //Biases layers
+     BL5.set_size(1, Testnet.getNHL4().size());
+     mat BL6; //Biases layers
+     BL6.set_size(1, Testnet.getNOL().size());
+     mat BL7; //Biases layers
+     BL7.set_size(1, Testnet.getOL().size());
+     //
+     mat OCopy;
+     mat TE;
+     TE.set_size(1,9);
+     TE.fill(fill::ones);
+     mat I;
+     int c=0;
+     if( CM.size() == Testnet.getNIL().size() + Testnet.getNHL().size() + Testnet.getNHL2().size() + Testnet.getNHL3().size() + Testnet.getNHL4().size() + Testnet.getNOL().size() + Testnet.getOL().size()){
+          for(int i=0; i<BL1.size(); i++){ //1st Neuron layer biases
+               BL1(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL2.size(); i++){ //2nd Neuron layer biases
+               BL2(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL3.size(); i++){ //3rd Neuron layer biases
+               BL3(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL4.size(); i++){ //4th Neuron layer biases
+               BL4(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL5.size(); i++){ //5th Neuron layer biases
+               BL5(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL6.size(); i++){ //6th Neuron layer biases
+               BL6(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL7.size(); i++){ //7th Neuron layer biases
+               BL7(i)=CM(0,c);
+               c++;
+          }
+          c=0;
+          //Takes care of the weights
+          W1Copy=Testnet.getW1();
+          W2Copy=Testnet.getW2();
+          W3Copy=Testnet.getW3();
+          W4Copy=Testnet.getW4();
+          W5Copy=Testnet.getW5();
+          W6Copy=Testnet.getW6();
+     }else{
+          //W1 matrix
+          for(int i=0; i<W1Copy.n_rows; i++){ //First weight matrix
+               for(int j=0; j<W1Copy.n_cols; j++){
+                    W1Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W2Copy.n_rows; i++){ //Second weight matrix
+               for(int j=0; j<W2Copy.n_cols; j++){
+                    W2Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W3Copy.n_rows; i++){ //Third weight matrix
+               for(int j=0; j<W3Copy.n_cols; j++){
+                    W3Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W4Copy.n_rows; i++){ //Fourth weight matrix
+               for(int j=0; j<W4Copy.n_cols; j++){
+                    W4Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W5Copy.n_rows; i++){ //Fifth weight matrix
+               for(int j=0; j<W5Copy.n_cols; j++){
+                    W5Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W6Copy.n_rows; i++){ //Fifth weight matrix
+               for(int j=0; j<W6Copy.n_cols; j++){
+                    W6Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          c=0;
+          //Takes care of the bias
+          BL1.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNIL().at(c).bias; c++; } );
+          c=0;
+          BL2.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL().at(c).bias; c++; } );
+          c=0;
+          BL3.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL2().at(c).bias; c++; } );
+          c=0;
+          BL4.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL3().at(c).bias; c++; } );
+          c=0;
+          BL5.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL4().at(c).bias; c++; } );
+          c=0;
+          BL6.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNOL().at(c).bias; c++; } );
+          c=0;
+          BL7.for_each( [&c](mat::elem_type& val ){ val= Testnet.getOL().at(c).bias; c++; } );
+          c=0;
+     }
+     /*
+     for(int i=W1Copy.size()+W2Copy.size()+W3Copy.size(); i<W1Copy.size()+W2Copy.size()+W3Copy.size()+W4Copy.size(); i++){ //Fourth weight matrix
+          W4Copy(c,0)=CM(0,i);
+          c++;
+     } */
+     for(int i=0; i<TData.size(); i++){
+
+
+          c=0;
+          //CalcOut stuff
+          I=TData.at(i).row(0); //std::cout<<"I: "<<endl; I.print(); std::cout<<endl;
+          I.for_each( [&c, &BL1](mat::elem_type& val ){ val+= BL1(c); c++; } );
+          c=0;
+          //
+
+          //Adding the bias
+          OCopy= (I + (.33*Testnet.VP(I)) ) * W1Copy; // 1x9 * 9x9 = 1x9
+          OCopy.for_each( [&c, &BL2](mat::elem_type& val ){ val+= BL2(c); c++;} );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W2Copy; // 1x9 * 9x18 = 1x18
+          OCopy.for_each( [&c, &BL3](mat::elem_type& val ){ val+= BL3(c); c++; } );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W3Copy; // 1x18 * 18x36 = 1x36
+          OCopy.for_each( [&c, &BL4](mat::elem_type& val ){ val+= BL4(c); c++; } );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W4Copy; // 1x36 * 36x18 = 1x18
+          OCopy.for_each( [&c, &BL5](mat::elem_type& val ){ val+= BL5(c); c++; } );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W5Copy; // 1x18 * 18x9 = 1x9
+          OCopy.for_each( [&c, &BL6](mat::elem_type& val ){ val+= BL6(c); c++; } ); //
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W6Copy; // 1x9 * 9x9 = 1x9
+          OCopy.for_each( [&c, &BL7](mat::elem_type& val ){ val+= BL7(c); c++; } ); //
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          //Cost
+          TE=TData.at(i).row(1);// std::cout<<"TE: "<<endl; TE.print(); std::cout<<endl;
+          TE.for_each( [&CC,&c](mat::elem_type& val ){ if(val==-1){CC=c;} c++;} );
+          TE=TE+OCopy; //Takes the matrix and adds by the output of the NN
+          TE.for_each( [](mat::elem_type& val ){ val= pow(val, 2); } );
+
+               switch(CC){ //Adds a weight to the correct choice
+                    case 0: TE(0)*=5; break;
+                    case 1: TE(1)*=5; break;
+                    case 2: TE(2)*=5; break;
+                    case 3: TE(3)*=5; break;
+                    case 4: TE(4)*=5; break;
+                    case 5: TE(5)*=5; break;
+                    case 6: TE(6)*=5; break;
+                    case 7: TE(7)*=5; break;
+                    case 8: TE(8)*=5; break;
+                    default: std::cout<<"ERROR: Switch"<<endl; break;
+               };
+
+          theCost=accu(TE); //Calculates total error by taking a sum of all elements
+          theCost*=.5;
+          //theCost+= (.0001/2)* ( accu( square(W1Copy) ) + accu( square(W2Copy) ) + accu( square(W3Copy) ) );
+          TCost+=theCost;
+     }
+     //
+     TCost+=(.1/2)* ( accu( square(W1Copy) ) + accu( square(W2Copy) ) + accu( square(W3Copy) ) + accu( square(W4Copy) ) + accu( square(W5Copy) ) + accu( square(W6Copy) ) );
+     return TCost;
+
+}
+//
+double NN::UScore(dlib::matrix<double> CM){
+     int score=0;
+     int c=0;
+     SBoard UB; int rDec=0; int mCount=0; bool cw=false;
+     int ansNum=0;
+     //
+     if( CM.size() == UW1.size() + UW2.size() + UW3.size() + UW4.size() ){
+          //
+          for(int i=0; i<UW1.n_rows; i++){ //First weight matrix
+               for(int j=0; j<UW1.n_cols; j++){
+                    UW1(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<UW2.n_rows; i++){ //weight matrix
+               for(int j=0; j<UW2.n_cols; j++){
+                    UW2(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<UW3.n_rows; i++){ //weight matrix
+               for(int j=0; j<UW3.n_cols; j++){
+                    UW3(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<UW4.n_rows; i++){ //weight matrix
+               for(int j=0; j<UW4.n_cols; j++){
+                    UW4(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+     }else{
+          for(int i=0; i<UL2.size(); i++){ //Neuron layer biases
+               UL2[i].bias=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<UL3.size(); i++){ //Neuron layer biases
+               UL3[i].bias=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<UL4.size(); i++){ //Neuron layer biases
+               UL4[i].bias=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<UL5.size(); i++){ //Neuron layer biases
+               UL5[i].bias=CM(0,c);
+               c++;
+          }
+     }
+     //
+     c=-1; bool fMove=true;//first players move
+     while( cw!=true ){
+          if(UB.getWon() !=0){cw=true;} if(cw==true){break;}
+          UBI(UB.getTBoard(),UB.getpBoards());
+          CalcOut();
+          for(int i=0; i<UOutput.n_rows; i++){
+               for(int j=0; j<UOutput.n_cols; j++){
+                    c++;
+                    if(UOutput(i,j) >ansNum){ ansNum=UOutput(i,j); rDec=c; }else{}
+               }
+          }
+          if( UB.getpBoards().at( (c/9) ) == 0 ){
+               score++;
+               if( UB.getTBoard().at( (c/9) ).Board( ( (c - ( (c/9) * 9) ) /3 ) , ( (c+3)%3 ) ) == 0 ){
+                    score++;
+               }else{
+                    score-=10;
+                    return score;
+               }
+          }else{
+               score-=15;
+               return score;
+          }
+
+          if( fMove ){ if(UB.placeMove(rDec,true) !=true){ return score--;} fMove=false; }else{ if(UB.placeMove(rDec,false) !=true){ return score--;} fMove=true; }
+
+     }
+     return score;
+}
+double UScoreWrapper(dlib::matrix<double> CM){
+     return Testnet.UScore(CM);
+}
+//
+void NN::Load(){
+std::fstream TInput, TUInput;
+std::string cLine="";
+std::string cWeight="";
+int c=0;
+char cChar;
+TInput.open("TOutput.txt"); //Reads an existing file
+if(TInput.is_open()!=true){
+     std::cout<<"Could not open file"<<endl;
+}
+while(TInput.is_open()){
+                              //W1
+                              std::getline(TInput,cLine);
+                              if(cLine.find("W1")!=std::string::npos){
+                                   std::cout<<endl<<"Loading Weights..."<<endl;
+                                   for(int i=0; i<W1.n_rows; i++){
+                                        std::getline(TInput,cLine);
+                                             for(int k=0; k<cLine.size(); k++){
+                                                  while(cLine.at(k)!=' '){
+                                                       cChar=cLine.at(k);
+                                                       if(cLine.at(k)==' ')break;
+                                                       cWeight+=cLine.at(k);
+                                                       k++;
+                                                  }
+                                                  if(cLine.at(k)==' '){ W1(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                                             }
+                                             c=0;
+                                   }
+                              }
+                              c=0;
+                              //W2
+
+                              if(cLine.find("W2")!=std::string::npos){
+                                   for(int i=0; i<W2.n_rows; i++){
+                                        std::getline(TInput,cLine);
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ W2(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                                        }
+                                        c=0;
+                                   }
+                              }
+                              c=0;
+                              //W3
+
+                              if(cLine.find("W3")!=std::string::npos){
+                              for(int i=0; i<W3.n_rows; i++){
+                                   std::getline(TInput,cLine);
+                                             for(int k=0; k<cLine.size(); k++){
+                                                  while(cLine.at(k)!=' '){
+                                                       if(cLine.at(k)==' ')break;
+                                                       cWeight+=cLine.at(k);
+                                                       k++;
+                                                  }
+                                                  if(cLine.at(k)==' '){ W3(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                                             }
+                                             c=0;
+                              }
+                              }
+                              c=0;
+                              //W4
+
+                              if(cLine.find("W4")!=std::string::npos){
+                              for(int i=0; i<W4.n_rows; i++){
+                                   std::getline(TInput,cLine);
+                                             for(int k=0; k<cLine.size(); k++){
+                                                  while(cLine.at(k)!=' '){
+                                                       if(cLine.at(k)==' ')break;
+                                                       cWeight+=cLine.at(k);
+                                                       k++;
+                                                  }
+                                                  if(cLine.at(k)==' '){ W4(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                                             }
+                                             c=0;
+                              }
+                              }
+                              c=0;
+                              //W5
+
+                              if(cLine.find("W5")!=std::string::npos){
+                              for(int i=0; i<W5.n_rows; i++){
+                                   std::getline(TInput,cLine);
+                                             for(int k=0; k<cLine.size(); k++){
+                                                  while(cLine.at(k)!=' '){
+                                                       if(cLine.at(k)==' ')break;
+                                                       cWeight+=cLine.at(k);
+                                                       k++;
+                                                  }
+                                                  if(cLine.at(k)==' '){ W5(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                                             }
+                                             c=0;
+                              }
+                              }
+                              c=0;
+                              //W5
+
+                              if(cLine.find("W6")!=std::string::npos){
+                              for(int i=0; i<W6.n_rows; i++){
+                                   std::getline(TInput,cLine);
+                                             for(int k=0; k<cLine.size(); k++){
+                                                  while(cLine.at(k)!=' '){
+                                                       if(cLine.at(k)==' ')break;
+                                                       cWeight+=cLine.at(k);
+                                                       k++;
+                                                  }
+                                                  if(cLine.at(k)==' '){ W6(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                                             }
+                                             c=0;
+                              }
+                              }
+                              c=0;
+                              //Biases
+
+                              if(cLine.find("Bias")!=std::string::npos){
+                                    std::cout<<endl<<"Loading Biases..."<<endl;
+                                   std::getline(TInput,cLine);
+                                   //1st Neuron layer biases
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ NIL.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                                        }
+                                   c=0;
+                                   std::getline(TInput,cLine);
+                                   //2st Neuron layer biases
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ NHL.at(c).bias=atof(cWeight.c_str());  c++; cWeight="";}
+                                        }
+                                   c=0;
+                                   std::getline(TInput,cLine);
+                                   //3rd Neuron layer biases
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ NHL2.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                                        }
+                                   c=0;
+                                   std::getline(TInput,cLine);
+                                   //4th Neuron layer biases
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ NHL3.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                                        }
+                                   c=0;
+                                   std::getline(TInput,cLine);
+                                   //5th Neuron layer biases
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ NHL4.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                                        }
+                                   c=0;
+                                   std::getline(TInput,cLine);
+                                   //Output Neuron layer biases
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ NOL.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                                        }
+                                   c=0;
+                                   std::getline(TInput,cLine);
+                                   //Output Neuron layer biases
+                                        for(int k=0; k<cLine.size(); k++){
+                                             while(cLine.at(k)!=' '){
+                                                  if(cLine.at(k)==' ')break;
+                                                  cWeight+=cLine.at(k);
+                                                  k++;
+                                             }
+                                             if(cLine.at(k)==' '){ OL.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                                        }
+                                   c=0;
+                                   TInput.close();
+                              }
+
+                         }
+                         //Alters the connections
+     for(int i=0; i<NIL.size(); i++){ //
+          for(int j=0; j<NIL.at(i).Connections.size(); j++){
+               NIL.at(i).Connections.at(j).weight=W1(i,j);
+          }
+     }
+     for(int i=0; i<NHL.size(); i++){
+          for(int j=0; j<NHL.at(i).Connections.size(); j++){
+               NHL.at(i).Connections.at(j).weight=W2(i,j);
+          }
+     }
+     for(int i=0; i<NHL2.size(); i++){
+          for(int j=0; j<NHL2.at(i).Connections.size(); j++){
+               NHL2.at(i).Connections.at(j).weight=W3(i,j);
+          }
+     }
+     for(int i=0; i<NHL3.size(); i++){
+          for(int j=0; j<NHL3.at(i).Connections.size(); j++){
+               NHL3.at(i).Connections.at(j).weight=W4(i,j);
+          }
+     }
+     for(int i=0; i<NHL4.size(); i++){
+          for(int j=0; j<NHL4.at(i).Connections.size(); j++){
+               NHL4.at(i).Connections.at(j).weight=W5(i,j);
+          }
+     }
+     for(int i=0; i<NOL.size(); i++){
+          for(int j=0; j<NOL.at(i).Connections.size(); j++){
+               NOL.at(i).Connections.at(j).weight=W6(i,j);
+          }
+     }
+     if(ultimate){
+          cLine="";
+          cWeight="";
+          cChar=' ';
+          c=0;
+          TUInput.open("TUOutput.txt"); //Reads an existing file
+          if(TUInput.is_open()!=true){
+               std::cout<<"Could not open file"<<endl;
+               return;
+          }
+          while(TUInput.is_open() ){
+               //UW1
+               std::getline(TUInput,cLine);
+               if(cLine.find("UW1")!=std::string::npos){
+                     std::cout<<endl<<"Loading Ultimate Weights..."<<endl;
+                    for(int i=0; i<UW1.n_rows; i++){
+                         std::getline(TUInput,cLine);
+                              for(int k=0; k<cLine.size(); k++){
+                                   while(cLine.at(k)!=' '){
+                                        cChar=cLine.at(k);
+                                        if(cLine.at(k)==' ')break;
+                                        cWeight+=cLine.at(k);
+                                        k++;
+                                   }
+                                   if(cLine.at(k)==' '){ UW1(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                              }
+                              c=0;
+                    }
+               }
+               c=0;
+               //UW2
+               if(cLine.find("W2")!=std::string::npos){
+                    for(int i=0; i<UW2.n_rows; i++){
+                         std::getline(TUInput,cLine);
+                              for(int k=0; k<cLine.size(); k++){
+                                   while(cLine.at(k)!=' '){
+                                        cChar=cLine.at(k);
+                                        if(cLine.at(k)==' ')break;
+                                        cWeight+=cLine.at(k);
+                                        k++;
+                                   }
+                                   if(cLine.at(k)==' '){ UW2(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                              }
+                              c=0;
+                    }
+               }
+               c=0;
+               //UW3
+               if(cLine.find("W3")!=std::string::npos){
+                    for(int i=0; i<UW3.n_rows; i++){
+                         std::getline(TUInput,cLine);
+                              for(int k=0; k<cLine.size(); k++){
+                                   while(cLine.at(k)!=' '){
+                                        cChar=cLine.at(k);
+                                        if(cLine.at(k)==' ')break;
+                                        cWeight+=cLine.at(k);
+                                        k++;
+                                   }
+                                   if(cLine.at(k)==' '){ UW3(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                              }
+                              c=0;
+                    }
+               }
+               c=0;
+               //UW4
+               if(cLine.find("W4")!=std::string::npos){
+                    for(int i=0; i<UW4.n_rows; i++){
+                         std::getline(TUInput,cLine);
+                              for(int k=0; k<cLine.size(); k++){
+                                   while(cLine.at(k)!=' '){
+                                        cChar=cLine.at(k);
+                                        if(cLine.at(k)==' ')break;
+                                        cWeight+=cLine.at(k);
+                                        k++;
+                                   }
+                                   if(cLine.at(k)==' '){ UW4(i,c)=atof(cWeight.c_str()); c++; cWeight="";}
+                              }
+                              c=0;
+                    }
+               }
+               c=0;
+               //Biases
+               if(cLine.find("Ultimate_Biases")!=std::string::npos){
+                     std::cout<<endl<<"Loading Ultimate Biases..."<<endl;
+                    std::getline(TUInput,cLine);
+                    //1st Neuron layer biases
+                         for(int k=0; k<cLine.size(); k++){
+                              while(cLine.at(k)!=' '){
+                                   if(cLine.at(k)==' ')break;
+                                   cWeight+=cLine.at(k);
+                                   k++;
+                              }
+                              if(cLine.at(k)==' '){ UL1.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                         }
+                    c=0;
+                    std::getline(TUInput,cLine);
+                    //2nd Neuron layer biases
+                         for(int k=0; k<cLine.size(); k++){
+                              while(cLine.at(k)!=' '){
+                                   if(cLine.at(k)==' ')break;
+                                   cWeight+=cLine.at(k);
+                                   k++;
+                              }
+                              if(cLine.at(k)==' '){ UL2.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                         }
+                    c=0;
+                    std::getline(TUInput,cLine);
+                    //3rd Neuron layer biases
+                         for(int k=0; k<cLine.size(); k++){
+                              while(cLine.at(k)!=' '){
+                                   if(cLine.at(k)==' ')break;
+                                   cWeight+=cLine.at(k);
+                                   k++;
+                              }
+                              if(cLine.at(k)==' '){ UL3.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                         }
+                    c=0;
+                    std::getline(TUInput,cLine);
+                    //4th Neuron layer biases
+                         for(int k=0; k<cLine.size(); k++){
+                              while(cLine.at(k)!=' '){
+                                   if(cLine.at(k)==' ')break;
+                                   cWeight+=cLine.at(k);
+                                   k++;
+                              }
+                              if(cLine.at(k)==' '){ UL4.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                         }
+                    c=0;
+                    std::getline(TUInput,cLine);
+                    //5th Neuron layer biases
+                         for(int k=0; k<cLine.size(); k++){
+                              while(cLine.at(k)!=' '){
+                                   if(cLine.at(k)==' ')break;
+                                   cWeight+=cLine.at(k);
+                                   k++;
+                              }
+                              if(cLine.at(k)==' '){ UL5.at(c).bias=atof(cWeight.c_str()); c++; cWeight="";}
+                         }
+                    c=0;
+                    TUInput.close();
+               }
+          }
+          }
+std::cout<<"Done Loading"<<endl;
+}
+void NN::Save(){
+std::ofstream TOutput;
+//Saves the discovered weights and biases
+     TOutput.open("TOutput.txt", std::ios::in | std::ios::trunc);
+     if(TOutput.is_open()){
+          //W1
+          TOutput<<"\nW1:\n";
+          for(int i=0; i<W1.n_rows; i++){
+               for(int j=0; j<W1.n_cols; j++){
+               TOutput<<""<<W1(i,j)<<" ";
+               }
+               TOutput<<"\n";
+          }
+          //W2
+          TOutput<<"\nW2:\n";
+          for(int i=0; i<W2.n_rows; i++){
+               for(int j=0; j<W2.n_cols; j++){
+               TOutput<<""<<W2(i,j)<<" ";
+               }
+               TOutput<<"\n";
+          }
+          //W3
+          TOutput<<"\nW3:\n";
+          for(int i=0; i<W3.n_rows; i++){
+               for(int j=0; j<W3.n_cols; j++){
+               TOutput<<""<<W3(i,j)<<" ";
+               }
+               TOutput<<"\n";
+          }
+          //W4
+          TOutput<<"\nW4:\n";
+          for(int i=0; i<W4.n_rows; i++){
+               for(int j=0; j<W4.n_cols; j++){
+               TOutput<<""<<W4(i,j)<<" ";
+               }
+               TOutput<<"\n";
+          }
+          //W5
+          TOutput<<"\nW5:\n";
+          for(int i=0; i<W5.n_rows; i++){
+               for(int j=0; j<W5.n_cols; j++){
+               TOutput<<""<<W5(i,j)<<" ";
+               }
+               TOutput<<"\n";
+          }
+          //W5
+          TOutput<<"\nW6:\n";
+          for(int i=0; i<W6.n_rows; i++){
+               for(int j=0; j<W6.n_cols; j++){
+               TOutput<<""<<W6(i,j)<<" ";
+               }
+               TOutput<<"\n";
+          }
+          //Biases
+          TOutput<<"\nBiases:\n";
+          for(int i=0; i<NIL.size(); i++){ //1st Neuron layer biases
+          TOutput<<NIL.at(i).bias<<" ";
+          }
+          TOutput<<"\n";
+          for(int i=0; i<NHL.size(); i++){ //2nd Neuron layer biases
+               TOutput<<NHL.at(i).bias<<" ";
+          }
+          TOutput<<"\n";
+          for(int i=0; i<NHL2.size(); i++){ //3rd Neuron layer biases
+               TOutput<<NHL2.at(i).bias<<" ";
+          }
+          TOutput<<"\n";
+          for(int i=0; i<NHL3.size(); i++){ //4th Neuron layer biases
+               TOutput<<NHL3.at(i).bias<<" ";
+          }
+          TOutput<<"\n";
+          for(int i=0; i<NHL4.size(); i++){ //5th Neuron layer biases
+               TOutput<<NHL4.at(i).bias<<" ";
+          }
+          TOutput<<"\n";
+          for(int i=0; i<NOL.size(); i++){ //6th Neuron layer biases
+               TOutput<<NOL.at(i).bias<<" ";
+          }
+          TOutput<<"\n";
+          for(int i=0; i<OL.size(); i++){ //7th Neuron layer biases
+               TOutput<<OL.at(i).bias<<" ";
+          }
+          TOutput.close();
+     }
+     if(ultimate){
+          TOutput.open("TUOutput.txt", std::ios::in | std::ios::trunc);
+          if(TOutput.is_open()){
+               //UW1
+               TOutput<<"\nUW1:\n";
+               for(int i=0; i<UW1.n_rows; i++){
+                    for(int j=0; j<UW1.n_cols; j++){
+                         TOutput<<""<<UW1(i,j)<<" ";
+                    }
+                    TOutput<<"\n";
+               }
+               //UW2
+               TOutput<<"\nUW2:\n";
+               for(int i=0; i<UW2.n_rows; i++){
+                    for(int j=0; j<UW2.n_cols; j++){
+                         TOutput<<""<<UW2(i,j)<<" ";
+                    }
+                    TOutput<<"\n";
+               }
+               //UW3
+               TOutput<<"\nUW3:\n";
+               for(int i=0; i<UW3.n_rows; i++){
+                    for(int j=0; j<UW3.n_cols; j++){
+                         TOutput<<""<<UW3(i,j)<<" ";
+                    }
+                    TOutput<<"\n";
+               }
+               //UW4
+               TOutput<<"\nUW4:\n";
+               for(int i=0; i<UW4.n_rows; i++){
+                    for(int j=0; j<UW4.n_cols; j++){
+                         TOutput<<""<<UW4(i,j)<<" ";
+                    }
+                    TOutput<<"\n";
+               }
+               //
+               TOutput<<"\nUltimate_Biases:\n";
+               for(int i=0; i<UL1.size(); i++){ //1st Ultimate Neuron layer biases
+                    TOutput<<UL1.at(i).bias<<" ";
+               }
+               TOutput<<"\n";
+               for(int i=0; i<UL2.size(); i++){ //1st Ultimate Neuron layer biases
+                    TOutput<<UL2.at(i).bias<<" ";
+               }
+               TOutput<<"\n";
+               for(int i=0; i<UL3.size(); i++){ //1st Ultimate Neuron layer biases
+                    TOutput<<UL3.at(i).bias<<" ";
+               }
+               TOutput<<"\n";
+               for(int i=0; i<UL4.size(); i++){ //1st Ultimate Neuron layer biases
+                    TOutput<<UL4.at(i).bias<<" ";
+               }
+               TOutput<<"\n";
+               for(int i=0; i<UL5.size(); i++){ //1st Ultimate Neuron layer biases
+                    TOutput<<UL5.at(i).bias<<" ";
+               }
+               TOutput<<"\n";
+               TOutput.close();
+          }
+     }
+     std::cout<<"Save Complete"<<endl;
+}
+void NN::Train(bool testing=false){
+     using namespace dlib;
+     std::ofstream TOutput; //Input and output for saving weights and biases
+     std::ifstream TInput;
+     std::string cLine="";
+     std::string cWeight="";
+     char cChar;
+     std::vector<double> acost; //The achieved cost from find_min
+     double MeanACost=0.0;
+     long ms = (W1.size() + W2.size() + W3.size() + W4.size() + W5.size() + W6.size());
+     long bs = (NIL.size() + NHL.size() + NHL2.size() + NHL3.size() + NHL4.size() + NOL.size() + OL.size());
+     dlib::matrix<double, 0, 1> WeightM; //Matrix containing all the weights
+     WeightM.set_size(ms);
+     dlib::matrix<double, 0, 1> BiasM; //Matrix containing all the biases
+     BiasM.set_size(bs);
+     //Loads from file
+     Load();
+     int c=0;
+     if(ultimate){
+          ms = (UW1.size() + UW2.size() + UW3.size() + UW4.size() ); WeightM.set_size(ms);
+          bs = ( UL2.size() + UL3.size() + UL4.size() + UL5.size() ); BiasM.set_size(bs);
+
+          for(int i=0; i<UW1.n_rows; i++){ //First weight matrix
+               for(int j=0; j<UW1.n_cols; j++){
+                    WeightM(0,c) = UW1(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<UW2.n_rows; i++){ //weight matrix
+               for(int j=0; j<UW2.n_cols; j++){
+                    WeightM(0,c) = UW2(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<UW3.n_rows; i++){ //weight matrix
+               for(int j=0; j<UW3.n_cols; j++){
+                    WeightM(0,c) = UW3(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<UW4.n_rows; i++){ //weight matrix
+               for(int j=0; j<UW4.n_cols; j++){
+                    WeightM(0,c) = UW4(i,j);
+                    c++;
+               }
+          }
+          //biases
+          c=0;
+          for(int i=0; i<UL2.size(); i++){ //Neuron layer biases
+               BiasM(0,c) = UL2.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<UL3.size(); i++){ //Neuron layer biases
+               BiasM(0,c) = UL3.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<UL4.size(); i++){ //Neuron layer biases
+               BiasM(0,c) = UL4.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<UL5.size(); i++){ //Neuron layer biases
+               BiasM(0,c) = UL5.at(i).bias;
+               c++;
+          }
+     }else{
+          for(int i=0; i<W1.n_rows; i++){ //First weight matrix
+               for(int j=0; j<W1.n_cols; j++){
+                    WeightM(0,c) = W1(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<W2.n_rows; i++){ //Second weight matrix
+               for(int j=0; j<W2.n_cols; j++){
+                    WeightM(0,c) = W2(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<W3.n_rows; i++){ //Third weight matrix
+               for(int j=0; j<W3.n_cols; j++){
+                    WeightM(0,c) = W3(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<W4.n_rows; i++){ //4 weight matrix
+               for(int j=0; j<W4.n_cols; j++){
+                    WeightM(0,c) = W4(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<W5.n_rows; i++){ //5 weight matrix
+               for(int j=0; j<W5.n_cols; j++){
+                    WeightM(0,c) = W5(i,j);
+                    c++;
+               }
+          }
+          for(int i=0; i<W6.n_rows; i++){ //6 weight matrix
+               for(int j=0; j<W6.n_cols; j++){
+                    WeightM(0,c) = W6(i,j);
+                    c++;
+               }
+          }
+          c=0;
+          for(int i=0; i<NIL.size(); i++){ //1st Neuron layer biases
+               BiasM(0,c) = NIL.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<NHL.size(); i++){ //2nd Neuron layer biases
+               BiasM(0,c) = NHL.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<NHL2.size(); i++){ //3rd Neuron layer biases
+               BiasM(0,c) = NHL2.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<NHL3.size(); i++){ //4th Neuron layer biases
+               BiasM(0,c) = NHL3.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<NHL4.size(); i++){ //5th Neuron layer biases
+               BiasM(0,c) = NHL4.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<NOL.size(); i++){ //6th Neuron layer biases
+               BiasM(0,c) = NOL.at(i).bias;
+               c++;
+          }
+          for(int i=0; i<OL.size(); i++){ //7th Neuron layer biases
+               BiasM(0,c) = OL.at(i).bias;
+               c++;
+          }
+          c=0;
+     }
+     /*
+     std::cout<<"Big Baller: "<<endl;
+     W1.print(); std::cout<<endl;
+     W2.print(); std::cout<<endl;
+     W3.print(); std::cout<<endl;
+     std::cout<<"Big Baller Bias: "<<endl;
+     for(int i=0; i<NIL.size(); i++){ //1st Neuron layer biases
+          std::cout<<NIL.at(i).bias<<" ";
+     }
+     std::cout<<endl;
+     for(int i=0; i<NHL.size(); i++){ //2nd Neuron layer biases
+          std::cout<<NHL.at(i).bias<<" ";
+     }
+     std::cout<<endl;
+     for(int i=0; i<NHL2.size(); i++){ //3rd Neuron layer biases
+          std::cout<<NHL2.at(i).bias<<" ";
+     }
+     std::cout<<endl;
+     for(int i=0; i<NOL.size(); i++){ //4th Neuron layer biases
+          std::cout<<NOL.at(i).bias<<" ";
+     }
+     std::cout<<endl;
+     //
+     */
+          if(testing!=true){
+                    tFlag=false;
+                    if(acost.size() > 3){
+                         MeanACost=0;
+                         for(int i=0; i<acost.size(); i++){
+                              MeanACost += acost.at(i);
+                         }
+                         MeanACost = MeanACost / acost.size();
+                         std::cout<<endl<<"MeanACost: "<<MeanACost<<endl;
+                         std::cout<<endl<<"Size: "<<acost.size()<<endl;
+                    }
+                         //
+                         ///
+                         //
+                         if(ultimate){
+                         std::cout<<endl<<"Starting Ultimate Training..."<<endl<<endl;
+                              find_min_using_approximate_derivatives(lbfgs_search_strategy(10),objective_delta_stop_strategy(.1).be_verbose(), UScoreWrapper, WeightM, 0); //
+                                   c=0;
+                                   for(int i=0; i<UW1.n_rows; i++){ //weight matrix
+                                        for(int j=0; j<UW1.n_cols; j++){
+                                             UW1(i,j)=WeightM(0,c);
+                                             c++;
+                                        }
+                                   }
+                                   for(int i=0; i<UW2.n_rows; i++){ //weight matrix
+                                        for(int j=0; j<UW2.n_cols; j++){
+                                             UW2(i,j)=WeightM(0,c);
+                                             c++;
+                                        }
+                                   }
+                                   for(int i=0; i<UW3.n_rows; i++){ //weight matrix
+                                        for(int j=0; j<UW3.n_cols; j++){
+                                             UW3(i,j)=WeightM(0,c);
+                                             c++;
+                                        }
+                                   }
+                                   for(int i=0; i<UW4.n_rows; i++){ //weight matrix
+                                        for(int j=0; j<UW4.n_cols; j++){
+                                             UW4(i,j)=WeightM(0,c);
+                                             c++;
+                                        }
+                                   }
+                                   Save();
+                                   c=0;
+                              find_min_using_approximate_derivatives(lbfgs_search_strategy(10),objective_delta_stop_strategy(.1).be_verbose(), UScoreWrapper, BiasM, 0); //
+                                   for(int i=0; i<UL2.size(); i++){ //Neuron layer biases
+                                        UL2.at(i).bias=BiasM(0,c); c++;
+                                   }
+                                   for(int i=0; i<UL2.size(); i++){ //Neuron layer biases
+                                        UL2.at(i).bias=BiasM(0,c); c++;
+                                   }
+                                   for(int i=0; i<UL3.size(); i++){ //Neuron layer biases
+                                        UL3.at(i).bias=BiasM(0,c); c++;
+                                   }
+                                   for(int i=0; i<UL4.size(); i++){ //Neuron layer biases
+                                        UL4.at(i).bias=BiasM(0,c); c++;
+                                   }
+                                   for(int i=0; i<UL5.size(); i++){ //Neuron layer biases
+                                        UL5.at(i).bias=BiasM(0,c); c++;
+                                   }
+                                   Save();
+                         }else{
+                         //
+                         ///
+                         //
+                         acost.push_back( find_min_using_approximate_derivatives(lbfgs_search_strategy(100),objective_delta_stop_strategy(5).be_verbose(), CW, WeightM, 1) );
+                         //acost.push_back( find_min_using_approximate_derivatives(lbfgs_search_strategy(100),gradient_norm_stop_strategy(.1).be_verbose(), PT, WeightM, -100) );
+                         c=0;
+
+                         for(int i=0; i<W1.n_rows; i++){ //First weight matrix
+                              for(int j=0; j<W1.n_cols; j++){
+                                   W1(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W2.n_rows; i++){ //Second weight matrix
+                              for(int j=0; j<W2.n_cols; j++){
+                                   W2(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W3.n_rows; i++){ //Third weight matrix
+                              for(int j=0; j<W3.n_cols; j++){
+                                   W3(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W4.n_rows; i++){ //Fourth weight matrix
+                              for(int j=0; j<W4.n_cols; j++){
+                                   W4(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W5.n_rows; i++){ //Fifth weight matrix
+                              for(int j=0; j<W5.n_cols; j++){
+                                   W5(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W6.n_rows; i++){ //sixth weight matrix
+                              for(int j=0; j<W6.n_cols; j++){
+                                   W6(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+
+                         c=0;
+                         Save();
+                          acost.push_back( find_min_using_approximate_derivatives(lbfgs_search_strategy(50),objective_delta_stop_strategy(5).be_verbose(), CW, BiasM, 1) );
+                         //acost.push_back( find_min_using_approximate_derivatives(lbfgs_search_strategy(100),gradient_norm_stop_strategy(1e-1).be_verbose(), PT, WeightM, -100) );
+
+                         c=0; //Alters biases
+                         for(int i=0; i<NIL.size(); i++){ //1st Neuron layer biases
+                              NIL.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL.size(); i++){ //2nd Neuron layer biases
+                              NHL.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL2.size(); i++){ //3rd Neuron layer biases
+                              NHL2.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL3.size(); i++){ //4th Neuron layer biases
+                              NHL3.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL4.size(); i++){ //5th Neuron layer biases
+                              NHL4.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NOL.size(); i++){ //6th Neuron layer biases
+                              NOL.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<OL.size(); i++){ //7th Neuron layer biases
+                              OL.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         c=0;
+                         Save();
+                         }
+               //
+          }
+               //srand(time(NULL));
+               //Testnet.NNAI.AIRematch(); //Clears the AI memory
+               //find_min_using_approximate_derivatives(lbfgs_search_strategy(50),objective_delta_stop_strategy(1e-15).be_verbose(), PT, WeightM, 0);
+
+    if(testing){
+          PT(WeightM);
+           /*
+          srand( time(NULL) );
+     find_min_using_approximate_derivatives(lbfgs_search_strategy(30),objective_delta_stop_strategy(.1).be_verbose(), PT, WeightM, -1000);
+     c=0;
+                         for(int i=0; i<W1.n_rows; i++){ //First weight matrix
+                              for(int j=0; j<W1.n_cols; j++){
+                                   W1(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W2.n_rows; i++){ //Second weight matrix
+                              for(int j=0; j<W2.n_cols; j++){
+                                   W2(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W3.n_rows; i++){ //Third weight matrix
+                              for(int j=0; j<W3.n_cols; j++){
+                                   W3(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W4.n_rows; i++){ //Fourth weight matrix
+                              for(int j=0; j<W4.n_cols; j++){
+                                   W4(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         for(int i=0; i<W5.n_rows; i++){ //Fifth weight matrix
+                              for(int j=0; j<W5.n_cols; j++){
+                                   W5(i,j)=WeightM(0,c);
+                                   c++;
+                              }
+                         }
+                         c=0;
+     find_min_using_approximate_derivatives(lbfgs_search_strategy(30),objective_delta_stop_strategy(.3).be_verbose(), PT, BiasM, -1000);
+     c=0; //Alters biases
+                         for(int i=0; i<NIL.size(); i++){ //1st Neuron layer biases
+                              NIL.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL.size(); i++){ //2nd Neuron layer biases
+                              NHL.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL2.size(); i++){ //3rd Neuron layer biases
+                              NHL2.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL3.size(); i++){ //4th Neuron layer biases
+                              NHL3.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NHL4.size(); i++){ //5th Neuron layer biases
+                              NHL4.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         for(int i=0; i<NOL.size(); i++){ //6th Neuron layer biases
+                              NOL.at(i).bias=BiasM(0,c);
+                              c++;
+                         }
+                         c=0;
+
+                         Save();
+                         */
+    }
+     //Like putting it in, but in reverse
+
+     c=0;
+     for(int i=0; i<W1.n_rows; i++){ //First weight matrix
+          for(int j=0; j<W1.n_cols; j++){
+               W1(i,j)=WeightM(0,c);
+               c++;
+          }
+     }
+     for(int i=0; i<W2.n_rows; i++){ //Second weight matrix
+          for(int j=0; j<W2.n_cols; j++){
+               W2(i,j)=WeightM(0,c);
+               c++;
+          }
+     }
+     for(int i=0; i<W3.n_rows; i++){ //Third weight matrix
+          for(int j=0; j<W3.n_cols; j++){
+               W3(i,j)=WeightM(0,c);
+               c++;
+          }
+     }
+     for(int i=0; i<W4.n_rows; i++){ //Fourth weight matrix
+          for(int j=0; j<W4.n_cols; j++){
+               W4(i,j)=WeightM(0,c);
+               c++;
+          }
+     }
+     for(int i=0; i<W5.n_rows; i++){ //Fifth weight matrix
+          for(int j=0; j<W5.n_cols; j++){
+               W5(i,j)=WeightM(0,c);
+               c++;
+          }
+     }
+     for(int i=0; i<W6.n_rows; i++){ //sixth weight matrix
+          for(int j=0; j<W6.n_cols; j++){
+               W6(i,j)=WeightM(0,c);
+               c++;
+          }
+     }
+     c=0; //Alters biases
+     for(int i=0; i<NIL.size(); i++){ //1st Neuron layer biases
+          NIL.at(i).bias=BiasM(0,c);
+          c++;
+     }
+     for(int i=0; i<NHL.size(); i++){ //2nd Neuron layer biases
+          NHL.at(i).bias=BiasM(0,c);
+          c++;
+     }
+     for(int i=0; i<NHL2.size(); i++){ //3rd Neuron layer biases
+          NHL2.at(i).bias=BiasM(0,c);
+          c++;
+     }
+     for(int i=0; i<NHL3.size(); i++){ //4th Neuron layer biases
+          NHL3.at(i).bias=BiasM(0,c);
+          c++;
+     }
+     for(int i=0; i<NHL4.size(); i++){ //5th Neuron layer biases
+          NHL4.at(i).bias=BiasM(0,c);
+          c++;
+     }
+     for(int i=0; i<NOL.size(); i++){ //6th Neuron layer biases
+          NOL.at(i).bias=BiasM(0,c);
+          c++;
+     }
+     for(int i=0; i<OL.size(); i++){ //7th Neuron layer biases
+          OL.at(i).bias=BiasM(0,c);
+          c++;
+     }
+     c=0;
+
+     /*
+     for(int i=W3.size() + W2.size() + W1.size(); i<TW.size() + W3.size() + W2.size() + W1.size(); i++){ //Fourth weight matrix
+          TWCopy(c,0)=WeightM(0,i);
+          c++;
+     } */
+     /*
+     std::cout<<"New Big Baller: "<<endl;
+     W1.print(); std::cout<<endl;
+     W2.print(); std::cout<<endl;
+     W3.print(); std::cout<<endl;
+     std::cout<<"New Big Baller Bias: "<<endl;
+          for(int i=0; i<NIL.size(); i++){ //1st Neuron layer biases
+               std::cout<<NIL.at(i).bias<<" ";
+          }
+          std::cout<<endl;
+          for(int i=0; i<NHL.size(); i++){ //2nd Neuron layer biases
+               std::cout<<NHL.at(i).bias<<" ";
+          }
+          std::cout<<endl;
+          for(int i=0; i<NHL2.size(); i++){ //3rd Neuron layer biases
+               std::cout<<NHL2.at(i).bias<<" ";
+          }
+          std::cout<<endl;
+          for(int i=0; i<NOL.size(); i++){ //4th Neuron layer biases
+               std::cout<<NOL.at(i).bias<<" ";
+          }
+          std::cout<<endl;
+     //TWCopy.print(); std::cout<<endl;
+     //TW=TWCopy;
+     */
+     //Alters the connections
+     for(int i=0; i<NIL.size(); i++){ //
+          for(int j=0; j<NIL.at(i).Connections.size(); j++){
+               NIL.at(i).Connections.at(j).weight=W1(i,j);
+          }
+     }
+     for(int i=0; i<NHL.size(); i++){
+          for(int j=0; j<NHL.at(i).Connections.size(); j++){
+               NHL.at(i).Connections.at(j).weight=W2(i,j);
+          }
+     }
+     for(int i=0; i<NHL2.size(); i++){
+          for(int j=0; j<NHL2.at(i).Connections.size(); j++){
+               NHL2.at(i).Connections.at(j).weight=W3(i,j);
+          }
+     }
+     for(int i=0; i<NHL3.size(); i++){
+          for(int j=0; j<NHL3.at(i).Connections.size(); j++){
+               NHL3.at(i).Connections.at(j).weight=W4(i,j);
+          }
+     }
+     for(int i=0; i<NHL4.size(); i++){
+          for(int j=0; j<NHL4.at(i).Connections.size(); j++){
+               NHL4.at(i).Connections.at(j).weight=W5(i,j);
+          }
+     }
+     for(int i=0; i<NOL.size(); i++){
+          for(int j=0; j<NOL.at(i).Connections.size(); j++){
+               NOL.at(i).Connections.at(j).weight=W6(i,j);
+          }
+     }
+     for(int i=0; i<OL.size(); i++){
+          for(int j=0; j<OL.at(i).Connections.size(); j++){
+               OL.at(i).Connections.at(j).weight=W6(i,j);
+          }
+     }
+     Save();
+     /*
+     for(int i=0; i<NOL.size(); i++){
+        NOL.at(i).Connections.at(0).weight=TW(i,0);
+     } */
+     //
+     //CalcOut();
+     //
+     //std::cout<<"New Big Baller Boi: "<<endl;
+     //std::cout << std::setprecision(4);
+     //OutputM.print();
+return;
+}
+int NN::Place(TTTHuman PBuddy){
+     int choice=0,c=0;
+     double answer=-1.0;
+     mat OCopy;
+          BI(PBuddy.HPositions, NNAI.AIPositions,3);
+          //CalcOut stuff
+          CalcOut();
+          OCopy=COutput();
+          c=0;
+          for(int i=0; i<OCopy.n_rows; i++){ //In this instance it should be 1 row
+               for(int j=0; j<OCopy.n_cols; j++){
+                    c++;
+                    if(OCopy(i,j) > answer){
+                         if(PBuddy.HPositions[c]!=1 && NNAI.AIPositions[c]!=1){
+                              answer=OCopy(i,j); choice=c;
+                         }
+                    }
+               }
+          }
+          NNAI.AIPositions[choice]=1;
+          NNAI.AddMove();
+return choice;
+}
+void NN::OPT(bool testing){
+     // TODO (Blackweb#1#): Remove this OPT function when done testing
+               if(testing!=true){
+                    //CalcOut();
+                    /*
+                    std::cout<<endl<<"Output: "<<endl;
+                    OutputM.print();    std::cout<<endl;
+                    Cost();
+                    BackProp();
+                    std::cout<<GradCheck()<<endl;
+                    */
+                    Train();
+               }else{
+                    Train(true);
+               }
+          return;
+}
+/////////////////////////
 //Important Function that determines if someone has won the game // This function checks if the AI or Human Player has one
+/////////////////////////
 int EndGame(TTTHuman HP, TTTAI RAI, bool restart);
 //
 bool checkWin(TTTHuman HP, TTTAI RAI){ // A list of all victory positions // Across ([1,2,3] [4,5,6] [7,8,9]) // Up and Down  ([1,4,7] [2,5,8] [3,6,9]) // Diagonal ([1,5,9] [3,5,7])
@@ -365,15 +3495,15 @@ bool checkWin(TTTHuman HP, TTTAI RAI){ // A list of all victory positions // Acr
     int bp8 = HP.HPositions[8];
     int bp9 = HP.HPositions[9];
     // AI positions
-    int AIbp1 = RAI.Positions[1]; // AIbp1(Board Place 1) this is the naming convention for these
-    int AIbp2 = RAI.Positions[2];
-    int AIbp3 = RAI.Positions[3];
-    int AIbp4 = RAI.Positions[4];
-    int AIbp5 = RAI.Positions[5];
-    int AIbp6 = RAI.Positions[6];
-    int AIbp7 = RAI.Positions[7];
-    int AIbp8 = RAI.Positions[8];
-    int AIbp9 = RAI.Positions[9];
+    int AIbp1 = RAI.AIPositions[1]; // AIbp1(Board Place 1) this is the naming convention for these
+    int AIbp2 = RAI.AIPositions[2];
+    int AIbp3 = RAI.AIPositions[3];
+    int AIbp4 = RAI.AIPositions[4];
+    int AIbp5 = RAI.AIPositions[5];
+    int AIbp6 = RAI.AIPositions[6];
+    int AIbp7 = RAI.AIPositions[7];
+    int AIbp8 = RAI.AIPositions[8];
+    int AIbp9 = RAI.AIPositions[9];
     //If statements checking for winning orientations of the Human side
     if( (bp1+bp2+bp3) == 3 ){ Hcheck=true;} // [1,2,3]
     if( (bp4+bp5+bp6) == 3 ){ Hcheck=true;} // [4,5,6]
@@ -394,8 +3524,8 @@ bool checkWin(TTTHuman HP, TTTAI RAI){ // A list of all victory positions // Acr
     if( (AIbp3+AIbp5+AIbp7) == 3 ){ AIcheck=true;} // [3,5,7]
     //Ensures that no mistake was made that lead to both parties winning
         if( ( AIcheck==true && Hcheck==true ) ){cout<<"ERROR: Checkwin, Double true"<<endl;}
-            if((Hcheck == true) ){decision=true; HP.HWon(true); }
-                if((AIcheck == true) ){decision=true; RAI.AIWon(true); }
+            else if((Hcheck == true) ){decision=true; HP.HWon(true); }
+                else if((AIcheck == true) ){decision=true; RAI.AIWon(true); }
                     switch( EndGame(HP, RAI, false) ){
                         case -1: decision=false; break;
                         case 0: decision = true; break; //Tie
@@ -409,19 +3539,21 @@ return decision;
 }
 //Function that determines who won the game(Ai or Human) and if the game ended in a tie
 int EndGame(TTTHuman HP, TTTAI RAI, bool restart){
-    using namespace std;
-    int EndGamedec=-1; //The decision of the game
-    if(HP.GetMoves() >= 5){ if(RAI.AIWon(false)==false && HP.HWon(false)==false){cout<<"Tie"<<endl; EndGamedec=0;} } //Checks for tie but other if statements below are there to make sure
-    if(HP.GetMoves() > 5){cout<<"Tie"<<endl; EndGamedec=0;}   // EndGameDec = 0 is a tie // =1 is Human victory // =2 is AI victory // =3 restart match // =4 end game
-    if(HP.HWon(false) == true){ cout<<"Human victory"<<endl; EndGamedec=1;}
-    if(RAI.GetMoves() > 5){cout<<"Tie"<<endl; EndGamedec=0;}
-    if(RAI.AIWon(false)==true){ cout<<"AI victory"<<endl; EndGamedec=2;}
-    if(restart==true){
-        cout<<endl<<"Do you wish to rematch the current AI?"<<endl<<"Yes: 1"<<endl<<"No: 2"<<endl;
-        int RD; // rematch decision
-        cin>>RD; cout<<endl;
-            if(RD == 1){ HP.HumanRematch(); RAI.AIRematch(); cout<<"Rematch will commence."<<endl; EndGamedec=3;}else if(RD !=2){cout<<"That is not one of the proposed options."<<endl; EndGamedec=4;}else{cout<<"Bye and have a good time."<<endl;EndGamedec=4;}
-    }
+     using namespace std;
+     int EndGamedec=-1; //The decision of the game
+     if(HP.GetMoves() >= 5 || RAI.GetMoves() >= 5){
+          if(RAI.AIWon(false)==false && HP.HWon(false)==false){
+                EndGamedec=0;
+          }
+     } //Checks for tie but other if statements below are there to make sure
+     if(HP.HWon(false) == true){ cout<<"Human victory"<<endl; EndGamedec=1;}
+     else if(RAI.AIWon(false)==true){ cout<<"AI victory"<<endl; EndGamedec=2;}
+     while(restart==true){
+          cout<<endl<<"Do you wish to rematch the current AI?"<<endl<<"Yes: 1"<<endl<<"No: 2"<<endl;
+          int RD; // rematch decision
+          cin>>RD; cout<<endl;
+               if(RD == 1){ HP.HumanRematch(); RAI.AIRematch(); cout<<"Rematch will commence."<<endl; EndGamedec=3; restart=false; break;}else if(RD !=2){cout<<"That is not one of the proposed options."<<endl; }else{cout<<"Bye and have a good time."<<endl;EndGamedec=4; restart=false; break;}
+     }
 return EndGamedec;
 }
 //Important Function that displays the board
@@ -475,7 +3607,324 @@ void DisplayB(int Places[], int AIPlaces[]){
 return;
 }
 
+double PT(dlib::matrix<double> CM){ //Play Training
+     // TODO (Blackweb#1#): The size of these matrices are hard-coded right here, so if the number of weights changes these have to be changed directly ...
+//
+     //srand( time(NULL) );
+     mat W1Copy;
+     W1Copy.set_size(Testnet.getW1().n_rows,Testnet.getW1().n_cols);
+     W1Copy.fill(fill::zeros);
+     mat W2Copy;
+     W2Copy.set_size(Testnet.getW2().n_rows,Testnet.getW2().n_cols);
+     W2Copy.fill(fill::zeros);
+     mat W3Copy;
+     W3Copy.set_size(Testnet.getW3().n_rows,Testnet.getW3().n_cols);
+     W3Copy.fill(fill::zeros);
+     mat W4Copy;
+     W4Copy.set_size(Testnet.getW4().n_rows,Testnet.getW4().n_cols);
+     W4Copy.fill(fill::zeros);
+     mat W5Copy;
+     W5Copy.set_size(Testnet.getW5().n_rows,Testnet.getW5().n_cols);
+     W5Copy.fill(fill::zeros);
+     mat W6Copy;
+     W6Copy.set_size(Testnet.getW6().n_rows,Testnet.getW6().n_cols);
+     W6Copy.fill(fill::zeros);
+     //
+     mat BL1; //Biases layers one
+     BL1.set_size(1, Testnet.getNIL().size());
+     mat BL2; //Biases layers one
+     BL2.set_size(1, Testnet.getNHL().size());
+     mat BL3; //Biases layers one
+     BL3.set_size(1, Testnet.getNHL2().size());
+     mat BL4; //Biases layers one
+     BL4.set_size(1, Testnet.getNHL3().size());
+     mat BL5; //Biases layers one
+     BL5.set_size(1, Testnet.getNHL4().size());
+     mat BL6; //Biases layers one
+     BL6.set_size(1, Testnet.getNOL().size());
+     mat BL7; //Biases layers one
+     BL7.set_size(1, Testnet.getOL().size());
+     //
+     //mat W4Copy;
+     //W4Copy.set_size(3,1);
+     //W4Copy.fill(fill::zeros);
+     mat OCopy;
+     mat I;
+     int choice=0, c=0;
+     bool chosenPB=false;
+     int r= rand()%9+1;
+     if( CM.size() == Testnet.getNIL().size() + Testnet.getNHL().size() + Testnet.getNHL2().size() + Testnet.getNHL3().size() + Testnet.getNHL4().size() + Testnet.getNOL().size() + Testnet.getOL().size()){
+          for(int i=0; i<BL1.size(); i++){ //1st Neuron layer biases
+               BL1(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL2.size(); i++){ //2nd Neuron layer biases
+               BL2(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL3.size(); i++){ //3rd Neuron layer biases
+               BL3(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL4.size(); i++){ //4th Neuron layer biases
+               BL4(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL5.size(); i++){ //5th Neuron layer biases
+               BL5(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL6.size(); i++){ //6th Neuron layer biases
+               BL6(i)=CM(0,c);
+               c++;
+          }
+          for(int i=0; i<BL7.size(); i++){ //6th Neuron layer biases
+               BL7(i)=CM(0,c);
+               c++;
+          }
+          c=0;
+          //Takes care of the weights
+          W1Copy=Testnet.getW1();
+          W2Copy=Testnet.getW2();
+          W3Copy=Testnet.getW3();
+          W4Copy=Testnet.getW4();
+          W5Copy=Testnet.getW5();
+          W6Copy=Testnet.getW6();
+     }else{
+          //W1 matrix
+          for(int i=0; i<W1Copy.n_rows; i++){ //First weight matrix
+               for(int j=0; j<W1Copy.n_cols; j++){
+                    W1Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W2Copy.n_rows; i++){ //Second weight matrix
+               for(int j=0; j<W2Copy.n_cols; j++){
+                    W2Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W3Copy.n_rows; i++){ //Third weight matrix
+               for(int j=0; j<W3Copy.n_cols; j++){
+                    W3Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W4Copy.n_rows; i++){ //Fourth weight matrix
+               for(int j=0; j<W4Copy.n_cols; j++){
+                    W4Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W5Copy.n_rows; i++){ //Fifth weight matrix
+               for(int j=0; j<W5Copy.n_cols; j++){
+                    W5Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          for(int i=0; i<W6Copy.n_rows; i++){ //Fifth weight matrix
+               for(int j=0; j<W6Copy.n_cols; j++){
+                    W6Copy(i,j)=CM(0,c);
+                    c++;
+               }
+          }
+          c=0;
+          //Takes care of the bias
+          BL1.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNIL().at(c).bias; c++; } );
+          c=0;
+          BL2.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL().at(c).bias; c++; } );
+          c=0;
+          BL3.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL2().at(c).bias; c++; } );
+          c=0;
+          BL4.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL3().at(c).bias; c++; } );
+          c=0;
+          BL5.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNHL4().at(c).bias; c++; } );
+          c=0;
+          BL6.for_each( [&c](mat::elem_type& val ){ val= Testnet.getNOL().at(c).bias; c++; } );
+          c=0;
+          BL7.for_each( [&c](mat::elem_type& val ){ val= Testnet.getOL().at(c).bias; c++; } );
+          c=0;
+     }
+     //
+     TTTAI PBuddy; //Play buddy
+     TTTHuman FH; //Fake human
+     bool playing=true;
+     double score=100;
+     uvec answers;
+     double answer=-1;
+     double sanswer=-1;
+     int ff=0;
+     bool chosen=false;
+     while(playing){
+          ff=rand()%100+1;
+          if(ff>=50){
+              PBuddy.Play(Testnet.NNAI.AIPositions, PBuddy.AIPositions);
+          }else{
+          while(chosenPB!=true){
+                    r=rand()%9 +1;
+                    if( (PBuddy.AIPositions[1]!=1 && Testnet.NNAI.AIPositions[1]!=1) && r==1 ){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[2]!=1 && Testnet.NNAI.AIPositions[2]!=1) && r==2 ){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[3]!=1 && Testnet.NNAI.AIPositions[3]!=1) && r==3){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[4]!=1 && Testnet.NNAI.AIPositions[4]!=1) && r==4){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[5]!=1 && Testnet.NNAI.AIPositions[5]!=1) && r==5){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[6]!=1 && Testnet.NNAI.AIPositions[6]!=1) && r==6){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[7]!=1 && Testnet.NNAI.AIPositions[7]!=1) && r==7){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[8]!=1 && Testnet.NNAI.AIPositions[8]!=1) && r==8){
+                         chosenPB=true; break;
+                    }else if( (PBuddy.AIPositions[9]!=1 && Testnet.NNAI.AIPositions[9]!=1) && r==9){
+                         chosenPB=true; break;
+                    }
+               }
+               PBuddy.AddMove();
+               PBuddy.AIPositions[r]=1;
+               chosenPB=false;
+          }
+          //randomly picks a position
+          for(int i=1; i<10; i++){
+               FH.HPositions[i]=PBuddy.AIPositions[i];
+          }
+           DisplayB(PBuddy.AIPositions,Testnet.NNAI.AIPositions);
+           std::cout<<"Moves: "<<Testnet.NNAI.GetMoves()<<endl;
+          if(checkWin(FH,Testnet.NNAI)==true || PBuddy.GetMoves()>=5){ //Checks if someone has won or if a tie has occured
+               if(FH.HWon(false)){
+                    score+=100;
+               }
+               if(Testnet.NNAI.AIWon(false)){
+                    score-=5;
+                    //tFlag=true;
+               }
+               score-=1;
+               FH.HumanRematch();
+               PBuddy.AIRematch();
+               Testnet.NNAI.AIRematch();
+               continue;
+          }
+          Testnet.BI(PBuddy.AIPositions, Testnet.NNAI.AIPositions,3);
+          //CalcOut stuff
 
+          c=0;
+          //CalcOut stuff
+          /*
+          I=Testnet.getInput(); //std::cout<<"I: "<<endl; I.print(); std::cout<<endl;
+          I.for_each( [&c, &BL1](mat::elem_type& val ){ val+= BL1(c); c++; } );
+          c=0;
+          //
+          OCopy= I * W1Copy; // 1x9 * 9x9 = 1x9
+          OCopy.for_each( [&c, &BL2](mat::elem_type& val ){ val+= BL2(c); c++;} );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W2Copy; // 1x9 * 9x18 = 1x18
+          OCopy.for_each( [&c, &BL3](mat::elem_type& val ){ val+= BL3(c); c++; } );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W3Copy; // 1x18 * 18x36 = 1x36
+          OCopy.for_each( [&c, &BL4](mat::elem_type& val ){ val+= BL4(c); c++; } );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W4Copy; // 1x36 * 36x18 = 1x18
+          OCopy.for_each( [&c, &BL5](mat::elem_type& val ){ val+= BL5(c); c++; } );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          OCopy = OCopy * W5Copy; // 1x18 * 18x9 = 1x9
+          OCopy.for_each( [&c, &BL6](mat::elem_type& val ){ val+= BL6(c); c++; } );
+          c=0;
+          OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
+          */
+           Testnet.CalcOut();
+           OCopy=Testnet.COutput();
+          c=0;
+          for(int i=0; i<OCopy.n_rows; i++){
+
+               for(int j=0; j<OCopy.n_cols; j++){
+                    c++;
+                    if(OCopy(i,j) > answer){
+                         if(PBuddy.AIPositions[c]!=1 && Testnet.NNAI.AIPositions[c]!=1){
+                              answer=OCopy(i,j); choice=c;
+                         }
+                    }
+               }
+          }
+           std::cout<<"Output: "<<endl;
+           OCopy.print(); std::cout<<endl;
+           std::cout<<"choice: "<<choice<<endl;
+          c=0;
+          do{
+               if(choice<-1 || choice > 10){
+                    FH.HumanRematch();
+                    PBuddy.AIRematch();
+                    Testnet.NNAI.AIRematch();
+                    score+=10;
+                    std::cout<<"Choice out of range"<<endl;
+                    return score+=5;
+               }
+               if(PBuddy.AIPositions[choice]!=1 && Testnet.NNAI.AIPositions[choice]!=1){
+                    Testnet.NNAI.AIPositions[choice]=1;  DisplayB(PBuddy.AIPositions,Testnet.NNAI.AIPositions); //score-=1;
+                    Testnet.NNAI.AddMove();
+                    chosen=true; break;
+               }else{
+                    score+=100;
+
+                    //
+                    //OCopy=Testnet.COutput();
+                    c=0;
+                    for(int i=0; i<OCopy.n_rows; i++){
+
+                         for(int j=0; j<OCopy.n_cols; j++){
+                              c++;
+                              if(OCopy(i,j) >sanswer){if(OCopy(i,j)>=answer){ }else{sanswer=OCopy(i,j); choice=c;} }
+                         }
+                    }
+                    //std::cout<<"Output: "<<endl;
+                    //OCopy.print(); std::cout<<endl;
+                    answer=sanswer; sanswer=-1;
+                    //std::cout<<"Second/Other choice: "<<choice<<endl;
+                    c=0;
+               }
+          }while(chosen!=true);
+          answer=-1.0; sanswer=-1;
+          choice=0; chosen=false;
+          c=0;
+          if(checkWin(FH,Testnet.NNAI) || PBuddy.GetMoves()>=5){
+               if(FH.HWon(false)){
+                    score+=100;
+               }
+               if(Testnet.NNAI.AIWon(false)){
+                    score-=5;
+                    //tFlag=true;
+               }
+               score-=1;
+               FH.HumanRematch();
+               PBuddy.AIRematch();
+               Testnet.NNAI.AIRematch();
+               continue;
+          }
+          if(score<=-1000){//If the score is below or at zero end playing session
+               FH.HumanRematch();
+               PBuddy.AIRematch();
+               Testnet.NNAI.AIRematch();
+               tFlag=true;
+               playing=false;
+               std::cout<<endl<<"Yay the AI has done it!"<<endl;
+               break;
+          }
+          if(score>=100){//If the score is too high end playing session
+               FH.HumanRematch();
+               PBuddy.AIRematch();
+               Testnet.NNAI.AIRematch();
+               playing=false;
+               std::cout<<endl<<"Failed!"<<endl;
+               break;
+          }
+     }
+return score;
+}
 //////////////////////////////////////////
 /////////////////////////////////////////
 ////////////////////////////////////////
@@ -494,14 +3943,14 @@ int Menu(){
     using namespace std;
     int OChoice, choice; // Options choice// Choice made for where the user wishes to go
     bool inMenu=true; // Bool that determines if user is in menu
-    cout<<"\nMENU\n"<<endl<<"Play: 1"<<endl<<"Options: 2"<<endl<<"Exit: 3"<<endl; // Displays options to user
+    cout<<"\nMENU\n"<<endl<<"Play: 1"<<endl<<"Options: 2"<<endl<<"NN Testing: 3"<<endl<<"Exit: 4"<<endl; // Displays options to user
     while(inMenu){
         cin>>choice; cout<<endl;
             switch(choice){
                 case 1: inMenu=false; break; // Begins game
-                case 2: cout<<"\nOPTIONS\n"<<endl<<"Board Size 3x3 : 1"<<endl<<"Board Size 4x4 : 2"<<endl<<"Board Size 5x5 : 3"<<endl; cout<<"Board Sizes 4x4 - 5x5 are still under production. So you will now be taken back to the main menu."<<endl; /* cin>>OChoice; */
-                    cout<<"\nMENU\n"<<endl<<"Play: 1"<<endl<<"Options: 2"<<endl<<"Exit: 3"<<endl; break;// Displays options to user
-                case 3: cout<<"\nBye. Have a good time."<<endl; return 0; break;
+                case 2: cout<<"\nOPTIONS\n"<<endl<<"Board Size 3x3 : 1"<<endl<<"Ultimate Tic-Tac-Toe : 2"<<endl<<"Board Size 5x5 : 3"<<endl; cin>>choice; cout<<endl; if(choice==2){ return 4;} break;
+                case 3: cout<<"\nTesting will begin.\n"<<endl; return 3; break;
+                case 4: cout<<"\nBye. Have a good time."<<endl; return 0; break;
                 default: cout<<"That is not a offered option. Please re-input your choice."<<endl; break;
             };
     }
@@ -511,28 +3960,125 @@ return 1;
 //Main
 int main(){
     using namespace std;
+    srand( time(NULL) );
     bool playing=true; // bool for if the game is being played by the human
+    //Test stuff
+    bool testing=false,cw=false, ultimate=false;
+    //NN Testnet;
+    //
+    int test=0,moveP=0;
     StartPrompt();
     class TTTAI RAI;    //Running AI is made
     class TTTHuman P1; //P1 == Player1
     switch( Menu() ){ // Switch for the menu options // 0 is exit game // 1 is play game // 3-5 are board sizes
         case 0: playing=false; break; // breaks while loop before it starts
-        case 1: cout<<"Game will now commence."<<endl;  break;
-        case 3: /* 3-5 are under work, Will need to finish AI before the board size changes*/break;
-        case 4: break; //
+        case 1: cout<<"Game will now commence."<<endl; break;
+        case 3:{ testing =true;
+          //
+          for(int i=0; i<200; i++){
+               PWCC(true);
+          }
+          //
+          std::cout<<"TDATA size: "<<TData.size()<<endl;
+          for(int i=0; i<TData.size(); i++){
+                    //std::cout<<"Training set "<<i<<":"<<endl;
+                    //TData.at(i).print();
+          }
+        }break; //Testing for now
+        case 4: ultimate=true;
+        cout<<"\nMENU\n"<<endl<<"Play Ultimate TTT: 1"<<endl<<"Ultimate NN Testing: 2"<<endl<<"Exit: 3"<<endl; cin>>test;
+          switch(test){
+               case 1: break;
+               case 2: testing=true; break;
+               case 3: return 0;
+               default: break;
+          };
+         break; //Ultimate tic tac toe
         case 5: break; //
         default: cout<<"ERROR: Main, switch Menu"<<endl; break;
     };
+    //Ultimate
+    if(ultimate){
+    SBoard UB; int rDec=0; int mCount=0;
+    Testnet.startNN(true);
+    Testnet.Ultimate();
+     while(testing){
+          std::cout<<endl<<"Train: 1"<<endl<<"Exit: 2"<<endl<<endl;
+          cin>>test;
+          if(test==1){
+               //Testnet.Randomize();
+               //Testnet.Save();
+               Testnet.Load();
+          Testnet.OPT(false);
+
+          }else{ return 0;}
+     }
+     while(ultimate){
+          while( cw != true){
+            UB.DisplayU();
+            if(UB.getWon() !=0){cw=true;} if(cw==true){break;}
+            cin>>moveP; cout<<endl; while( UB.placeMove(moveP,true)!=true ){ mCount++; if(mCount>10){break;} }
+            UB.DisplayU();
+            cin>>moveP; cout<<endl; while( UB.placeMove(moveP,false)!=true ){ mCount++; if(mCount>10){break;} }
+            if(UB.getWon() !=0){cw=true;} if(cw==true){break;}
+            //Testnet.Place(P1);
+            //Testnet.NNAI.Play(P1.HPositions, Testnet.NNAI.AIPositions);
+            }
+            cw=false;
+            cout<<"Wish to play again?\nYes: 1\nNo: 2"<<endl;
+            cin>>rDec;
+            switch( rDec ){
+                    case 1: UB.clearB(); break;
+                    case 2: ultimate=false; return 0; break;
+                    default: cout<<"DEFAULT: rDec Ultimate TTT"<<endl; break;
+                }
+     }
+     }
+
+     Testnet.startNN(false);
+     //Testnet.Randomize();
+     //TODO: add a function that allows you to determine size of nn
+     //Testnet.Save();
+     //Testnet.BI(P1.HPositions, Testnet.NNAI.AIPositions,3);
+     Testnet.Load();
+     while(testing){
+          //P1.HPositions[1]=1;
+          //Testnet.Randomize();
+          //Testnet.BI(P1.HPositions, Testnet.NNAI.AIPositions,3);
+          //Testnet.CC=5;
+          //Testnet.OPT(false);
+
+          //Testnet.Randomize();
+          //PT();
+          cout<<"Enter Next Action: "<<endl<<"PT: 1"<<endl<<"Train: 2"<<endl;
+          cin>>test;
+          if(test==1){
+               Testnet.OPT(true);
+          }else if(test==2){
+               do{
+                    Testnet.OPT(false);
+                    Testnet.OPT(true);
+               }while(tFlag!=true);
+          }else{
+               return 0;
+          }
+     }
+     Testnet.Load();
     while(playing){
 
-        while( checkWin(P1, RAI) != true){
-            DisplayB(P1.HPositions, RAI.Positions);
-            P1.HPlay(P1.HPositions, RAI.Positions);
-            RAI.Play(P1.HPositions, RAI.Positions);
+        while( cw != true){
+            DisplayB(P1.HPositions, Testnet.NNAI.AIPositions);
+            cw=checkWin(P1, Testnet.NNAI); if(cw==true){break;}
+            P1.HPlay(P1.HPositions, Testnet.NNAI.AIPositions);
+            DisplayB(P1.HPositions, Testnet.NNAI.AIPositions);
+            cw=checkWin(P1, Testnet.NNAI); if(cw==true){break;}
+            Testnet.Place(P1);
+            //Testnet.NNAI.Play(P1.HPositions, Testnet.NNAI.AIPositions);
             }
-            DisplayB(P1.HPositions, RAI.Positions); // Look at end board
-            switch( EndGame(P1, RAI, true) ){
-                    case 3: P1.HumanRematch(); RAI.AIRematch(); break;
+            cw=false;
+            //DisplayB(P1.HPositions, Testnet.NNAI.AIPositions); // Look at end board
+            switch( EndGame(P1, Testnet.NNAI, true) ){
+                    case 3: P1.HumanRematch(); Testnet.NNAI.AIRematch(); break;
                     case 4: playing=false;break;
                     default: break;
                 }
