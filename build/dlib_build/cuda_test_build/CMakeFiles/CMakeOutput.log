@@ -1,0 +1,28 @@
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cuda_test_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_8716b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_8716b.dir/build.make CMakeFiles/cmTC_8716b.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cuda_test_build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_8716b.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fPIC    -o CMakeFiles/cmTC_8716b.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cuda_test_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_8716b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8716b.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc -fPIC     -rdynamic CMakeFiles/cmTC_8716b.dir/CheckIncludeFile.c.o  -o cmTC_8716b 
+gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cuda_test_build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cuda_test_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_79125/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_79125.dir/build.make CMakeFiles/cmTC_79125.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cuda_test_build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_79125.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_79125.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_79125
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_79125.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_79125.dir/CheckFunctionExists.c.o  -o cmTC_79125  -lpthread 
+gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cuda_test_build/CMakeFiles/CMakeTmp'
+
+
+

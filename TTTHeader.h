@@ -1,8 +1,5 @@
 #ifndef TTTHEADER_H_INCLUDED
 #define TTTHEADER_H_INCLUDED
-#include <GL/freeglut.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -148,12 +145,12 @@ bool SBoard::placeMove(int mP, bool X){
      //
      for(int i=0; i<9; i++){
           if(pBoards.at(i)!=0 ||  (mP>=(1+(i*9)) && mP<=(9+(i*9)) )==false ){//checks if the move is in playable inner board
-                    //cout<<"\nNot in current board"<<endl;
+                    //std::cout<<"\nNot in current board"<<std::endl;
                     success=false; //an attempted play on a won inner board
           }else{
                if( firstmove!=true){ //Not first move
                     if( TBoard.at(i).Board(mPCr,mPCc) != 0 ){
-                         cout<<"\nSpot taken"<<endl;
+                         std::cout<<"\nSpot taken"<<std::endl;
                          success=false; break;
                     }else{
                          TBoard.at(i).Board( mPCr, mPCc )=P;
@@ -184,7 +181,7 @@ bool SBoard::placeMove(int mP, bool X){
      }
      std::string oB;
      /*
-     std::cout<<"\n Current Playable boards\n"<<endl;
+     std::std::cout<<"\n Current Playable boards\n"<<std::endl;
      for(int i=0; i<9; i++){
           switch(pBoards.at(i)){
                case -1: oB="O"; break;
@@ -192,14 +189,14 @@ bool SBoard::placeMove(int mP, bool X){
                case 2: oB="-"; break;
                case 0: oB=std::to_string(i); break;
           };
-          std::cout<<oB;
+          std::std::cout<<oB;
           if(i==2 || i==5 || i==8){
-               std::cout<<endl;
+               std::std::cout<<std::endl;
           }else{
-               std::cout<<"|";
+               std::std::cout<<"|";
           }
      }
-     cout<<endl;
+     std::cout<<std::endl;
      */
 return success;
 }
@@ -273,35 +270,35 @@ void SBoard::DisplayU(){
                     if( TBoard[ i*3 ].Board(0,0) == 1){ p1=" X"; }else if( TBoard[ (i*3) ].Board(0,0) == -1 ){ p1=" O"; }else{ p1=to_string( (i*27) + 1 ); if(i==0){p1="0"+p1;} }
                     if( TBoard[ i*3 ].Board(0,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) ].Board(0,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 2 ); if(i==0){p2="0"+p2;} }
                     if( TBoard[ i*3 ].Board(0,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) ].Board(0,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 3 ); if(i==0){p3="0"+p3;} }
-                    if(i>0){cout<<"\n________________________________________"<<endl;}
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<" || ";
+                    if(i>0){std::cout<<"\n________________________________________"<<std::endl;}
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<" || ";
                }else{
-                    if(i>0){cout<<"\n________________________________________"<<endl;}
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<" || ";
+                    if(i>0){std::cout<<"\n________________________________________"<<std::endl;}
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<" || ";
                }
                     //
                if(pBoards.at( (i*3) +1 ) ==0 || pBoards.at( (i*3) +1 ) ==2){
                     if( TBoard[ (i*3) + 1 ].Board(0,0) == 1){ p1=" X"; }else if( TBoard[ (i*3) + 1 ].Board(0,0) == -1 ){ p1=" O"; }else{ p1=to_string( (i*27) + 10 ); }
                     if( TBoard[ (i*3) + 1 ].Board(0,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) + 1 ].Board(0,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 11 ); }
                     if( TBoard[ (i*3) + 1 ].Board(0,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) + 1 ].Board(0,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 12 ); }
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<" || ";
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<" || ";
                }else{
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<" || ";
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<" || ";
                }
                     //
                if(pBoards.at( (i*3) +2 ) ==0 || pBoards.at( (i*3) +2 ) ==2){
                     if( TBoard[ (i*3) + 2 ].Board(0,0) == 1){ p1=" X"; }else if( TBoard[ (i*3) + 2 ].Board(0,0) == -1 ){ p1=" O"; }else{ p1=to_string( (i*27) + 19 ); }
                     if( TBoard[ (i*3) + 2 ].Board(0,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) + 2 ].Board(0,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 20 ); }
                     if( TBoard[ (i*3) + 2 ].Board(0,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) + 2 ].Board(0,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 21 ); }
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<"\n________________________________________"<<endl;
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<"\n________________________________________"<<std::endl;
                }else{
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<"\n________________________________________"<<endl;
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<"\n________________________________________"<<std::endl;
                }
                //
                if(pBoards.at( (i*3) ) ==0 || pBoards.at( (i*3) ) ==2){
@@ -309,34 +306,34 @@ void SBoard::DisplayU(){
                     if( TBoard[ (i*3) ].Board(1,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) ].Board(1,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 5 ); if(i==0){p2="0"+p2;} }
                     if( TBoard[ (i*3) ].Board(1,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) ].Board(1,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 6 ); if(i==0){p3="0"+p3;} }
 
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<" || ";
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<" || ";
                }else{
 
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<" || ";
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<" || ";
                }
                //
                if(pBoards.at( (i*3) +1 ) ==0 || pBoards.at( (i*3) +1 ) ==2){
                     if( TBoard[ (i*3) + 1 ].Board(1,0) == 1){ p1=" X"; }else if( TBoard[ (i*3) + 1 ].Board(1,0) == -1 ){ p1=" O"; }else{ p1=to_string( (i*27) + 13 ); }
                     if( TBoard[ (i*3) + 1 ].Board(1,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) + 1 ].Board(1,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 14 ); }
                     if( TBoard[ (i*3) + 1 ].Board(1,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) + 1 ].Board(1,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 15 ); }
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<" || ";
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<" || ";
                }else{
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<" || ";
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<" || ";
                }
                //
                if(pBoards.at( (i*3) +2 ) ==0 || pBoards.at( (i*3) +2 ) ==2){
                     if( TBoard[ (i*3) + 2 ].Board(1,0) == 1){ p1=" X"; }else if( TBoard[ (i*3) + 2 ].Board(1,0) == -1 ){ p1=" O"; }else{ p1=to_string( (i*27) + 22 ); }
                     if( TBoard[ (i*3) + 2 ].Board(1,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) + 2 ].Board(1,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 23 ); }
                     if( TBoard[ (i*3) + 2 ].Board(1,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) + 2 ].Board(1,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 24 ); }
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<"\n________________________________________"<<endl;
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<"\n________________________________________"<<std::endl;
                }else{
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<"\n________________________________________"<<endl;
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<"\n________________________________________"<<std::endl;
                }
                //
                if(pBoards.at( (i*3) ) ==0 || pBoards.at( (i*3) ) ==2){
@@ -344,36 +341,36 @@ void SBoard::DisplayU(){
                     if( TBoard[ (i*3) ].Board(2,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) ].Board(2,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 8 ); if(i==0){p2="0"+p2;} }
                     if( TBoard[ (i*3) ].Board(2,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) ].Board(2,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 9 ); if(i==0){p3="0"+p3;} }
 
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<" || ";
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<" || ";
                }else{
 
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<" || ";
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<" || ";
                }
                //
                if(pBoards.at( (i*3) +1 ) ==0 || pBoards.at( (i*3) +1 ) ==2){
                     if( TBoard[ (i*3) + 1 ].Board(2,0) == 1){ p1=" X"; }else if( TBoard[ (i*3) + 1 ].Board(2,0) == -1 ){ p1=" O"; }else{ p1=to_string( (i*27) + 16 ); }
                     if( TBoard[ (i*3) + 1 ].Board(2,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) + 1 ].Board(2,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 17 ); }
                     if( TBoard[ (i*3) + 1 ].Board(2,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) + 1 ].Board(2,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 18 ); }
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<" || ";
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<" || ";
                }else{
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<" || ";
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<" || ";
                }
                //
                if(pBoards.at( (i*3) +2 ) ==0 || pBoards.at( (i*3) +2 ) ==2){
                     if( TBoard[ (i*3) + 2 ].Board(2,0) == 1){ p1=" X"; }else if( TBoard[ (i*3) + 2 ].Board(2,0) == -1 ){ p1=" O"; }else{ p1=to_string( (i*27) + 25 ); }
                     if( TBoard[ (i*3) + 2 ].Board(2,1) == 1){ p2=" X"; }else if( TBoard[ (i*3) + 2 ].Board(2,1) == -1 ){ p2=" O"; }else{ p2=to_string( (i*27) + 26 ); }
                     if( TBoard[ (i*3) + 2 ].Board(2,2) == 1){ p3=" X"; }else if( TBoard[ (i*3) + 2 ].Board(2,2) == -1 ){ p3=" O"; }else{ p3=to_string( (i*27) + 27 ); }
-                    cout<<p1<<"|"<<p2<<"|"<<p3;
-                    cout<<"\n________________________________________"<<endl;
+                    std::cout<<p1<<"|"<<p2<<"|"<<p3;
+                    std::cout<<"\n________________________________________"<<std::endl;
                }else{
-                    cout<<" -"<<"|"<<" -"<<"|"<<" -";
-                    cout<<"\n________________________________________"<<endl;
+                    std::cout<<" -"<<"|"<<" -"<<"|"<<" -";
+                    std::cout<<"\n________________________________________"<<std::endl;
                }
 
      }
-     cout<<endl;
+     std::cout<<std::endl;
 }
