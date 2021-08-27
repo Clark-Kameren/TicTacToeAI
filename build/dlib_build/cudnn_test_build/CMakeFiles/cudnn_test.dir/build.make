@@ -66,7 +66,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_cudnn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build
+CMAKE_BINARY_DIR = /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cudnn_test.dir/depend.make
@@ -79,7 +79,7 @@ include CMakeFiles/cudnn_test.dir/flags.make
 
 CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o: CMakeFiles/cudnn_test.dir/flags.make
 CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o: /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cuda/cudnn_dlibapi.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o"
 	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o -c /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cuda/cudnn_dlibapi.cpp
 
 CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.i: cmake_force
@@ -100,7 +100,7 @@ cudnn_test_EXTERNAL_OBJECTS =
 libcudnn_test.a: CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o
 libcudnn_test.a: CMakeFiles/cudnn_test.dir/build.make
 libcudnn_test.a: CMakeFiles/cudnn_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libcudnn_test.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libcudnn_test.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/cudnn_test.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cudnn_test.dir/link.txt --verbose=$(VERBOSE)
 
@@ -114,6 +114,6 @@ CMakeFiles/cudnn_test.dir/clean:
 .PHONY : CMakeFiles/cudnn_test.dir/clean
 
 CMakeFiles/cudnn_test.dir/depend:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_cudnn /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_cudnn /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build/CMakeFiles/cudnn_test.dir/DependInfo.cmake
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_cudnn /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_cudnn /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build/CMakeFiles/cudnn_test.dir/DependInfo.cmake
 .PHONY : CMakeFiles/cudnn_test.dir/depend
 

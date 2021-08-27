@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_cudnn")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cuda/cudnn_dlibapi.cpp" "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/cudnn_test_build/CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o"
+  "/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cuda/cudnn_dlibapi.cpp" "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/cudnn_test_build/CMakeFiles/cudnn_test.dir/cudnn_dlibapi.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/include/" REGEX "/\\.svn$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/[^/]*\\~$" EXCLUDE REGEX "/[^/]*orig$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/include/" REGEX "/\\.svn$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/[^/]*\\~$" EXCLUDE REGEX "/[^/]*orig$" EXCLUDE)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -54,8 +54,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64" TYPE SHARED_LIBRARY FILES
-    "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/libarmadillo.so.10.6.2"
-    "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/libarmadillo.so.10"
+    "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/libarmadillo.so.10.6.2"
+    "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/libarmadillo.so.10"
     )
   foreach(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib64/libarmadillo.so.10.6.2"
@@ -77,7 +77,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib64/libarmadillo.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64" TYPE SHARED_LIBRARY FILES "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/libarmadillo.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64" TYPE SHARED_LIBRARY FILES "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/libarmadillo.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib64/libarmadillo.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib64/libarmadillo.so")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -90,7 +90,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdevx" OR NOT CMAKE_INSTALL_COMPONEN
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake"
-         "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
+         "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake/ArmadilloLibraryDepends-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -99,9 +99,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdevx" OR NOT CMAKE_INSTALL_COMPONEN
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends-release.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends-release.cmake")
   endif()
 endif()
 
@@ -115,12 +115,12 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdevx" OR NOT CMAKE_INSTALL_COMPONEN
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
 file(INSTALL DESTINATION "/usr/share/Armadillo/CMake" TYPE FILE FILES
-    "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/InstallFiles/ArmadilloConfig.cmake"
-    "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/InstallFiles/ArmadilloConfigVersion.cmake"
+    "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/InstallFiles/ArmadilloConfig.cmake"
+    "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/InstallFiles/ArmadilloConfigVersion.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64/pkgconfig" TYPE FILE FILES "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/misc/armadillo.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64/pkgconfig" TYPE FILE FILES "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/misc/armadillo.pc")
 endif()
 

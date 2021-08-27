@@ -4396,7 +4396,7 @@ vector
 platform.h
 /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/platform.h
 
-/home/blackweb/Documents/ProgrammingProjects/TicTacT/Source.cpp
+/home/blackweb/Documents/gitProjects/TicTacToeAI/Source.cpp
 iostream
 -
 fstream
@@ -4430,7 +4430,7 @@ algorithm
 iomanip
 -
 TTTHeader.h
-/home/blackweb/Documents/ProgrammingProjects/TicTacT/TTTHeader.h
+/home/blackweb/Documents/gitProjects/TicTacToeAI/TTTHeader.h
 armadillo
 -
 dlib/global_optimization.h
@@ -4442,7 +4442,7 @@ dlib/svm.h
 dlib/matrix.h
 -
 
-/home/blackweb/Documents/ProgrammingProjects/TicTacT/TTTHeader.h
+/home/blackweb/Documents/gitProjects/TicTacToeAI/TTTHeader.h
 stdio.h
 -
 iostream

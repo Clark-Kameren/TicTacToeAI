@@ -59,17 +59,17 @@ endif()
 # Set these up as variables to make reading the generated file easier
 set(CMAKE_COMMAND "/usr/bin/cmake") # path
 set(source_file "/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cuda/cuda_dlib.cu") # path
-set(NVCC_generated_dependency_file "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cuda_dlib.cu.o.NVCC-depend") # path
-set(cmake_dependency_file "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cuda_dlib.cu.o.depend") # path
+set(NVCC_generated_dependency_file "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cuda_dlib.cu.o.NVCC-depend") # path
+set(cmake_dependency_file "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cuda_dlib.cu.o.depend") # path
 set(CUDA_make2cmake "/usr/share/cmake/Modules/FindCUDA/make2cmake.cmake") # path
 set(CUDA_parse_cubin "/usr/share/cmake/Modules/FindCUDA/parse_cubin.cmake") # path
 set(build_cubin OFF) # bool
 set(CUDA_HOST_COMPILER "/usr/lib64/ccache/cc") # path
 # We won't actually use these variables for now, but we need to set this, in
 # order to force this file to be run again if it changes.
-set(generated_file_path "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/cuda/.") # path
-set(generated_file_internal "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/cuda/./dlib_generated_cuda_dlib.cu.o") # path
-set(generated_cubin_file_internal "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/cuda/./dlib_generated_cuda_dlib.cu.o.cubin.txt") # path
+set(generated_file_path "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/CMakeFiles/dlib.dir/cuda/.") # path
+set(generated_file_internal "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/CMakeFiles/dlib.dir/cuda/./dlib_generated_cuda_dlib.cu.o") # path
+set(generated_cubin_file_internal "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/CMakeFiles/dlib.dir/cuda/./dlib_generated_cuda_dlib.cu.o.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS -arch=sm_50;-D__STRICT_ANSI__;-D_MWAITXINTRIN_H_INCLUDED;-D_FORCE_INLINES;;-DDLIB_JPEG_SUPPORT;-DDLIB_USE_CUDA;-DDLIB_PNG_SUPPORT;-std=c++11;-Xcompiler -fPIC ;; ) # list

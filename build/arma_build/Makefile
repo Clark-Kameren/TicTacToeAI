@@ -68,10 +68,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/blackweb/Documents/ProgrammingProjects/TicTacT
+CMAKE_SOURCE_DIR = /home/blackweb/Documents/gitProjects/TicTacToeAI
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/blackweb/Documents/ProgrammingProjects/TicTacT/build
+CMAKE_BINARY_DIR = /home/blackweb/Documents/gitProjects/TicTacToeAI/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -146,14 +146,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/CMakeFiles/progress.marks
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles 0
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/CMakeFiles/progress.marks
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/clean
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/clean
 .PHONY : clean
 
 # The main clean target
@@ -163,22 +163,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/preinstall
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/preinstall
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 arma_build/CMakeFiles/armadillo.dir/rule:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/CMakeFiles/armadillo.dir/rule
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 arma_build/CMakeFiles/armadillo.dir/rule
 .PHONY : arma_build/CMakeFiles/armadillo.dir/rule
 
 # Convenience name for target.
@@ -188,7 +188,7 @@ armadillo: arma_build/CMakeFiles/armadillo.dir/rule
 
 # fast build rule for target.
 armadillo/fast:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/build
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/build
 .PHONY : armadillo/fast
 
 src/wrapper1.o: src/wrapper1.cpp.o
@@ -197,7 +197,7 @@ src/wrapper1.o: src/wrapper1.cpp.o
 
 # target to build an object file
 src/wrapper1.cpp.o:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.o
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.o
 .PHONY : src/wrapper1.cpp.o
 
 src/wrapper1.i: src/wrapper1.cpp.i
@@ -206,7 +206,7 @@ src/wrapper1.i: src/wrapper1.cpp.i
 
 # target to preprocess a source file
 src/wrapper1.cpp.i:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.i
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.i
 .PHONY : src/wrapper1.cpp.i
 
 src/wrapper1.s: src/wrapper1.cpp.s
@@ -215,7 +215,7 @@ src/wrapper1.s: src/wrapper1.cpp.s
 
 # target to generate assembly for a file
 src/wrapper1.cpp.s:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.s
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.s
 .PHONY : src/wrapper1.cpp.s
 
 src/wrapper2.o: src/wrapper2.cpp.o
@@ -224,7 +224,7 @@ src/wrapper2.o: src/wrapper2.cpp.o
 
 # target to build an object file
 src/wrapper2.cpp.o:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o
 .PHONY : src/wrapper2.cpp.o
 
 src/wrapper2.i: src/wrapper2.cpp.i
@@ -233,7 +233,7 @@ src/wrapper2.i: src/wrapper2.cpp.i
 
 # target to preprocess a source file
 src/wrapper2.cpp.i:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.i
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.i
 .PHONY : src/wrapper2.cpp.i
 
 src/wrapper2.s: src/wrapper2.cpp.s
@@ -242,7 +242,7 @@ src/wrapper2.s: src/wrapper2.cpp.s
 
 # target to generate assembly for a file
 src/wrapper2.cpp.s:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.s
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(MAKE) $(MAKESILENT) -f arma_build/CMakeFiles/armadillo.dir/build.make arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.s
 .PHONY : src/wrapper2.cpp.s
 
 # Help Target
@@ -275,6 +275,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

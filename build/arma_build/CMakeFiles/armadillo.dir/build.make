@@ -63,10 +63,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/blackweb/Documents/ProgrammingProjects/TicTacT
+CMAKE_SOURCE_DIR = /home/blackweb/Documents/gitProjects/TicTacToeAI
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/blackweb/Documents/ProgrammingProjects/TicTacT/build
+CMAKE_BINARY_DIR = /home/blackweb/Documents/gitProjects/TicTacToeAI/build
 
 # Include any dependencies generated for this target.
 include arma_build/CMakeFiles/armadillo.dir/depend.make
@@ -79,29 +79,29 @@ include arma_build/CMakeFiles/armadillo.dir/flags.make
 
 arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.o: arma_build/CMakeFiles/armadillo.dir/flags.make
 arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.o: /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper1.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.o"
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && /usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/armadillo.dir/src/wrapper1.cpp.o -c /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper1.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.o"
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && /usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/armadillo.dir/src/wrapper1.cpp.o -c /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper1.cpp
 
 arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/armadillo.dir/src/wrapper1.cpp.i"
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper1.cpp > CMakeFiles/armadillo.dir/src/wrapper1.cpp.i
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper1.cpp > CMakeFiles/armadillo.dir/src/wrapper1.cpp.i
 
 arma_build/CMakeFiles/armadillo.dir/src/wrapper1.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/armadillo.dir/src/wrapper1.cpp.s"
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper1.cpp -o CMakeFiles/armadillo.dir/src/wrapper1.cpp.s
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper1.cpp -o CMakeFiles/armadillo.dir/src/wrapper1.cpp.s
 
 arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o: arma_build/CMakeFiles/armadillo.dir/flags.make
 arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o: /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o"
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && /usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/armadillo.dir/src/wrapper2.cpp.o -c /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper2.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o"
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && /usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/armadillo.dir/src/wrapper2.cpp.o -c /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper2.cpp
 
 arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/armadillo.dir/src/wrapper2.cpp.i"
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper2.cpp > CMakeFiles/armadillo.dir/src/wrapper2.cpp.i
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper2.cpp > CMakeFiles/armadillo.dir/src/wrapper2.cpp.i
 
 arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/armadillo.dir/src/wrapper2.cpp.s"
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper2.cpp -o CMakeFiles/armadillo.dir/src/wrapper2.cpp.s
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && /usr/lib64/ccache/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackweb/Documents/ProgLibs/armadillo-10.6.2/src/wrapper2.cpp -o CMakeFiles/armadillo.dir/src/wrapper2.cpp.s
 
 # Object files for target armadillo
 armadillo_OBJECTS = \
@@ -115,9 +115,9 @@ arma_build/libarmadillo.so.10.6.2: arma_build/CMakeFiles/armadillo.dir/src/wrapp
 arma_build/libarmadillo.so.10.6.2: arma_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o
 arma_build/libarmadillo.so.10.6.2: arma_build/CMakeFiles/armadillo.dir/build.make
 arma_build/libarmadillo.so.10.6.2: arma_build/CMakeFiles/armadillo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libarmadillo.so"
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/armadillo.dir/link.txt --verbose=$(VERBOSE)
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && $(CMAKE_COMMAND) -E cmake_symlink_library libarmadillo.so.10.6.2 libarmadillo.so.10 libarmadillo.so
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libarmadillo.so"
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/armadillo.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && $(CMAKE_COMMAND) -E cmake_symlink_library libarmadillo.so.10.6.2 libarmadillo.so.10 libarmadillo.so
 
 arma_build/libarmadillo.so.10: arma_build/libarmadillo.so.10.6.2
 	@$(CMAKE_COMMAND) -E touch_nocreate arma_build/libarmadillo.so.10
@@ -131,10 +131,10 @@ arma_build/CMakeFiles/armadillo.dir/build: arma_build/libarmadillo.so
 .PHONY : arma_build/CMakeFiles/armadillo.dir/build
 
 arma_build/CMakeFiles/armadillo.dir/clean:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build && $(CMAKE_COMMAND) -P CMakeFiles/armadillo.dir/cmake_clean.cmake
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build && $(CMAKE_COMMAND) -P CMakeFiles/armadillo.dir/cmake_clean.cmake
 .PHONY : arma_build/CMakeFiles/armadillo.dir/clean
 
 arma_build/CMakeFiles/armadillo.dir/depend:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/blackweb/Documents/ProgrammingProjects/TicTacT /home/blackweb/Documents/ProgLibs/armadillo-10.6.2 /home/blackweb/Documents/ProgrammingProjects/TicTacT/build /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/CMakeFiles/armadillo.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/blackweb/Documents/gitProjects/TicTacToeAI /home/blackweb/Documents/ProgLibs/armadillo-10.6.2 /home/blackweb/Documents/gitProjects/TicTacToeAI/build /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build /home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/CMakeFiles/armadillo.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : arma_build/CMakeFiles/armadillo.dir/depend
 

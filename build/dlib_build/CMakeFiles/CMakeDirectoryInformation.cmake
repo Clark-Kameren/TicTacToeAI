@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/blackweb/Documents/gitProjects/TicTacToeAI/build")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

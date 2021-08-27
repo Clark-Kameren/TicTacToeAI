@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon/CMakeLists.txt"
-  "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/3.17.4/CMakeCCompiler.cmake"
-  "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/3.17.4/CMakeCXXCompiler.cmake"
-  "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/3.17.4/CMakeSystem.cmake"
+  "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/3.17.4/CMakeCCompiler.cmake"
+  "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/3.17.4/CMakeCXXCompiler.cmake"
+  "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/3.17.4/CMakeSystem.cmake"
   "/usr/share/cmake/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"

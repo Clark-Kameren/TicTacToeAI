@@ -6,5 +6,5 @@ CXX_FLAGS =  -O2 -O2 -DNDEBUG -fPIC   -std=c++11
 
 CXX_DEFINES = -Darmadillo_EXPORTS
 
-CXX_INCLUDES = -I/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/include 
+CXX_INCLUDES = -I/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/include 
 

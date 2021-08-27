@@ -10,7 +10,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/3.17.4/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/3.17.4/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: /usr/lib64/ccache/c++ 
@@ -23,29 +23,29 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/3.17.4/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/3.17.4/CompilerIdCXX/a.out"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_36591/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_36591.dir/build.make CMakeFiles/cmTC_36591.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_36591.dir/testCCompiler.c.o
-/usr/lib64/ccache/cc    -o CMakeFiles/cmTC_36591.dir/testCCompiler.c.o   -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_36591
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_36591.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_36591.dir/testCCompiler.c.o  -o cmTC_36591 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_4cd59/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_4cd59.dir/build.make CMakeFiles/cmTC_4cd59.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4cd59.dir/testCCompiler.c.o
+/usr/lib64/ccache/cc    -o CMakeFiles/cmTC_4cd59.dir/testCCompiler.c.o   -c /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_4cd59
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4cd59.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_4cd59.dir/testCCompiler.c.o  -o cmTC_4cd59 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_84596/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_84596.dir/build.make CMakeFiles/cmTC_84596.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o
-/usr/lib64/ccache/cc   -v -o CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+Run Build Command(s):/usr/bin/gmake cmTC_54ff4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_54ff4.dir/build.make CMakeFiles/cmTC_54ff4.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o
+/usr/lib64/ccache/cc   -v -o CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 OFFLOAD_TARGET_NAMES=nvptx-none
@@ -80,9 +80,9 @@ GNU assembler version 2.34 (x86_64-redhat-linux) using BFD version version 2.34-
 COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/
 COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_e6af7.dir/CMakeCCompilerABI.c.o' '-mtune=generic' '-march=x86-64'
-Linking C executable cmTC_84596
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_84596.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc     -v -rdynamic CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o  -o cmTC_84596 
+Linking C executable cmTC_54ff4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_54ff4.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc     -v -rdynamic CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o  -o cmTC_54ff4 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper
@@ -95,10 +95,10 @@ Supported LTO compression algorithms: zlib zstd
 gcc version 10.2.1 20201125 (Red Hat 10.2.1-9) (GCC) 
 COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_84596' '-mtune=generic' '-march=x86-64'
- /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccfPUtCR.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_84596 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_84596' '-mtune=generic' '-march=x86-64'
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_54ff4' '-mtune=generic' '-march=x86-64'
+ /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccrfpLpu.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_54ff4 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_54ff4' '-mtune=generic' '-march=x86-64'
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
@@ -117,12 +117,12 @@ Parsed C implicit include dir info from above output: rv=done
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/gmake cmTC_84596/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_84596.dir/build.make CMakeFiles/cmTC_84596.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/lib64/ccache/cc   -v -o CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+  ignore line: [Run Build Command(s):/usr/bin/gmake cmTC_54ff4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_54ff4.dir/build.make CMakeFiles/cmTC_54ff4.dir/build]
+  ignore line: [gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/lib64/ccache/cc   -v -o CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
@@ -157,9 +157,9 @@ Parsed C implicit link information from above output:
   ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/]
   ignore line: [COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_e6af7.dir/CMakeCCompilerABI.c.o' '-mtune=generic' '-march=x86-64']
-  ignore line: [Linking C executable cmTC_84596]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_84596.dir/link.txt --verbose=1]
-  ignore line: [/usr/lib64/ccache/cc     -v -rdynamic CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o  -o cmTC_84596 ]
+  ignore line: [Linking C executable cmTC_54ff4]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_54ff4.dir/link.txt --verbose=1]
+  ignore line: [/usr/lib64/ccache/cc     -v -rdynamic CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o  -o cmTC_54ff4 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper]
@@ -172,13 +172,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 10.2.1 20201125 (Red Hat 10.2.1-9) (GCC) ]
   ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_84596' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccfPUtCR.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_84596 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_54ff4' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccrfpLpu.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_54ff4 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o]
     arg [/usr/libexec/gcc/x86_64-redhat-linux/10/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccfPUtCR.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccrfpLpu.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -194,7 +194,7 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_84596] ==> ignore
+    arg [cmTC_54ff4] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o] ==> ignore
@@ -203,7 +203,7 @@ Parsed C implicit link information from above output:
     arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
     arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
     arg [-L/usr/lib/gcc/x86_64-redhat-linux/10/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/10/../../..]
-    arg [CMakeFiles/cmTC_84596.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_54ff4.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -228,26 +228,26 @@ Parsed C implicit link information from above output:
 
 
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_45c7a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_45c7a.dir/build.make CMakeFiles/cmTC_45c7a.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_45c7a.dir/testCXXCompiler.cxx.o
-/usr/lib64/ccache/c++     -o CMakeFiles/cmTC_45c7a.dir/testCXXCompiler.cxx.o -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_45c7a
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_45c7a.dir/link.txt --verbose=1
-/usr/lib64/ccache/c++       -rdynamic CMakeFiles/cmTC_45c7a.dir/testCXXCompiler.cxx.o  -o cmTC_45c7a 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_bb9c5/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_bb9c5.dir/build.make CMakeFiles/cmTC_bb9c5.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_bb9c5.dir/testCXXCompiler.cxx.o
+/usr/lib64/ccache/c++     -o CMakeFiles/cmTC_bb9c5.dir/testCXXCompiler.cxx.o -c /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_bb9c5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bb9c5.dir/link.txt --verbose=1
+/usr/lib64/ccache/c++       -rdynamic CMakeFiles/cmTC_bb9c5.dir/testCXXCompiler.cxx.o  -o cmTC_bb9c5 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_32ad4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_32ad4.dir/build.make CMakeFiles/cmTC_32ad4.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o
-/usr/lib64/ccache/c++    -v -o CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+Run Build Command(s):/usr/bin/gmake cmTC_b2750/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b2750.dir/build.make CMakeFiles/cmTC_b2750.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o
+/usr/lib64/ccache/c++    -v -o CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 OFFLOAD_TARGET_NAMES=nvptx-none
@@ -285,9 +285,9 @@ GNU assembler version 2.34 (x86_64-redhat-linux) using BFD version version 2.34-
 COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/
 COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_62bc2.dir/CMakeCXXCompilerABI.cpp.o' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-Linking CXX executable cmTC_32ad4
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_32ad4.dir/link.txt --verbose=1
-/usr/lib64/ccache/c++      -v -rdynamic CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_32ad4 
+Linking CXX executable cmTC_b2750
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2750.dir/link.txt --verbose=1
+/usr/lib64/ccache/c++      -v -rdynamic CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_b2750 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper
@@ -300,10 +300,10 @@ Supported LTO compression algorithms: zlib zstd
 gcc version 10.2.1 20201125 (Red Hat 10.2.1-9) (GCC) 
 COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_32ad4' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccaGdjWE.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_32ad4 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_32ad4' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_b2750' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXFxGPc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_b2750 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_b2750' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
@@ -328,12 +328,12 @@ Parsed CXX implicit include dir info from above output: rv=done
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/gmake cmTC_32ad4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_32ad4.dir/build.make CMakeFiles/cmTC_32ad4.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/lib64/ccache/c++    -v -o CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Run Build Command(s):/usr/bin/gmake cmTC_b2750/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b2750.dir/build.make CMakeFiles/cmTC_b2750.dir/build]
+  ignore line: [gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/lib64/ccache/c++    -v -o CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
@@ -371,9 +371,9 @@ Parsed CXX implicit link information from above output:
   ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/]
   ignore line: [COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_62bc2.dir/CMakeCXXCompilerABI.cpp.o' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  ignore line: [Linking CXX executable cmTC_32ad4]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_32ad4.dir/link.txt --verbose=1]
-  ignore line: [/usr/lib64/ccache/c++      -v -rdynamic CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_32ad4 ]
+  ignore line: [Linking CXX executable cmTC_b2750]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2750.dir/link.txt --verbose=1]
+  ignore line: [/usr/lib64/ccache/c++      -v -rdynamic CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_b2750 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper]
@@ -386,13 +386,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 10.2.1 20201125 (Red Hat 10.2.1-9) (GCC) ]
   ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_32ad4' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccaGdjWE.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_32ad4 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_b2750' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/10/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXFxGPc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_b2750 /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/10 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/10/../../.. CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/10/crtend.o /usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crtn.o]
     arg [/usr/libexec/gcc/x86_64-redhat-linux/10/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/libexec/gcc/x86_64-redhat-linux/10/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/10/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccaGdjWE.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccXFxGPc.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -408,7 +408,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_32ad4] ==> ignore
+    arg [cmTC_b2750] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/10/crtbegin.o] ==> ignore
@@ -417,7 +417,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
     arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
     arg [-L/usr/lib/gcc/x86_64-redhat-linux/10/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/10/../../..]
-    arg [CMakeFiles/cmTC_32ad4.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_b2750.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -438,170 +438,170 @@ Parsed CXX implicit link information from above output:
 
 
 Determining if the include file pthread.h exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_2e692/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_2e692.dir/build.make CMakeFiles/cmTC_2e692.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_2e692.dir/CheckIncludeFile.c.o
-/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_2e692.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_2e692
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2e692.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_2e692.dir/CheckIncludeFile.c.o  -o cmTC_2e692 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_95514/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_95514.dir/build.make CMakeFiles/cmTC_95514.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_95514.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_95514.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_95514
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_95514.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_95514.dir/CheckIncludeFile.c.o  -o cmTC_95514 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_13fd9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_13fd9.dir/build.make CMakeFiles/cmTC_13fd9.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_13fd9.dir/CheckFunctionExists.c.o
-/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE   -o CMakeFiles/cmTC_13fd9.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
-Linking C executable cmTC_13fd9
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_13fd9.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_13fd9.dir/CheckFunctionExists.c.o  -o cmTC_13fd9  -lpthread 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_fbdd5/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_fbdd5.dir/build.make CMakeFiles/cmTC_fbdd5.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fbdd5.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE   -o CMakeFiles/cmTC_fbdd5.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_fbdd5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fbdd5.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_fbdd5.dir/CheckFunctionExists.c.o  -o cmTC_fbdd5  -lpthread 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the function XOpenDisplay exists in the /usr/lib64/libX11.so;/usr/lib64/libXext.so passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_822c5/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_822c5.dir/build.make CMakeFiles/cmTC_822c5.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_822c5.dir/CheckFunctionExists.c.o
-/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay -fPIE   -o CMakeFiles/cmTC_822c5.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
-Linking C executable cmTC_822c5
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_822c5.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=XOpenDisplay    -rdynamic CMakeFiles/cmTC_822c5.dir/CheckFunctionExists.c.o  -o cmTC_822c5  /usr/lib64/libX11.so /usr/lib64/libXext.so 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_9aa3f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_9aa3f.dir/build.make CMakeFiles/cmTC_9aa3f.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9aa3f.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay -fPIE   -o CMakeFiles/cmTC_9aa3f.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9aa3f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9aa3f.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=XOpenDisplay    -rdynamic CMakeFiles/cmTC_9aa3f.dir/CheckFunctionExists.c.o  -o cmTC_9aa3f  /usr/lib64/libX11.so /usr/lib64/libXext.so 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the function gethostbyname exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_f2cac/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f2cac.dir/build.make CMakeFiles/cmTC_f2cac.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f2cac.dir/CheckFunctionExists.c.o
-/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname -fPIE   -o CMakeFiles/cmTC_f2cac.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
-Linking C executable cmTC_f2cac
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f2cac.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=gethostbyname    -rdynamic CMakeFiles/cmTC_f2cac.dir/CheckFunctionExists.c.o  -o cmTC_f2cac 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_9760e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_9760e.dir/build.make CMakeFiles/cmTC_9760e.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9760e.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname -fPIE   -o CMakeFiles/cmTC_9760e.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9760e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9760e.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=gethostbyname    -rdynamic CMakeFiles/cmTC_9760e.dir/CheckFunctionExists.c.o  -o cmTC_9760e 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the function connect exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_d1ec4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d1ec4.dir/build.make CMakeFiles/cmTC_d1ec4.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_d1ec4.dir/CheckFunctionExists.c.o
-/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=connect -fPIE   -o CMakeFiles/cmTC_d1ec4.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
-Linking C executable cmTC_d1ec4
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d1ec4.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=connect    -rdynamic CMakeFiles/cmTC_d1ec4.dir/CheckFunctionExists.c.o  -o cmTC_d1ec4 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_afafb/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_afafb.dir/build.make CMakeFiles/cmTC_afafb.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_afafb.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=connect -fPIE   -o CMakeFiles/cmTC_afafb.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_afafb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_afafb.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=connect    -rdynamic CMakeFiles/cmTC_afafb.dir/CheckFunctionExists.c.o  -o cmTC_afafb 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the function remove exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_a6e8f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_a6e8f.dir/build.make CMakeFiles/cmTC_a6e8f.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_a6e8f.dir/CheckFunctionExists.c.o
-/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=remove -fPIE   -o CMakeFiles/cmTC_a6e8f.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
-Linking C executable cmTC_a6e8f
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a6e8f.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=remove    -rdynamic CMakeFiles/cmTC_a6e8f.dir/CheckFunctionExists.c.o  -o cmTC_a6e8f 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_97262/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_97262.dir/build.make CMakeFiles/cmTC_97262.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_97262.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=remove -fPIE   -o CMakeFiles/cmTC_97262.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_97262
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_97262.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=remove    -rdynamic CMakeFiles/cmTC_97262.dir/CheckFunctionExists.c.o  -o cmTC_97262 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the function shmat exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_48d1d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_48d1d.dir/build.make CMakeFiles/cmTC_48d1d.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_48d1d.dir/CheckFunctionExists.c.o
-/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=shmat -fPIE   -o CMakeFiles/cmTC_48d1d.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
-Linking C executable cmTC_48d1d
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_48d1d.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=shmat    -rdynamic CMakeFiles/cmTC_48d1d.dir/CheckFunctionExists.c.o  -o cmTC_48d1d 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_61e52/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_61e52.dir/build.make CMakeFiles/cmTC_61e52.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_61e52.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=shmat -fPIE   -o CMakeFiles/cmTC_61e52.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_61e52
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_61e52.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=shmat    -rdynamic CMakeFiles/cmTC_61e52.dir/CheckFunctionExists.c.o  -o cmTC_61e52 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the function IceConnectionNumber exists in the ICE passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_6921d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6921d.dir/build.make CMakeFiles/cmTC_6921d.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_6921d.dir/CheckFunctionExists.c.o
-/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -fPIE   -o CMakeFiles/cmTC_6921d.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
-Linking C executable cmTC_6921d
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6921d.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber    -rdynamic CMakeFiles/cmTC_6921d.dir/CheckFunctionExists.c.o  -o cmTC_6921d  -lICE 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_70766/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_70766.dir/build.make CMakeFiles/cmTC_70766.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_70766.dir/CheckFunctionExists.c.o
+/usr/lib64/ccache/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -fPIE   -o CMakeFiles/cmTC_70766.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_70766
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_70766.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber    -rdynamic CMakeFiles/cmTC_70766.dir/CheckFunctionExists.c.o  -o cmTC_70766  -lICE 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the include file sys/types.h exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_aa6b9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_aa6b9.dir/build.make CMakeFiles/cmTC_aa6b9.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_aa6b9.dir/CheckIncludeFile.c.o
-/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_aa6b9.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_aa6b9
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_aa6b9.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_aa6b9.dir/CheckIncludeFile.c.o  -o cmTC_aa6b9 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_dc751/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_dc751.dir/build.make CMakeFiles/cmTC_dc751.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dc751.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_dc751.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_dc751
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dc751.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_dc751.dir/CheckIncludeFile.c.o  -o cmTC_dc751 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the include file stdint.h exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_145ed/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_145ed.dir/build.make CMakeFiles/cmTC_145ed.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_145ed.dir/CheckIncludeFile.c.o
-/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_145ed.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_145ed
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_145ed.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_145ed.dir/CheckIncludeFile.c.o  -o cmTC_145ed 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_48400/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_48400.dir/build.make CMakeFiles/cmTC_48400.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_48400.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_48400.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_48400
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_48400.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_48400.dir/CheckIncludeFile.c.o  -o cmTC_48400 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining if the include file stddef.h exists passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_7531b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7531b.dir/build.make CMakeFiles/cmTC_7531b.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_7531b.dir/CheckIncludeFile.c.o
-/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_7531b.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_7531b
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7531b.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_7531b.dir/CheckIncludeFile.c.o  -o cmTC_7531b 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_bb2cb/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_bb2cb.dir/build.make CMakeFiles/cmTC_bb2cb.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bb2cb.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_bb2cb.dir/CheckIncludeFile.c.o   -c /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_bb2cb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bb2cb.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_bb2cb.dir/CheckIncludeFile.c.o  -o cmTC_bb2cb 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 
 Determining size of void* passed with the following output:
-Change Dir: /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp
+Change Dir: /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_f710e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f710e.dir/build.make CMakeFiles/cmTC_f710e.dir/build
-gmake[1]: Entering directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f710e.dir/SIZE_OF_VOID_PTR.c.o
-/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_f710e.dir/SIZE_OF_VOID_PTR.c.o   -c /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CheckTypeSize/SIZE_OF_VOID_PTR.c
-Linking C executable cmTC_f710e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f710e.dir/link.txt --verbose=1
-/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_f710e.dir/SIZE_OF_VOID_PTR.c.o  -o cmTC_f710e 
-gmake[1]: Leaving directory '/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/CMakeTmp'
+Run Build Command(s):/usr/bin/gmake cmTC_0dff8/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_0dff8.dir/build.make CMakeFiles/cmTC_0dff8.dir/build
+gmake[1]: Entering directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0dff8.dir/SIZE_OF_VOID_PTR.c.o
+/usr/lib64/ccache/cc   -fPIE   -o CMakeFiles/cmTC_0dff8.dir/SIZE_OF_VOID_PTR.c.o   -c /home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CheckTypeSize/SIZE_OF_VOID_PTR.c
+Linking C executable cmTC_0dff8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0dff8.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc      -rdynamic CMakeFiles/cmTC_0dff8.dir/SIZE_OF_VOID_PTR.c.o  -o cmTC_0dff8 
+gmake[1]: Leaving directory '/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/CMakeTmp'
 
 
 

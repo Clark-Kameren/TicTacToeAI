@@ -66,7 +66,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/neon_test_build
+CMAKE_BINARY_DIR = /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/neon_test_build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/neon_test.dir/depend.make
@@ -79,7 +79,7 @@ include CMakeFiles/neon_test.dir/flags.make
 
 CMakeFiles/neon_test.dir/neon_test.cpp.o: CMakeFiles/neon_test.dir/flags.make
 CMakeFiles/neon_test.dir/neon_test.cpp.o: /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon/neon_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/neon_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/neon_test.dir/neon_test.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/neon_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/neon_test.dir/neon_test.cpp.o"
 	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/neon_test.dir/neon_test.cpp.o -c /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon/neon_test.cpp
 
 CMakeFiles/neon_test.dir/neon_test.cpp.i: cmake_force
@@ -100,7 +100,7 @@ neon_test_EXTERNAL_OBJECTS =
 libneon_test.a: CMakeFiles/neon_test.dir/neon_test.cpp.o
 libneon_test.a: CMakeFiles/neon_test.dir/build.make
 libneon_test.a: CMakeFiles/neon_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/neon_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libneon_test.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/neon_test_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libneon_test.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/neon_test.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/neon_test.dir/link.txt --verbose=$(VERBOSE)
 
@@ -114,6 +114,6 @@ CMakeFiles/neon_test.dir/clean:
 .PHONY : CMakeFiles/neon_test.dir/clean
 
 CMakeFiles/neon_test.dir/depend:
-	cd /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/neon_test_build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/neon_test_build /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/neon_test_build /home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/neon_test_build/CMakeFiles/neon_test.dir/DependInfo.cmake
+	cd /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/neon_test_build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon /home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/cmake_utils/test_for_neon /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/neon_test_build /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/neon_test_build /home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/neon_test_build/CMakeFiles/neon_test.dir/DependInfo.cmake
 .PHONY : CMakeFiles/neon_test.dir/depend
 

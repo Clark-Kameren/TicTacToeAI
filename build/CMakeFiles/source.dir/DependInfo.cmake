@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/blackweb/Documents/ProgrammingProjects/TicTacT/Source.cpp" "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/CMakeFiles/source.dir/Source.cpp.o"
+  "/home/blackweb/Documents/gitProjects/TicTacToeAI/Source.cpp" "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/CMakeFiles/source.dir/Source.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -16,8 +16,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/DependInfo.cmake"
-  "/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/CMakeFiles/armadillo.dir/DependInfo.cmake"
+  "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/CMakeFiles/dlib.dir/DependInfo.cmake"
+  "/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/CMakeFiles/armadillo.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

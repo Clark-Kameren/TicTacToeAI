@@ -6,5 +6,5 @@ CXX_FLAGS = -O2 -DNDEBUG   -DDLIB_JPEG_SUPPORT -DDLIB_USE_CUDA -DDLIB_PNG_SUPPOR
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/.. -I/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/include 
+CXX_INCLUDES = -I/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/.. -I/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/include 
 

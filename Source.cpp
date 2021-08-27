@@ -71,10 +71,10 @@ class NN{ // The AI's 'brain' per say
                     int rd=rand()%99;
                     if(rd>=50){
                          r=rand()%99 +1;
-                         weight= -1*( (r/10000) );
+                         weight= -1*( (r/100) );
                     }else{
                          r=rand()%99 +1;
-                         weight=(r/10000);
+                         weight=(r/100);
                     }
                return;
                }
@@ -4037,9 +4037,9 @@ int main(){
      }
 
      Testnet.startNN(false);
-     //Testnet.Randomize();
+     // Testnet.Randomize();
      //TODO: add a function that allows you to determine size of nn
-     //Testnet.Save();
+     // Testnet.Save();
      //Testnet.BI(P1.HPositions, Testnet.NNAI.AIPositions,3);
      Testnet.Load();
      while(testing){

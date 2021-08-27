@@ -14,10 +14,10 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 all' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 all' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
@@ -26,10 +26,10 @@
 				<Option type="4" />
 				<Option compiler="gcc" />
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 install/strip' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 install/strip' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
@@ -38,10 +38,10 @@
 				<Option type="4" />
 				<Option compiler="gcc" />
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 install/local' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 install/local' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
@@ -50,10 +50,10 @@
 				<Option type="4" />
 				<Option compiler="gcc" />
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 install' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 install' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
@@ -62,10 +62,10 @@
 				<Option type="4" />
 				<Option compiler="gcc" />
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 list_install_components' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 list_install_components' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
@@ -74,10 +74,10 @@
 				<Option type="4" />
 				<Option compiler="gcc" />
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 rebuild_cache' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 rebuild_cache' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
@@ -86,23 +86,23 @@
 				<Option type="4" />
 				<Option compiler="gcc" />
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 edit_cache' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 edit_cache' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="source">
-				<Option output="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/source" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build" />
+				<Option output="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/source" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/blackweb/Documents/gitProjects/TicTacToeAI/build" />
 				<Option object_output="./" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add directory="/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/.." />
-					<Add directory="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/include" />
+					<Add directory="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/include" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/x86_64-redhat-linux" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/backward" />
@@ -111,23 +111,23 @@
 					<Add directory="/usr/include" />
 				</Compiler>
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 source' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 source' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="source/fast">
-				<Option output="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/source" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build" />
+				<Option output="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/source" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/blackweb/Documents/gitProjects/TicTacToeAI/build" />
 				<Option object_output="./" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add directory="/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/.." />
-					<Add directory="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/include" />
+					<Add directory="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/include" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/x86_64-redhat-linux" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/backward" />
@@ -136,22 +136,22 @@
 					<Add directory="/usr/include" />
 				</Compiler>
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 source/fast' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 source/fast' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="armadillo">
-				<Option output="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/libarmadillo.so" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build" />
+				<Option output="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/libarmadillo.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build" />
 				<Option object_output="./" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add directory="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/include" />
+					<Add directory="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/include" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/x86_64-redhat-linux" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/backward" />
@@ -160,22 +160,22 @@
 					<Add directory="/usr/include" />
 				</Compiler>
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 armadillo' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 armadillo' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="armadillo/fast">
-				<Option output="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/libarmadillo.so" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build" />
+				<Option output="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/libarmadillo.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build" />
 				<Option object_output="./" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add directory="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/tmp/include" />
+					<Add directory="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/tmp/include" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/x86_64-redhat-linux" />
 					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/10/../../../../include/c++/10/backward" />
@@ -184,16 +184,16 @@
 					<Add directory="/usr/include" />
 				</Compiler>
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 armadillo/fast' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 armadillo/fast' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/arma_build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="dlib">
-				<Option output="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/libdlib.a" prefix_auto="0" extension_auto="0" />
+				<Option output="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/libdlib.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="./" />
 				<Option type="2" />
@@ -211,16 +211,16 @@
 					<Add directory="/usr/include" />
 				</Compiler>
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 dlib' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 dlib' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="dlib/fast">
-				<Option output="/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/libdlib.a" prefix_auto="0" extension_auto="0" />
+				<Option output="/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/libdlib.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="./" />
 				<Option type="2" />
@@ -238,10 +238,10 @@
 					<Add directory="/usr/include" />
 				</Compiler>
 				<MakeCommands>
-					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 dlib/fast' />
-					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/ProgrammingProjects/TicTacT/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
+					<Build command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 dlib/fast' />
+					<CompileFile command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/gmake -j4 -f &quot;/home/blackweb/Documents/gitProjects/TicTacToeAI/build/dlib_build/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
@@ -320,6 +320,9 @@
 			<Option target="dlib" />
 		</Unit>
 		<Unit filename="../../../ProgLibs/dlib-19.22/dlib/cmake_utils/check_if_neon_available.cmake">
+			<Option virtualFolder="CMake Files/../../ProgLibs/dlib-19.22/dlib/cmake_utils/" />
+		</Unit>
+		<Unit filename="../../../ProgLibs/dlib-19.22/dlib/cmake_utils/find_blas.cmake">
 			<Option virtualFolder="CMake Files/../../ProgLibs/dlib-19.22/dlib/cmake_utils/" />
 		</Unit>
 		<Unit filename="../../../ProgLibs/dlib-19.22/dlib/cmake_utils/find_libjpeg.cmake">
@@ -1031,22 +1034,22 @@
 		<Unit filename="../../../ProgLibs/dlib-19.22/dlib/unicode/unicode.h">
 			<Option target="dlib" />
 		</Unit>
-		<Unit filename="../../../ProgrammingProjects/TicTacT/CMakeLists.txt">
+		<Unit filename="../CMakeLists.txt">
 			<Option virtualFolder="CMake Files/" />
 		</Unit>
-		<Unit filename="../../../ProgrammingProjects/TicTacT/Source.cpp">
+		<Unit filename="../Source.cpp">
 			<Option target="source" />
 		</Unit>
-		<Unit filename="../../../ProgrammingProjects/TicTacT/build/arma_build/tmp/include/armadillo_bits/config.hpp.cmake">
+		<Unit filename="arma_build/tmp/include/armadillo_bits/config.hpp.cmake">
 			<Option virtualFolder="CMake Files/build/arma_build/tmp/include/armadillo_bits/" />
 		</Unit>
-		<Unit filename="../../../ProgrammingProjects/TicTacT/build/arma_build/tmp/misc/armadillo.pc.in">
+		<Unit filename="arma_build/tmp/misc/armadillo.pc.in">
 			<Option virtualFolder="CMake Files/build/arma_build/tmp/misc/" />
 		</Unit>
-		<Unit filename="../../../ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cuda_dlib.cu.o">
+		<Unit filename="dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cuda_dlib.cu.o">
 			<Option target="dlib" />
 		</Unit>
-		<Unit filename="../../../ProgrammingProjects/TicTacT/build/dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cusolver_dlibapi.cu.o">
+		<Unit filename="dlib_build/CMakeFiles/dlib.dir/cuda/dlib_generated_cusolver_dlibapi.cu.o">
 			<Option target="dlib" />
 		</Unit>
 		<Extensions />
