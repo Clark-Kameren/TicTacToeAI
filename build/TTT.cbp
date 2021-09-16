@@ -322,9 +322,6 @@
 		<Unit filename="../../../ProgLibs/dlib-19.22/dlib/cmake_utils/check_if_neon_available.cmake">
 			<Option virtualFolder="CMake Files/../../ProgLibs/dlib-19.22/dlib/cmake_utils/" />
 		</Unit>
-		<Unit filename="../../../ProgLibs/dlib-19.22/dlib/cmake_utils/find_blas.cmake">
-			<Option virtualFolder="CMake Files/../../ProgLibs/dlib-19.22/dlib/cmake_utils/" />
-		</Unit>
 		<Unit filename="../../../ProgLibs/dlib-19.22/dlib/cmake_utils/find_libjpeg.cmake">
 			<Option virtualFolder="CMake Files/../../ProgLibs/dlib-19.22/dlib/cmake_utils/" />
 		</Unit>
