@@ -74,10 +74,10 @@ set(generated_cubin_file_internal "/home/blackweb/Documents/gitProjects/TicTacTo
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS -arch=sm_50;-D__STRICT_ANSI__;-D_MWAITXINTRIN_H_INCLUDED;-D_FORCE_INLINES;;-DDLIB_JPEG_SUPPORT;-DDLIB_USE_CUDA;-DDLIB_PNG_SUPPORT;-std=c++11;-Xcompiler -fPIC ;; ) # list
 # Build specific configuration flags
-set(CUDA_NVCC_FLAGS_RELEASE  ; )
+set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
 set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
-set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
+set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(nvcc_flags -m64) # list
 set(CUDA_NVCC_INCLUDE_DIRS [==[/usr/local/cuda/include;$<TARGET_PROPERTY:dlib,INCLUDE_DIRECTORIES>]==]) # list (needs to be in lua quotes to address backslashes)
 string(REPLACE "\\" "/" CUDA_NVCC_INCLUDE_DIRS "${CUDA_NVCC_INCLUDE_DIRS}")
@@ -106,10 +106,10 @@ endif()
 # This is the list of host compilation flags.  It C or CXX should already have
 # been chosen by FindCUDA.cmake.
 set(CMAKE_HOST_FLAGS  )
-set(CMAKE_HOST_FLAGS_RELEASE -O2 -DNDEBUG)
+set(CMAKE_HOST_FLAGS_RELWITHDEBINFO -O2 -g -DNDEBUG)
 set(CMAKE_HOST_FLAGS_DEBUG -g)
 set(CMAKE_HOST_FLAGS_MINSIZEREL -Os -DNDEBUG)
-set(CMAKE_HOST_FLAGS_RELWITHDEBINFO -O2 -g -DNDEBUG)
+set(CMAKE_HOST_FLAGS_RELEASE -O2 -DNDEBUG)
 
 # Take the compiler flags and package them up to be sent to the compiler via -Xcompiler
 set(nvcc_host_compiler_flags "")

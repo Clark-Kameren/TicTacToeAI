@@ -3408,7 +3408,7 @@ int main(){
     bool playing=true; // bool for if the game is being played by the human
     //Test stuff
     bool testing=false,cw=false, ultimate=false, randWB = false, TDataSet = false;
-    bool inMenu = true;
+    bool inMenu = true, started=false;
     //NN Testnet;
     //
     int test=0,moveP=0;
@@ -3418,7 +3418,7 @@ int main(){
     while ( inMenu ) {
         switch ( Menu() ) { // Switch for the menu options // 0 is exit game // 1 is play game // 3-5 are board sizes
             case 0: playing = false; inMenu=false; std::cout<<"Exiting...\n"; return 0; break; // breaks while loop before it starts
-            case 1: std::cout << "Game will now commence." << std::endl; break;
+            case 1: std::cout << "Game will now commence." << std::endl; playing=true; break;
             case 2: playing = false; randWB = true; break;
             case 3: {
                     testing = true;
@@ -3449,7 +3449,10 @@ int main(){
         //Ultimate
         if ( ultimate ) {
             SBoard UB; int rDec = 0; int mCount = 0;
-            Testnet.startNN ( true );
+            if ( !started ) {
+                Testnet.startNN ( true );
+                started = true;
+            }
             Testnet.Ultimate();
             while ( testing ) {
                 std::cout << std::endl << "Train: 1" << std::endl << "Exit: 2" << std::endl << std::endl;
@@ -3485,15 +3488,19 @@ int main(){
                 }
             }
         }
-
-        Testnet.startNN ( false );
+        if ( !started ) {
+                Testnet.startNN ( false );
+                started = true;
+        }
         if ( randWB ) {
             Testnet.Randomize();
             //TODO: add a function that allows you to determine size of nn
             Testnet.Save();
             //Testnet.BI(P1.HPositions, Testnet.NNAI.AIPositions,3);
             Testnet.Load();
-            randWB = false;
+            randWB=false;
+            std::cout<<"\nRandomized."<<std::endl;
+            // return 0;
         }
         while ( testing ) {
             //P1.HPositions[1]=1;
@@ -3516,9 +3523,9 @@ int main(){
                 return 0;
             }
         }
-        Testnet.Load();
-        while ( playing ) {
 
+        while ( playing ) {
+            Testnet.Load();
             while ( cw != true ) {
                 DisplayB ( P1.HPositions, Testnet.NNAI.AIPositions );
                 cw = checkWin ( P1, Testnet.NNAI );

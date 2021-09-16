@@ -3,13 +3,13 @@
 
 # compile C with /usr/lib64/ccache/cc
 # compile CXX with /usr/lib64/ccache/c++
-C_FLAGS = -O2 -DNDEBUG -fPIC   -fPIC -DDLIB_JPEG_SUPPORT -DDLIB_USE_CUDA -DDLIB_PNG_SUPPORT
+C_FLAGS = -O2 -g -DNDEBUG -fPIC   -fPIC -DDLIB_JPEG_SUPPORT -DDLIB_USE_CUDA -DDLIB_PNG_SUPPORT
 
 C_DEFINES = -DDLIB_JPEG_STATIC
 
 C_INCLUDES = -I/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/external/libpng -I/home/blackweb/Documents/ProgLibs/dlib-19.22/dlib/external/zlib -I/usr/local/cuda/include 
 
-CXX_FLAGS = -O2 -DNDEBUG -fPIC   -fPIC -DDLIB_JPEG_SUPPORT -DDLIB_USE_CUDA -DDLIB_PNG_SUPPORT -Wreturn-type
+CXX_FLAGS = -O2 -g -DNDEBUG -fPIC   -fPIC -DDLIB_JPEG_SUPPORT -DDLIB_USE_CUDA -DDLIB_PNG_SUPPORT -Wreturn-type
 
 CXX_DEFINES = -DDLIB_JPEG_STATIC
 
