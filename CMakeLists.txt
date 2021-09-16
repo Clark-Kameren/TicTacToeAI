@@ -7,6 +7,8 @@ PROJECT(TTT)
 # set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "lib/")
 # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin/")
 
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
+
 # find_package(Armadillo REQUIRED)
 #target_link_libraries(foo ${ARMADILLO_LIBRARIES})
 
