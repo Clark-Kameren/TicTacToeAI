@@ -74,10 +74,10 @@ class NN{ // The AI's 'brain' per say
                     int rd=rand()%99;
                     if(rd>=50){
                          r=rand()%99 +1;
-                         weight= -1*( (r/1000) );
+                         weight= -1*( (r/5000) );
                     }else{
                          r=rand()%99 +1;
-                         weight=(r/1000);
+                         weight=(r/5000);
                     }
                return;
                }
@@ -95,7 +95,7 @@ class NN{ // The AI's 'brain' per say
                     if(rd>=50){
                          bias= -1*( (r/100000) );
                     }else{
-                         bias= (r/15000);
+                         bias= (r/100000);
                     }
                return;
                }
@@ -113,25 +113,25 @@ class NN{ // The AI's 'brain' per say
           void startNN(bool ultimate=false); //Constructor
           void BI(int Hpos[], int Apos[], int dim){ // Function for Board input // Takes an array of all board positions, the dimensions (ie if dim == 5 it is a 5x5 board)
                Board.set_size(dim,dim);
-               Board.fill(fill::ones);
+               Board.fill(0.1);
                int k=0,j=1; //Used to translate the singular value to matrix form
                for(int i=0; i<(dim*dim); i++){
-                    NIL.at(i).input=1;
-                    Input(i)=1;
+                    NIL.at(i).input=0.1;
+                    Input(i)=0.1;
                     if(i>dim-1){
                          j= (i/dim) +1; k=i%dim +1;
                          if(i%dim ==0){k=1;}
                     }else{k++;}
                     // TODO: Maybe make one of these -1 so the nn has more to work with
                     if(Hpos[i+1]!=0){
-                         Board(i)=0;
-                         NIL.at(i).input=0;
-                         Input(i)=0;
+                         Board(i)=-1;
+                         NIL.at(i).input=-1;
+                         Input(i)=-1;
                     }
                     if(Apos[i+1]!=0){
-                         Board(i)=0;
-                         NIL.at(i).input=0;
-                         Input(i)=0;
+                         Board(i)=1;
+                         NIL.at(i).input=1;
+                         Input(i)=1;
                     }
                }
                if(Board.n_cols>3 || Board.n_rows>3){
@@ -808,23 +808,23 @@ void NN::startNN(bool ultimate){
           NIL.push_back( createObject<Neuron>() );
      }
      //hidden Layer 1 // 16
-     for(int i=0; i<36; i++){
+     for(int i=0; i<64; i++){
           NHL.push_back( createObject<Neuron>() );
      }
      //Second hidden Layer // 25
-     for(int i=0; i<21; i++){
+     for(int i=0; i<48; i++){
           NHL2.push_back( createObject<Neuron>() );
      }
      //Third hidden Layer // 36
-     for(int i=0; i<18; i++){
+     for(int i=0; i<32; i++){
           NHL3.push_back( createObject<Neuron>() );
      }
      //fourth hidden Layer // 24
-     for(int i=0; i<15; i++){
+     for(int i=0; i<24; i++){
           NHL4.push_back( createObject<Neuron>() );
      }
      // Layer// 18
-     for(int i=0; i<13; i++){
+     for(int i=0; i<16; i++){
           NOL.push_back( createObject<Neuron>() );
      }
      //Output Layer// 9
@@ -1207,7 +1207,8 @@ void NN::Calstd (bool testing=false){
      In.for_each( [&c , this](mat::elem_type& val ){ val+= NIL.at(c).bias; c++; } );
      c=0;
      if(testing){
-          OPMCopy= (In + (.33*VP(Input)) ) * W1Copy; // 1x9 * 9x9 = 1x9
+          // OPMCopy= (In + (.33*VP(Input)) ) * W1Copy; //
+          OPMCopy= (In) * W1Copy; //
           OPMCopy.for_each( [&c, this](mat::elem_type& val ){ val+= NHL.at(c).bias; } );
           c=0;
           OPMCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
@@ -1288,7 +1289,7 @@ void NN::Calstd (bool testing=false){
      //std::cout<<"INPUT: "<<std::endl;
      Input.print();
      // MZ1= (In + (.33*VP(Input)) ) * W1;
-     MZ1= (In + (.33*VP(Input)) ) * W1;
+     MZ1= (In) * W1;
      MA1 = MZ1;
      MA1.for_each( [&c, this](mat::elem_type& val ){ val+= NHL.at(c).bias; c++; } );
      c=0;
@@ -1724,8 +1725,8 @@ void PWCC(bool testing=false){    //Positions with correct choices //Returns a r
     mat cB; //Current board
     mat cE; //Current expected choice
     mat cT; //Current temporary board
-    cB.set_size ( 1, 9 ); cB.fill ( 1 );
-    cE.set_size ( 1, 9 ); cE.fill ( -1 );
+    cB.set_size ( 1, 9 ); cB.fill ( 0.1 );
+    cE.set_size ( 1, 9 ); cE.fill ( 0.1 );
     training_pair cPair; //Current Pair
     int r = 0;
     int pl = 0;
@@ -1736,7 +1737,7 @@ void PWCC(bool testing=false){    //Positions with correct choices //Returns a r
     TTTAI PBuddy2;
     TTTHuman FH;
     // PBuddy2.AIPositions[10] = 1;
-    for ( int i = 0; i < 350; i++ ) {
+    for ( int i = 0; i < 550; i++ ) {
         // Loop for game
         while ( !hasWon( PBuddy.AIPositions, PBuddy2.AIPositions ) && PBuddy.GetMoves() < 5 ) {
             // Make move
@@ -1760,16 +1761,19 @@ void PWCC(bool testing=false){    //Positions with correct choices //Returns a r
                 fturn = !fturn;
                 pl = PBuddy.LastMove() - 1;
                 // std::cout<<"TESTING: "<< pl <<std::endl;
-                cB ( pl ) = -2;
+                cB ( pl ) = -1;
+                cE ( pl ) = -1;
             }
             else {
                 PBuddy2.Play ( PBuddy.AIPositions, PBuddy2.AIPositions );
                 fturn = !fturn;
-                cE ( PBuddy2.LastMove() - 1 ) = -1;
+                cE ( PBuddy2.LastMove() - 1 ) = 1;
                 // Place the moves into matrices
                 cPair.row ( 0 ) = cB;
                 cPair.row ( 1 ) = cE;
                 TData.push_back ( cPair );
+                // Update cB with new move
+                cB ( PBuddy2.LastMove() - 1 ) = 1;
             }
             //DisplayB(PBuddy.AIPositions,PBuddy2.AIPositions);
         }
@@ -1777,8 +1781,8 @@ void PWCC(bool testing=false){    //Positions with correct choices //Returns a r
         fturn = true;
         PBuddy.AIRematch();
         PBuddy2.AIRematch();
-        cB.fill ( 1 );
-        cE.fill ( 0 );
+        cB.fill ( 0.1 );
+        cE.fill ( 0.1 );
     }
 }
 double PT(dlib::matrix<double> CM);//Play training
@@ -1936,13 +1940,15 @@ double CW(dlib::matrix<double> CM){ //Wrapper for cost function
 
           c=0;
           //Calstd stuff
-          I=TData.at(i).row(0); //std::cout<<"I: "<<std::endl; I.print(); std::cout<<std::endl;
+          I=TData.at(i).row(0);
+          //std::cout<<"I: "<<std::endl; I.print(); std::cout<<std::endl;
           I.for_each( [&c, &BL1](mat::elem_type& val ){ val+= BL1(c); c++; } );
           c=0;
           //
 
           //Adding the bias
-          OCopy= (I + (.33*Testnet.VP(I)) ) * W1Copy; // 1x9 * 9x9 = 1x9
+          // OCopy= (I + (.33*Testnet.VP(I)) ) * W1Copy; // 1x9 * 9x9 = 1x9
+          OCopy= (I) * W1Copy; // 1x9 * 9x9 = 1x9
           OCopy.for_each( [&c, &BL2](mat::elem_type& val ){ val+= BL2(c); c++;} );
           c=0;
           OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
@@ -1968,9 +1974,11 @@ double CW(dlib::matrix<double> CM){ //Wrapper for cost function
           OCopy.for_each( [](mat::elem_type& val ){ val= tanh(val); } );
           //Cost
           TE=TData.at(i).row(1);
-          // std::cout<<"TE: "<<std::endl; TE.print();
-          TE.for_each( [&CC,&c](mat::elem_type& val ){ if(val==-1){CC=c;} c++;} );
-          TE=TE+OCopy; //Takes the matrix and adds by the output of the NN
+          //std::cout<<"TE: "<<std::endl; TE.print();
+          TE.for_each( [&CC,&c](mat::elem_type& val ){ if(val==2){CC=c;} c++;} );
+          //std::cout<<"OCopy: "<<std::endl; OCopy.print();
+          TE=TE-OCopy; //Takes the matrix and adds by the output of the NN
+          //std::cout<<"TE Compare: "<<std::endl; TE.print();
           TE.for_each( [](mat::elem_type& val ){ val= pow(val, 2); } );
 
                switch(CC){ //Adds a weight to the correct choice
@@ -2874,7 +2882,7 @@ void NN::Train(bool testing=false){
 
                          c=0;
                          Save();
-                          acost.push_back( find_min_using_approximate_derivatives(lbfgs_search_strategy(100),objective_delta_stop_strategy(1).be_verbose(), CW, BiasM, 0) );
+                          acost.push_back( find_min_using_approximate_derivatives(lbfgs_search_strategy(125),objective_delta_stop_strategy(1).be_verbose(), CW, BiasM, 0) );
                          //acost.push_back( find_min_using_approximate_derivatives(lbfgs_search_strategy(100),gradient_norm_stop_strategy(1e-1).be_verbose(), PT, WeightM, -100) );
 
                          c=0; //Alters biases

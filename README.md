@@ -1,5 +1,5 @@
 # TicTacToeAI
-Simple neural net that plays tic tac toe.
+Simple feed forward neural net that plays tic tac toe.
 
 **How to run**:
 From the build folder, download these two files into a folder together:
